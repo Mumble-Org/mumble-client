@@ -4,9 +4,23 @@ import styles from '../../styles/producer/signup.module.css';
 import { BackToHome } from '../../components/buttons';
 import { useState } from 'react';
 
+// redux
+import { set } from '../../redux/actions/onboarding';
+import { useDispatch } from 'react-redux';
 
-export default function SignUp() {
+
+export default function SignUp(props) {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleEmail = (e) => {
+    dispatch(set("onboard_email", e.target.value));
+  }
+
+  const handlePassword = (e) => {
+    dispatch(set("onboard_password", e.target.value));
+  }
+
   return (
       <div className={styles.container}>
         <div className={styles.studio}>
@@ -26,6 +40,7 @@ export default function SignUp() {
         <div className={styles.form}>
           <label className={styles.label} htmlFor="email">Your email</label>
           <input
+            onChange={handleEmail}
             className={styles.input}
             name="email"
             placeholder="Enter your email address"
@@ -35,6 +50,7 @@ export default function SignUp() {
           <label className={styles.label} htmlFor="password">Your password</label>
           <div className={styles.password_div}>
             <input
+              onChange={handlePassword}
               className={styles.password_input}
               name="password"
               placeholder="Create your password"
@@ -54,11 +70,13 @@ export default function SignUp() {
             </button>
           </div>
 
-          <button
-            className={styles.submit}
-            type="submit">
-            Get Started
-          </button>
+          <Link href="" className={styles.link}>
+            <button
+              className={styles.submit}
+              type="submit">
+              Get Started
+            </button>
+          </Link>
 
           <div className={styles.or}>
             <hr className={styles.line} />
@@ -68,7 +86,7 @@ export default function SignUp() {
 
           <p className={styles.signup_with}>Sign up with</p>
 
-          <Link href="" className={styles.google}>
+          <Link href="" className={styles.link}>
             <div className={styles.border}>
               <div className={styles.google_signup}>
                 <Image
