@@ -1,0 +1,67 @@
+.container {
+	padding: 5.56% 3.89%;
+	width: 92.22%;
+	height: 1024px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+	width: 100%;
+	margin: 0px;
+	margin-bottom: 16px;
+
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 32px;
+	line-height: 125%;
+	color: #ffffff;
+}
+
+.carousel {
+	display: flex;
+}
+
+.subheader {
+	width: 100%;
+	margin: 24px 0px;
+	margin-bottom: 8px;
+
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 133%;
+	color: #ffffff;
+}
+
+.text {
+	margin: 0;
+	margin-bottom: 24px;
+}
+
+.input {
+	width: 97.6%;
+
+	padding: 8px 1.2%;
+	height: 40px;
+	background: #666666;
+	border-radius: 8px;
+	border-style: none;
+	outline: none;
+
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+
+	color: #ffffff;
+}
+
+.input::placeholder {
+	color: #b2b2b2;
+}

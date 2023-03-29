@@ -11,14 +11,37 @@ import { useDispatch } from 'react-redux';
 
 export default function SignUp(props) {
   const dispatch = useDispatch();
+  const [valid, setValid] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  const isValidEmail = (email: string): boolean => {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+
+  const isValidPassword = (password: string): boolean => {
+    return password.length > 4
+  }
 
   const handleEmail = (e) => {
     dispatch(set("onboard_email", e.target.value));
+    setEmail(e.target.value);
+
+    if (isValidEmail(e.target.value) && isValidPassword(password)) {
+      setValid(true);
+    } else
+      setValid(false);
   }
 
   const handlePassword = (e) => {
     dispatch(set("onboard_password", e.target.value));
+    setPassword(e.target.value);
+
+    if (isValidPassword(e.target.value) && isValidEmail(email)) {
+      setValid(true);
+    } else
+      setValid(false);
   }
 
   return (
@@ -70,9 +93,9 @@ export default function SignUp(props) {
             </button>
           </div>
 
-          <Link href="" className={styles.link}>
+          <Link href={valid ? "/producer/signup/name" : ""} className={styles.link}>
             <button
-              className={styles.submit}
+              className={valid ? styles.active_submit : styles.submit}
               type="submit">
               Get Started
             </button>

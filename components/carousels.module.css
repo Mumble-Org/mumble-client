@@ -1,0 +1,13 @@
+.active {
+	border: 3px solid #ffffff;
+  width: 9.04%;
+  margin: 0;
+  margin-right: 16px;
+}
+
+.inactive {
+	border: 3px solid #666666;
+  width: 6.02%;
+  margin: 0;
+  margin-right: 16px;
+}

@@ -164,13 +164,40 @@
 	font-size: 16px;
 	line-height: 150%;
 	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
-  text-decoration: none;
+	text-decoration: none;
 }
 
 .submit:hover {
 	cursor: pointer;
+}
+
+.active_submit {
+  display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 2% 4%;
+
+	width: 100%;
+	height: 4.27%;
+	border-style: none;
 	background: linear-gradient(91.8deg, #febfff 0%, #00ffff 100%);
+	border-radius: 8px;
+
+	color: #666666;
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+	text-decoration: none;
+
 	color: #000000;
+}
+
+.active_submit:hover {
+	cursor: pointer;
 }
 
 .or {

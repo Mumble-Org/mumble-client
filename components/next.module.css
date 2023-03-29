@@ -1,0 +1,81 @@
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 101px;
+	height: 40px;
+
+	padding: 8px 16px;
+
+	background: #b2b2b2;
+	border-radius: 8px;
+	text-decoration: none;
+  margin-top: 34px;
+  align-self: flex-end;
+}
+
+.container:hover {
+  cursor: pointer;
+}
+
+.button {
+	background: none;
+	border: none;
+	margin-right: 8px;
+
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 150%;
+
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+
+	color: #666666;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.active_container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 101px;
+	height: 40px;
+
+	padding: 8px 16px;
+
+	background: linear-gradient(91.8deg, #FEBFFF 0%, #00FFFF 100%);
+	border-radius: 8px;
+	text-decoration: none;
+  margin-top: 34px;
+  align-self: flex-end;
+}
+
+.active_container:hover {
+  cursor: pointer;
+}
+
+.active_button {
+	background: none;
+	border: none;
+	margin-right: 8px;
+
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 150%;
+
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+
+	color: #000000;
+}
+
+.active_button:hover {
+  cursor: pointer;
+}

@@ -2,6 +2,7 @@ import { createAction, createReducer } from '@reduxjs/toolkit'
 
 interface OnboardingState {
 	user: {
+		name?: string;
 		email?: string;
 		password?: string;
 	}
@@ -18,5 +19,9 @@ export const onboardingReducer = createReducer(initialState, (builder) => {
 		.addCase("onboard_password", (state, action) => {
 			// @ts-ignore
 			state.user.password = action.payload
+		})
+		.addCase("onboarding_name", (state, action) => {
+			// @ts-ignore
+			state.user.name = action.payload
 		})
 })
