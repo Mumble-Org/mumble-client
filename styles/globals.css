@@ -1,0 +1,24 @@
+@font-face {
+	font-family: "Space Grotesk";
+	src: url('../Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf');
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-family: "Space Grotesk";
+	color: #ffffff;
+	background-color: #000000;
+}
+
+p {
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 150%;
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+
+	color: #ffffff;
+}
