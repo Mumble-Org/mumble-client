@@ -1,6 +1,6 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 
-interface OnboardingState {
+interface SignupState {
 	user: {
 		name?: string;
 		email?: string;
@@ -8,19 +8,19 @@ interface OnboardingState {
 	}
 }
 
-const initialState = { user: {} } as OnboardingState;
+const initialState = { user: {} } as SignupState;
 
-export const onboardingReducer = createReducer(initialState, (builder) => {
+export const signupReducer = createReducer(initialState, (builder) => {
 	builder
-		.addCase("onboard_email", (state, action) => {
+		.addCase("signup_email", (state, action) => {
 			// @ts-ignore
 			state.user.email = action.payload
 		})
-		.addCase("onboard_password", (state, action) => {
+		.addCase("signup_password", (state, action) => {
 			// @ts-ignore
 			state.user.password = action.payload
 		})
-		.addCase("onboarding_name", (state, action) => {
+		.addCase("signup_name", (state, action) => {
 			// @ts-ignore
 			state.user.name = action.payload
 		})

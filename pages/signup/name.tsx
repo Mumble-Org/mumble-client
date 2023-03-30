@@ -1,9 +1,9 @@
-import styles from '../../../styles/producer/signup/name.module.css';
-import { ActiveCarousel, InactiveCarousel } from '../../../components/carousels';
-import { ActiveNext, InactiveNext } from '../../../components/next';
+import styles from '../../styles/signup/name.module.css';
+import { ActiveCarousel, InactiveCarousel } from '../../components/carousels';
+import { ActiveNext, InactiveNext } from '../../components/next';
 
 // redux
-import { set } from '../../../redux/actions/onboarding';
+import { set } from '../../redux/actions/signup';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 
@@ -16,14 +16,12 @@ export default function Name() {
     setName(e.target.value);
     if (name.length < 3) {
       setValid(false);
-      dispatch(set("onboarding_name", e.target.value));
+      dispatch(set("signup_name", e.target.value));
     }
     else {
       setValid(true);
-      dispatch(set("onboarding_name", e.target.value));
+      dispatch(set("signup_name", e.target.value));
     }
-    console.log(valid);
-    
   }
 
   return (
@@ -48,7 +46,7 @@ export default function Name() {
         placeholder='Enter your name'
       ></input>
 
-      {!valid ? <InactiveNext /> : <ActiveNext href="/producer/signup/more"/>}
+      {!valid ? <InactiveNext /> : <ActiveNext href="/signup/more"/>}
     </div>
   );
 }

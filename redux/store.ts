@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { onboardingReducer } from "./reducers/onboarding";
+import { signupReducer } from "./reducers/signup";
 import logger from 'redux-logger';
 
 
 export const store = configureStore({
 	reducer: {
-		onboarding: onboardingReducer,
+		signup: signupReducer,
 	},
 
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from '../../styles/producer/signup.module.css';
-import { BackToHome } from '../../components/buttons';
+import styles from '../styles/signup/signup.module.css';
+import { BackToHome } from '../components/buttons';
 import { useState } from 'react';
 
 // redux
-import { set } from '../../redux/actions/onboarding';
+import { set } from '../redux/actions/signup';
 import { useDispatch } from 'react-redux';
 
 
@@ -25,7 +25,7 @@ export default function SignUp(props) {
   }
 
   const handleEmail = (e) => {
-    dispatch(set("onboard_email", e.target.value));
+    dispatch(set("signup_email", e.target.value));
     setEmail(e.target.value);
 
     if (isValidEmail(e.target.value) && isValidPassword(password)) {
@@ -35,7 +35,7 @@ export default function SignUp(props) {
   }
 
   const handlePassword = (e) => {
-    dispatch(set("onboard_password", e.target.value));
+    dispatch(set("signup_password", e.target.value));
     setPassword(e.target.value);
 
     if (isValidPassword(e.target.value) && isValidEmail(email)) {
@@ -93,7 +93,7 @@ export default function SignUp(props) {
             </button>
           </div>
 
-          <Link href={valid ? "/producer/signup/name" : ""} className={styles.link}>
+          <Link href={valid ? "/signup/name" : ""} className={styles.link}>
             <button
               className={valid ? styles.active_submit : styles.submit}
               type="submit">
