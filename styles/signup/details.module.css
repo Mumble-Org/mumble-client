@@ -37,6 +37,19 @@
 	color: #ffffff;
 }
 
+.portfolio_subheader {
+	width: 100%;
+	margin: 24px 0px;
+	margin-bottom: 8px;
+
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 150%;
+	color: #ffffff;
+}
+
 .text {
 	margin: 0;
 	margin-bottom: 24px;
@@ -68,8 +81,8 @@
 
 .type_container {
 	display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 0;
+	flex-wrap: wrap;
+	margin-bottom: 0;
 }
 
 .type_box {
@@ -83,19 +96,19 @@
 }
 
 .type_box_inactive {
-  border: 1px solid #ffffff;
+	border: 1px solid #ffffff;
 }
 
 .type_box_inactive p {
-  color: #ffffff;
+	color: #ffffff;
 }
 
 .type_box_active {
-  border: 1px solid #febfff;
+	border: 1px solid #febfff;
 }
 
 .type_box_active p {
-  color: #febfff;
+	color: #febfff;
 }
 
 .type_box:hover {
@@ -103,7 +116,7 @@
 }
 
 .type_box p {
-  margin: 0 8px;
+	margin: 0 8px;
 
 	font-family: "Space Grotesk";
 	font-style: normal;
@@ -111,4 +124,97 @@
 	font-size: 16px;
 	line-height: 150%;
 	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+}
+
+.links_container {
+	display: flex;
+	flex-direction: column;
+	margin-top: 16px;
+}
+
+.add_link {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.add_link:hover {
+  cursor: pointer;
+}
+
+.add_link p {
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 150%;
+  margin-left: 8px;
+
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+
+	background: linear-gradient(91.8deg, #febfff 0%, #00ffff 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.next_page {
+  display: flex;
+  align-items: center;
+  width: 18%;
+}
+
+/* SongLink component styles */
+.link_container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.link_label {
+	margin: 8px 0;
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 114%;
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+	color: #ffffff;
+}
+
+.link_input_div {
+	display: flex;
+	align-items: flex-start;
+	padding: 8px 16px;
+
+	max-width: 100%;
+	max-height: 40px;
+
+	background: #666666;
+	border-radius: 8px;
+}
+
+.link_input {
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+	border: none;
+	outline: none;
+	width: 100%;
+
+	background: inherit;
+	color: #b2b2b2;
+}
+
+.link_button {
+	align-self: center;
+	justify-self: center;
+	margin-left: 8px;
+}
+
+.link_button:hover {
+	cursor: pointer;
 }

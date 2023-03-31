@@ -32,4 +32,8 @@ export const signupReducer = createReducer(initialState, (builder) => {
 			// @ts-ignore
 			state.user.genres = action.payload
 		})
+		.addCase("signup_portfolio", (state, action) => {
+			// @ts-ignore
+			state.user.portfolio = action.payload
+		})
 })

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styles from './next.module.css';
 import Link from 'next/link';
 import Image from 'next/image';

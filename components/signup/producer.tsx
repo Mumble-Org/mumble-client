@@ -1,20 +1,28 @@
-import styles from './details.module.css';
-import { genres, Genre } from '../genres';
-import { InactiveContinue, ActiveContinue } from '../continue';
-import { useState } from 'react';
+import styles from "./details.module.css";
+import { genres, Genre } from "../genres";
+import { InactiveContinue, ActiveContinue } from "../continue";
+import { useState } from "react";
 
 export function Producer() {
-  const [genresCount, setGenresCount] = useState(0);
+	const [genresCount, setGenresCount] = useState(0);
 
-  return (
-	  <div className={styles.container}>
-		    <h2 className={styles.header}>What genre(s) of music do you produce?</h2>
+	return (
+		<div className={styles.container}>
+			<h2 className={styles.header}>What genre(s) of music do you produce?</h2>
 
-        <div className={styles.genres}>
-          {genres.map(genre => <Genre text={genre} count={genresCount} set={setGenresCount} />)}
-        </div>
+			<div className={styles.genres}>
+				{genres.map((genre) => (
+					<Genre text={genre} count={genresCount} set={setGenresCount} />
+				))}
+			</div>
 
-        {genresCount ? <ActiveContinue href=''/> : <InactiveContinue/>}
-	  </div>
-  )
+			<div className={styles.continue}>
+				{genresCount ? (
+					<ActiveContinue href="/signup/portfolio" />
+				) : (
+					<InactiveContinue />
+				)}
+			</div>
+		</div>
+	);
 }

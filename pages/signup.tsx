@@ -25,7 +25,7 @@ export default function SignUp(props) {
   }
 
   const handleEmail = (e) => {
-    dispatch(set("signup_email", e.target.value));
+    dispatch(set('signup_email', e.target.value));
     setEmail(e.target.value);
 
     if (isValidEmail(e.target.value) && isValidPassword(password)) {
@@ -35,7 +35,7 @@ export default function SignUp(props) {
   }
 
   const handlePassword = (e) => {
-    dispatch(set("signup_password", e.target.value));
+    dispatch(set('signup_password', e.target.value));
     setPassword(e.target.value);
 
     if (isValidPassword(e.target.value) && isValidEmail(email)) {
@@ -48,10 +48,10 @@ export default function SignUp(props) {
       <div className={styles.container}>
         <div className={styles.studio}>
           <Image
-            src="/Logo.svg"
+            src='/Logo.svg'
             alt="Mumble's logo"
-            width="80"
-            height="80"
+            width='80'
+            height='80'
           />
         </div>
 
@@ -61,42 +61,42 @@ export default function SignUp(props) {
         
         {/* form */}
         <div className={styles.form}>
-          <label className={styles.label} htmlFor="email">Your email</label>
+          <label className={styles.label} htmlFor='email'>Your email</label>
           <input
             onChange={handleEmail}
             className={styles.input}
-            name="email"
-            placeholder="Enter your email address"
-            type="email">
+            name='email'
+            placeholder='Enter your email address'
+            type='email'>
           </input>
 
-          <label className={styles.label} htmlFor="password">Your password</label>
+          <label className={styles.label} htmlFor='password'>Your password</label>
           <div className={styles.password_div}>
             <input
               onChange={handlePassword}
               className={styles.password_input}
-              name="password"
-              placeholder="Create your password"
-              type={showPassword ? "text" : "password"}>
+              name='password'
+              placeholder='Create your password'
+              type={showPassword ? 'text' : 'password'}>
             </input>
             <button
               className={styles.show_password}
               onClick={() => setShowPassword(!showPassword)}
             >
-              <Image
+              {password.length > 0 ? <Image
                 className={styles.show_password_image}
-                src="/show_password.svg"
-                alt="show password"
-                width="22"
-                height="19"
-              ></Image>
+                src={showPassword ? '/hide_password.svg' : '/show_password.svg'}
+                alt='show password'
+                width='22'
+                height='19'
+              ></Image> : ''}
             </button>
           </div>
 
-          <Link href={valid ? "/signup/name" : ""} className={styles.link}>
+          <Link href={valid ? '/signup/name' : ''} className={styles.link}>
             <button
               className={valid ? styles.active_submit : styles.submit}
-              type="submit">
+              type='submit'>
               Get Started
             </button>
           </Link>
@@ -109,23 +109,25 @@ export default function SignUp(props) {
 
           <p className={styles.signup_with}>Sign up with</p>
 
-          <Link href="" className={styles.link}>
+          <Link href='' className={styles.link}>
             <div className={styles.border}>
               <div className={styles.google_signup}>
                 <Image
-                  src="/Google.svg"
-                  alt="Google logo"
-                  width="24"
-                  height="24"
+                  src='/Google.svg'
+                  alt='Google logo'
+                  width='24'
+                  height='24'
                   style={{
-                    marginRight: "8px"
+                    marginRight: '8px'
                   }}
                 ></Image>
                 <p>Sign Up With Google</p>
               </div>
             </div>
           </Link>
+
         </div>
+
         </div>
       </div>
   );
