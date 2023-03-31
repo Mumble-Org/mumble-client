@@ -1,4 +1,4 @@
-import styles from '../../styles/signup/name.module.css';
+import styles from '../../styles/signup/details.module.css';
 import { ActiveCarousel, InactiveCarousel } from '../../components/carousels';
 import { ActiveNext, InactiveNext } from '../../components/next';
 
@@ -14,7 +14,7 @@ export default function Name() {
 
   const handleName = (e) => {
     setName(e.target.value);
-    if (name.length < 3) {
+    if (name.length < 2) {
       setValid(false);
       dispatch(set("signup_name", e.target.value));
     }
@@ -46,7 +46,7 @@ export default function Name() {
         placeholder='Enter your name'
       ></input>
 
-      {!valid ? <InactiveNext /> : <ActiveNext href="/signup/more"/>}
+      {!valid ? <InactiveNext /> : <ActiveNext href="/signup/type"/>}
     </div>
   );
 }
