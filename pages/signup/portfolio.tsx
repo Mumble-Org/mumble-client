@@ -76,7 +76,7 @@ function SongLinkDelete(props) {
 	);
 }
 
-export default function Type() {
+export default function Portfolio() {
 	const dispatch = useDispatch();
 	const [links, setLinks] = useState(["link1", "link2", "link3"]);
   const [portfolio, setPortfolio] = useState({});
@@ -137,7 +137,7 @@ export default function Type() {
 
 			<div className={styles.next_page}>
 				<Back href="/signup/type" />
-				<ActiveContinue href="" />
+				<ActiveContinue href="/signup/booking" />
 			</div>
 		</div>
 	);

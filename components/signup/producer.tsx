@@ -12,7 +12,7 @@ export function Producer() {
 
 			<div className={styles.genres}>
 				{genres.map((genre) => (
-					<Genre text={genre} count={genresCount} set={setGenresCount} />
+					<Genre key={genre} text={genre} count={genresCount} set={setGenresCount} />
 				))}
 			</div>
 
