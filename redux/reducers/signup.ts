@@ -36,6 +36,10 @@ export const signupReducer = createReducer(initialState, (builder) => {
 			// @ts-ignore
 			state.user.portfolio = action.payload
 		})
+		.addCase("signup_location", (state, action) => {
+			// @ts-ignore
+			state.user.location = action.payload
+		})
 		.addCase("signup_calendar", (state, action) => {
 			// @ts-ignore
 			state.user.calendar = action.payload

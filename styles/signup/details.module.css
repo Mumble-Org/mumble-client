@@ -229,6 +229,7 @@
 	flex-direction: column;
 	justify-content: space-between;
 	margin: 8px 0 24px;
+	position: relative;
 }
 
 .info_container {
@@ -405,5 +406,46 @@
 }
 
 .uploaded_beat_bin:hover {
-  cursor: pointer;
+	cursor: pointer;
+}
+
+.location_select {
+	display: flex;
+	flex-direction: column;
+	padding: 0px;
+	background-color: #ffffff;
+
+	max-height: 360px;
+	overflow-y: auto;
+	scroll-behavior: smooth;
+	border-radius: 8px;
+	margin: 0;
+
+  position: absolute;
+  top: 33%;
+  width: 100%;
+}
+
+.location_object {
+	display: flex;
+	align-items: center;
+	padding: 8px 16px;
+	gap: 8px;
+
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 150%;
+
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+	color: #000000;
+	height: 24px;
+	border-radius: 8px;
+	width: 100%;
+}
+
+.location_object:hover {
+	cursor: pointer;
+	border: 1px solid #00ffff;
 }
