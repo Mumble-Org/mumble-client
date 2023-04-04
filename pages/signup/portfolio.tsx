@@ -4,19 +4,19 @@ import Image from "next/image";
 
 // redux
 import { set } from "../../redux/actions/signup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import { Back } from "../../components/back";
 import { ActiveContinue } from "../../components/continue";
 
 function SongLink(props) {
-  const handleChange = (e) => {
-    const link = e.target.value;
-    const temp = { ...props.portfolio };
-    temp[props.id] = link;
-    props.setPortfolio(temp);
-  }
+	const handleChange = (e) => {
+		const link = e.target.value;
+		const temp = { ...props.portfolio };
+		temp[props.id] = link;
+		props.setPortfolio(temp);
+	};
 
 	return (
 		<div className={styles.link_container}>
@@ -24,8 +24,8 @@ function SongLink(props) {
 				Song link
 			</label>
 			<div className={styles.link_input_div}>
-        <input
-          onChange={handleChange}
+				<input
+					onChange={handleChange}
 					className={styles.link_input}
 					name="input"
 					placeholder="Add a link"
@@ -36,22 +36,22 @@ function SongLink(props) {
 }
 
 function SongLinkDelete(props) {
-  const handleChange = (e) => {
-    const link = e.target.value;
-    const temp = { ...props.portfolio };
-    temp[props.id] = link;
-    props.setPortfolio(temp);
-  }
+	const handleChange = (e) => {
+		const link = e.target.value;
+		const temp = { ...props.portfolio };
+		temp[props.id] = link;
+		props.setPortfolio(temp);
+	};
 
 	const handleDelete = (e) => {
 		e.preventDefault();
 
 		const temp = props.links;
-    props.setLinks(temp.filter((link) => link !== props.id));
+		props.setLinks(temp.filter((link) => link !== props.id));
 
-    let portfolio = props.portfolio;
-    delete portfolio[props.id];
-    props.setPortfolio(portfolio);
+		let portfolio = props.portfolio;
+		delete portfolio[props.id];
+		props.setPortfolio(portfolio);
 	};
 
 	return (
@@ -61,8 +61,8 @@ function SongLinkDelete(props) {
 			</label>
 
 			<div className={styles.link_input_div}>
-        <input
-          onChange={handleChange}
+				<input
+					onChange={handleChange}
 					className={styles.link_input}
 					name="input"
 					placeholder="Add a link"
@@ -77,19 +77,19 @@ function SongLinkDelete(props) {
 }
 
 export default function Portfolio() {
+	const type = useSelector((state: any) => state.signup.user.type);
 	const dispatch = useDispatch();
 	const [links, setLinks] = useState(["link1", "link2", "link3"]);
-  const [portfolio, setPortfolio] = useState({});
-
+	const [portfolio, setPortfolio] = useState({});
 
 	const addLink = () => {
 		const id = Date.now().toString();
 		setLinks([...links, id]);
-  };
-  
-  useEffect(() => {
-    dispatch(set('signup_portfolio', Object.values(portfolio).join(', ')));
-  }, [portfolio]);
+	};
+
+	useEffect(() => {
+		dispatch(set("signup_portfolio", Object.values(portfolio).join(", ")));
+	}, [portfolio]);
 
 	return (
 		<div className={styles.container}>
@@ -100,20 +100,33 @@ export default function Portfolio() {
 				<InactiveCarousel />
 				<ActiveCarousel />
 				<InactiveCarousel />
-				<InactiveCarousel />
+				{type === "producer" ? <InactiveCarousel /> : ""}
 			</div>
 
-			<h2 className={styles.portfolio_subheader}>
-				If you have any songs you produced on digital platforms we advice that
-				you connect the songs to be displayed on your account by adding the
-				apple music links for each song in the fields below.{" "}
-			</h2>
+			{type === "producer" ? (
+				<h2 className={styles.portfolio_subheader}>
+					If you have any songs you produced on digital platforms we advice that
+					you connect the songs to be displayed on your account by adding the
+					apple music links for each song in the fields below.{" "}
+				</h2>
+			) : (
+				<h2 className={styles.portfolio_subheader}>
+					If you have any songs you mixed released on digital platforms we
+					advice that you connect the songs to be displayed on your account by
+					adding the apple music links for each song in the fields below.
+				</h2>
+			)}
 
 			<div className={styles.links_container}>
 				{links.map((type) => {
-					if (type.startsWith('link')) {
+					if (type.startsWith("link")) {
 						return (
-							<SongLink key={type} id={type} portfolio={portfolio} setPortfolio={setPortfolio} />
+							<SongLink
+								key={type}
+								id={type}
+								portfolio={portfolio}
+								setPortfolio={setPortfolio}
+							/>
 						);
 					} else {
 						return (

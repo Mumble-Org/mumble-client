@@ -1,5 +1,5 @@
 .container {
-  margin-top: 16px;
+	margin-top: 16px;
 }
 
 .header {
@@ -12,10 +12,79 @@
 }
 
 .genres {
-  display: flex;
-  flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .continue {
 	margin-top: 34px;
+}
+
+.engineer_container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 8px 0;
+}
+
+.engineer_label {
+	margin: 8px 0;
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 114%;
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+	color: #ffffff;
+}
+
+.engineer_input_div {
+	display: flex;
+	align-items: center;
+	padding: 8px 16px;
+	gap: 8px;
+
+	max-width: 100%;
+	max-height: 40px;
+
+	background: #666666;
+	border-radius: 8px;
+}
+
+.engineer_input_div p {
+	margin: 0;
+}
+
+.engineer_input {
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+	border: none;
+	outline: none;
+	width: 100%;
+
+	background: inherit;
+	color: #ffffff;
+}
+
+.engineer_subheader {
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 120%;
+	color: #ffffff;
+}
+
+.artist_location {
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 120%;
+	color: #ffffff;
+  margin-bottom: 0;
 }

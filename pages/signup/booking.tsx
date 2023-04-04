@@ -1,41 +1,40 @@
 import styles from "../../styles/signup/details.module.css";
 import { ActiveCarousel, InactiveCarousel } from "../../components/carousels";
 import { Back } from "../../components/back";
-import { ActiveContinue } from "../../components/continue";
+import { ActiveContinue, ActiveFinish } from "../../components/continue";
 import Image from "next/image";
 
 import { getCitySuggestions } from "../../utils/getCities";
 
 // redux
 import { set } from "../../redux/actions/signup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 export default function Booking() {
-  const dispatch = useDispatch();
-  const [locationText, setLocationText] = useState('');
+	const type = useSelector((state: any) => state.signup.user.type);
+	const dispatch = useDispatch();
 	const [location, setLocation] = useState("");
 	const [locations, setLocations] = useState([]);
-  const [open, setOpen] = useState(true);
-  
+	const [open, setOpen] = useState(true);
 
-  useEffect(() => {
-    const timeOut = setTimeout(() => {
-      if (locationText && open) {
+	useEffect(() => {
+		const timeOut = setTimeout(() => {
+			if (location && open) {
 				setOpen(true);
-				getCitySuggestions(locationText).then((locations) =>
+				getCitySuggestions(location).then((locations) =>
 					setLocations(locations)
 				);
 			} else {
-        setOpen(false);
-        setLocations([]);
+				setOpen(false);
+				setLocations([]);
 			}
 		}, 2000);
 
-    return () => {
-      clearTimeout(timeOut);
-    }
-	}, [locationText]);
+		return () => {
+			clearTimeout(timeOut);
+		};
+	}, [location]);
 
 	const handleCalendar = (e) => {
 		const link = e.target.value;
@@ -48,20 +47,19 @@ export default function Booking() {
 	};
 
 	const handleLocation = (e) => {
-    let text = e.target.value;
-    if (text) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-    setLocationText(text);
+		let text = e.target.value;
+		if (text) {
+			setOpen(true);
+		} else {
+			setOpen(false);
+		}
+		setLocation(text);
 	};
 
-  const handleSelectLocation = (e) => {
-    let text =e.target.value;
-    setLocation(text);
-    setLocationText(text);
-    dispatch(set("signup_location", text));
+	const handleSelectLocation = (e) => {
+		let text = e.target.value;
+		setLocation(text);
+		dispatch(set("signup_location", text));
 		setOpen(false);
 	};
 
@@ -74,7 +72,7 @@ export default function Booking() {
 				<InactiveCarousel />
 				<InactiveCarousel />
 				<ActiveCarousel />
-				<InactiveCarousel />
+				{type === 'producer' ? <InactiveCarousel /> : ''}
 			</div>
 
 			<h2 className={styles.portfolio_subheader}>
@@ -95,7 +93,7 @@ export default function Booking() {
 							className={styles.info_input}
 							name="input"
 							placeholder="Enter your location"
-							value={locationText}
+							value={location}
 						></input>
 					</div>
 				</div>
@@ -152,8 +150,8 @@ export default function Booking() {
 			</div>
 
 			<div className={styles.next_page}>
-				<Back href="/signup/portfolio" />
-				<ActiveContinue href="/signup/upload" />
+        <Back href="/signup/portfolio" />
+        {type === 'producer' ? <ActiveContinue href="/signup/upload" /> : <ActiveFinish href="" /> }
 			</div>
 		</div>
 	);

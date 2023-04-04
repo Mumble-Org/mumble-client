@@ -5,6 +5,13 @@ interface SignupState {
 		name?: string;
 		email?: string;
 		password?: string;
+		type?: string;
+		genres?: string;
+		portfolio?: string;
+		location?: string;
+		calendar?: string;
+		phone_number?: string;
+		rate?: string;
 	}
 }
 
@@ -47,5 +54,9 @@ export const signupReducer = createReducer(initialState, (builder) => {
 		.addCase("signup_phone_number", (state, action) => {
 			// @ts-ignore
 			state.user.phone_number = action.payload
+		})
+		.addCase("signup_rate", (state, action) => {
+			// @ts-ignore
+			state.user.rate = action.payload
 		})
 })
