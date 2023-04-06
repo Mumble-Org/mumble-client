@@ -1,0 +1,246 @@
+.container {
+	display: flex;
+	justify-content: center;
+}
+
+.studio {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+	height: 936px;
+	background-image: url("../public/producer/studio.svg");
+}
+
+.signup {
+	width: 40%;
+	padding: 3% 5%;
+}
+
+.heading {
+	width: 100%;
+
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 32px;
+	line-height: 125%;
+
+	/* Grayscale/Gray 50 */
+	color: #ffffff;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+}
+
+.label {
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 114%;
+	margin-bottom: 8px;
+
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+
+	color: #ffffff;
+}
+
+.input {
+	margin-bottom: 40px;
+	padding: 2% 4%;
+	width: 92%;
+	height: 4.27%;
+
+	background: #666666;
+	border-radius: 8px;
+	border-style: none;
+
+	height: 24px;
+
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+	color: #ffffff;
+	outline: none;
+}
+
+.input::placeholder {
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+	color: #b2b2b2;
+}
+
+.password_div {
+	display: flex;
+	align-items: center;
+
+	margin-bottom: 40px;
+	padding: 2% 4%;
+	width: 92%;
+	height: 4.27%;
+
+	background: #666666;
+	border-radius: 8px;
+	border-style: none;
+
+	height: 24px;
+	color: #b2b2b2;
+}
+
+.password_input {
+	width: 95%;
+	height: 100%;
+	background: none;
+	border-style: none;
+	outline: none;
+
+	height: 24px;
+
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+	color: #ffffff;
+}
+
+.password_input::placeholder {
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+	color: #b2b2b2;
+}
+
+.show_password {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background-color: #666666;
+}
+
+.show_password_image {
+	background-color: #666666;
+}
+
+.show_password:hover {
+	cursor: pointer;
+}
+
+.submit {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 2% 4%;
+
+	width: 100%;
+	height: 4.27%;
+	border-style: none;
+	background: #b2b2b2;
+	border-radius: 8px;
+
+	color: #666666;
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+	text-decoration: none;
+}
+
+.submit:hover {
+	cursor: pointer;
+}
+
+.active_submit {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 2% 4%;
+
+	width: 100%;
+	height: 4.27%;
+	border-style: none;
+	background: linear-gradient(91.8deg, #febfff 0%, #00ffff 100%);
+	border-radius: 8px;
+
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+	text-decoration: none;
+
+	color: #000000;
+}
+
+.active_submit:hover {
+	cursor: pointer;
+	background: #febfff;
+}
+
+.active_submit:focus {
+	background: #00ffff;
+}
+
+.or {
+	display: flex;
+	align-items: center;
+}
+
+.or_p {
+	width: 20%;
+	text-align: center;
+}
+
+.line {
+	width: 40%;
+	border: 1px solid #ffffff;
+}
+
+.signup_with {
+	width: 100%;
+	height: 24px;
+
+	text-align: center;
+}
+
+.border {
+	width: 99%;
+
+	border-radius: 8px;
+	padding: 2px;
+	background-image: linear-gradient(91.8deg, #febfff 0%, #00ffff 100%);
+}
+
+.link {
+	text-decoration: none;
+}
+
+.google_signup {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 8px;
+	background-color: #000000;
+}
