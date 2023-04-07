@@ -2,9 +2,11 @@ import styles from "./details.module.css";
 import { genres, Genre } from "../genres";
 import { InactiveContinue, ActiveContinue } from "../continue";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export function Producer() {
 	const [genresCount, setGenresCount] = useState(0);
+	const router = useRouter();
 
 	return (
 		<div className={styles.container}>
@@ -18,7 +20,7 @@ export function Producer() {
 
 			<div className={styles.continue}>
 				{genresCount ? (
-					<ActiveContinue href="/signup/portfolio" />
+					<ActiveContinue onClick={() => router.push("/signup/booking")} />
 				) : (
 					<InactiveContinue />
 				)}

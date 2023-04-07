@@ -2,6 +2,7 @@ import styles from "../../styles/signup/details.module.css";
 import genreStyles from "../../components/signup/details.module.css";
 import { ActiveCarousel, InactiveCarousel } from "../../components/carousels";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { genres, GenreSingle } from "../../components/genres";
 
 // redux
@@ -14,6 +15,7 @@ import { ActiveFinish } from "../../components/continue";
 
 export default function Upload() {
 	const dispatch = useDispatch();
+	const router = useRouter();
 	const [genrename, setGenre] = useState("Afrobeats");
 	const [price, setPrice] = useState(Number("30000").toLocaleString());
 	const [license, setLicense] = useState("");
@@ -91,7 +93,7 @@ export default function Upload() {
   };
   
   const uploadBeat = () => {
-    console.log('Upload');
+		router.push("/");
   }
 
 	return (
@@ -224,7 +226,7 @@ export default function Upload() {
 
 			<div className={styles.next_page}>
 				<Back href="/signup/booking" />
-				<ActiveFinish href="" onClick={uploadBeat} />
+				<ActiveFinish onClick={uploadBeat} />
 			</div>
 		</div>
 	);

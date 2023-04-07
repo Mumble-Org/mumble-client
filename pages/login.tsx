@@ -3,18 +3,33 @@ import Link from 'next/link';
 import styles from '../styles/login.module.css';
 import { BackToHome } from '../components/buttons';
 import { useState } from 'react';
+import { backend } from '../utils/backend';
+import { useRouter } from 'next/router';
 
 // redux
-import { set } from '../redux/actions/signup';
-import { useDispatch } from 'react-redux';
+import { set } from '../redux/actions/login';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 export default function Login(props) {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const user = useSelector((state: any) => state.login.user);
   const [valid, setValid] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  const login = async () => {
+		const body = { ...user };
+		
+		const response = await backend.post('/login', body);
+
+		if (response.status === 200) {
+			localStorage.setItem('token', response.data.token);
+			router.push('/');
+		}
+	}
 
   const isValidEmail = (email: string): boolean => {
     return /\S+@\S+\.\S+/.test(email);
@@ -25,7 +40,7 @@ export default function Login(props) {
   }
 
   const handleEmail = (e) => {
-    dispatch(set('signup_email', e.target.value));
+    dispatch(set('login_email', e.target.value));
     setEmail(e.target.value);
 
     if (isValidEmail(e.target.value) && isValidPassword(password)) {
@@ -35,7 +50,7 @@ export default function Login(props) {
   }
 
   const handlePassword = (e) => {
-    dispatch(set('signup_password', e.target.value));
+    dispatch(set('login_password', e.target.value));
     setPassword(e.target.value);
 
     if (isValidPassword(e.target.value) && isValidEmail(email)) {
@@ -93,13 +108,13 @@ export default function Login(props) {
             </button>
           </div>
 
-          <Link href={valid ? '/' : ''} className={styles.link}>
+          <div onClick={valid ? login : () => {}} className={styles.link}>
             <button
               className={valid ? styles.active_submit : styles.submit}
               type='submit'>
               Login
             </button>
-          </Link>
+          </div>
 
           <div className={styles.or}>
             <hr className={styles.line} />

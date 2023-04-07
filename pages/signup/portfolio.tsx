@@ -6,6 +6,7 @@ import Image from "next/image";
 import { set } from "../../redux/actions/signup";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import { Back } from "../../components/back";
 import { ActiveContinue } from "../../components/continue";
@@ -78,6 +79,7 @@ function SongLinkDelete(props) {
 
 export default function Portfolio() {
 	const type = useSelector((state: any) => state.signup.user.type);
+	const router = useRouter();
 	const dispatch = useDispatch();
 	const [links, setLinks] = useState(["link1", "link2", "link3"]);
 	const [portfolio, setPortfolio] = useState({});
@@ -150,7 +152,7 @@ export default function Portfolio() {
 
 			<div className={styles.next_page}>
 				<Back href="/signup/type" />
-				<ActiveContinue href="/signup/booking" />
+				<ActiveContinue onClick={() => router.push("/signup/booking")} />
 			</div>
 		</div>
 	);

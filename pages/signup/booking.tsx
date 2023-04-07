@@ -3,6 +3,8 @@ import { ActiveCarousel, InactiveCarousel } from "../../components/carousels";
 import { Back } from "../../components/back";
 import { ActiveContinue, ActiveFinish } from "../../components/continue";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { backend } from "../../utils/backend";
 
 import { getCitySuggestions } from "../../utils/getCities";
 
@@ -13,6 +15,8 @@ import { useEffect, useState } from "react";
 
 export default function Booking() {
 	const type = useSelector((state: any) => state.signup.user.type);
+	const user = useSelector((state: any) => state.signup.user);
+	const router = useRouter();
 	const dispatch = useDispatch();
 	const [location, setLocation] = useState("");
 	const [locations, setLocations] = useState([]);
@@ -35,6 +39,25 @@ export default function Booking() {
 			clearTimeout(timeOut);
 		};
 	}, [location, open]);
+
+	const signup = async () => {
+		const body = { ...user };
+		body.genres = body.genres?.split(', ');
+		body.portfolio = body.portfolio?.split(', ');
+		
+		const response = await backend.post('/signup', body);
+
+		if (response.status === 201) {
+			localStorage.setItem('token', response.data.token);
+			if (body.type === 'engineer') {
+				router.push('/');
+			} else {
+				router.push('/signup/upload');
+			}
+		} else {
+			router.push('/signup');
+		}
+	}
 
 	const handleCalendar = (e) => {
 		const link = e.target.value;
@@ -151,7 +174,7 @@ export default function Booking() {
 
 			<div className={styles.next_page}>
         <Back href="/signup/portfolio" />
-        {type === 'producer' ? <ActiveContinue href="/signup/upload" /> : <ActiveFinish href="" /> }
+        {type === 'producer' ? <ActiveContinue onClick={signup} /> : <ActiveFinish onClick={signup} /> }
 			</div>
 		</div>
 	);

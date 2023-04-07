@@ -7,9 +7,13 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { getCitySuggestions } from "../../utils/getCities";
 import { set } from "../../redux/actions/signup";
+import { useRouter } from "next/router";
+import { backend } from "../../utils/backend";
 
 export function Artist() {
 	const dispatch = useDispatch();
+	const user = useSelector((state: any) => state.signup.user);
+	const router = useRouter();
 	const [genresCount, setGenresCount] = useState(0);
 	const [location, setLocation] = useState("");
 	const [locations, setLocations] = useState([]);
@@ -32,6 +36,21 @@ export function Artist() {
 			clearTimeout(timeOut);
 		};
 	}, [location, open]);
+
+	const signup = async () => {
+		const body = { ...user };
+		body.genres = body.genres.split(', ');
+		body.portfolio = body.portfolio?.split(', ');
+		
+		const response = await backend.post('/signup', body);
+
+		if (response.status === 201) {
+			localStorage.setItem('token', response.data.token);
+			router.push('/');
+		} else {
+			router.push('/signup');
+		}
+	}
 
 	const handleLocation = (e) => {
 		let text = e.target.value;
@@ -115,9 +134,7 @@ export function Artist() {
 				)}
 
 				<div className={styles.continue}>
-					{genresCount ? <ActiveFinish href="" onClick={() => {
-						console.log("here");
-					}} /> : <InactiveFinish />}
+					{genresCount ? <ActiveFinish href="" onClick={signup} /> : <InactiveFinish />}
 				</div>
 			</div>
 		</div>

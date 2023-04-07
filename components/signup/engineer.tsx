@@ -2,10 +2,12 @@ import styles from "./details.module.css";
 import { useState } from "react";
 import { set } from "../../redux/actions/signup";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 import { InactiveContinue, ActiveContinue } from "../continue";
 
 export function Engineer() {
 	const dispatch = useDispatch();
+	const router = useRouter();
 	const [price, setPrice] = useState(Number("30000").toLocaleString());
 
 	const handlePrice = (e) => {
@@ -37,7 +39,7 @@ export function Engineer() {
       
       <div className={styles.continue}>
 				{price !== '0' ? (
-					<ActiveContinue href="/signup/portfolio" />
+					<ActiveContinue onClick={() => router.push("/signup/portfolio")} />
 				) : (
 					<InactiveContinue />
 				)}
