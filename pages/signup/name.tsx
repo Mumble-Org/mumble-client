@@ -1,52 +1,85 @@
-import styles from '../../styles/signup/details.module.css';
-import { ActiveCarousel, InactiveCarousel } from '../../components/carousels';
-import { ActiveNext, InactiveNext } from '../../components/next';
+import styles from "../../styles/signup/details.module.css";
+import { ActiveCarousel, InactiveCarousel } from "../../components/carousels";
+import { ActiveNext, InactiveNext } from "../../components/next";
+import { backend } from "../../utils/backend";
 
 // redux
-import { set } from '../../redux/actions/signup';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { set } from "../../redux/actions/signup";
+import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 
 export default function Name() {
-  const dispatch = useDispatch();
-  const [valid, setValid] = useState(false);
-  const [name, setName] = useState('');
+	const dispatch = useDispatch();
+	const [error, setError] = useState(false);
+	const [valid, setValid] = useState(false);
+	const [name, setName] = useState("");
 
-  const handleName = (e) => {
+	useEffect(() => {
+		const id = setTimeout(async () => {
+			try {
+				const response = await backend.post(
+					"/confirmUser",
+					JSON.stringify({ name: name })
+				);
+
+				const exists = response.data.value;
+				console.log(exists);
+				if (exists) {
+					setError(true);
+					setValid(false);
+				} else {
+					setError(false);
+          if (name.length >= 2) {
+            setValid(true);
+          }
+				}
+			} catch (e) {}
+		}, 2000);
+
+		return () => {
+			clearTimeout(id);
+		};
+	}, [name]);
+
+	const handleName = (e) => {
     setName(e.target.value);
-    if (name.length < 2) {
-      setValid(false);
-      dispatch(set("signup_name", e.target.value));
-    }
-    else {
-      setValid(true);
-      dispatch(set("signup_name", e.target.value));
-    }
-  }
+    dispatch(set("signup_name", e.target.value));
+		if (name.length < 2) {
+			setValid(false);
+		}
+	};
 
-  return (
-    <div className={styles.container}>
-      <h1 className={styles.header}>Tell us about you</h1>
+	return (
+		<div className={styles.container}>
+			<h1 className={styles.header}>Tell us about you</h1>
 
-      <div className={styles.carousel}>
-        <ActiveCarousel />
-        <InactiveCarousel />
-        <InactiveCarousel />
-        <InactiveCarousel />
-        <InactiveCarousel/>
-      </div>
+			<div className={styles.carousel}>
+				<ActiveCarousel />
+				<InactiveCarousel />
+				<InactiveCarousel />
+				<InactiveCarousel />
+				<InactiveCarousel />
+			</div>
 
-      <h2 className={styles.subheader}>What is your name?</h2>
-      <p className={styles.text}>This is the name that will be displayed on your profile so we advice that you enter your stage name.</p>
+			<h2 className={styles.subheader}>What is your name?</h2>
+			<p className={styles.text}>
+				This is the name that will be displayed on your profile so we advice
+				that you enter your stage name.
+			</p>
 
-      <input
-        onChange={handleName}
-        className={styles.input}
-        type="text"
-        placeholder='Enter your name'
-      ></input>
+			<input
+				onChange={handleName}
+				className={`${styles.input} ${error ? styles.error_input : ""}`}
+				type="text"
+				placeholder="Enter your name"
+			></input>
+			{error ? (
+				<p className={styles.error_text}>Name is already in use</p>
+			) : (
+				""
+			)}
 
-      {!valid ? <InactiveNext /> : <ActiveNext href="/signup/type"/>}
-    </div>
-  );
+			{!valid ? <InactiveNext /> : <ActiveNext href="/signup/type" />}
+		</div>
+	);
 }
