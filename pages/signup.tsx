@@ -43,7 +43,7 @@ export default function SignUp(props) {
 		return () => {
 			clearTimeout(id);
 		};
-  }, [email]);
+  }, [email, password]);
 
 	const isValidEmail = (email: string): boolean => {
 		return /\S+@\S+\.\S+/.test(email);

@@ -4,7 +4,7 @@ import { genres, Genre } from "../genres";
 import { InactiveFinish, ActiveFinish } from "../continue";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCitySuggestions } from "../../utils/getCities";
 import { set } from "../../redux/actions/signup";
 
@@ -31,7 +31,7 @@ export function Artist() {
 		return () => {
 			clearTimeout(timeOut);
 		};
-	}, [location]);
+	}, [location, open]);
 
 	const handleLocation = (e) => {
 		let text = e.target.value;
@@ -115,7 +115,9 @@ export function Artist() {
 				)}
 
 				<div className={styles.continue}>
-					{genresCount ? <ActiveFinish href="" /> : <InactiveFinish />}
+					{genresCount ? <ActiveFinish href="" onClick={() => {
+						console.log("here");
+					}} /> : <InactiveFinish />}
 				</div>
 			</div>
 		</div>

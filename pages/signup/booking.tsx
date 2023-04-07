@@ -34,7 +34,7 @@ export default function Booking() {
 		return () => {
 			clearTimeout(timeOut);
 		};
-	}, [location]);
+	}, [location, open]);
 
 	const handleCalendar = (e) => {
 		const link = e.target.value;

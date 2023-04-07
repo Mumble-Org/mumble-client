@@ -55,7 +55,7 @@ export function GenreSingle(props) {
 		else {
 			setSelected(true);
 		}
-	}, [props.selected]);
+	}, [props.selected, props.text]);
 
 	const handleClick = () => {
 		props.setSelected(props.text);

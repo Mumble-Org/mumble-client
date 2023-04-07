@@ -89,7 +89,7 @@ export default function Portfolio() {
 
 	useEffect(() => {
 		dispatch(set("signup_portfolio", Object.values(portfolio).join(", ")));
-	}, [portfolio]);
+	}, [portfolio, dispatch]);
 
 	return (
 		<div className={styles.container}>

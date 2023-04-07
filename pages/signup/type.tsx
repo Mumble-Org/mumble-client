@@ -20,7 +20,7 @@ export default function Type() {
 
 	useEffect(() => {
 		dispatch(set("signup_type", type));
-	}, []);
+	}, [dispatch, type]);
 
 	const setProducer = () => {
 		setType("producer");

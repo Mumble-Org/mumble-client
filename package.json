@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
@@ -17,6 +18,8 @@
   "devDependencies": {
     "@types/node": "18.15.11",
     "@types/react": "18.0.31",
+    "eslint": "8.37.0",
+    "eslint-config-next": "13.3.0",
     "typescript": "5.0.2"
   }
 }

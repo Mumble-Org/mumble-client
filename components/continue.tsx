@@ -18,7 +18,7 @@ export function InactiveContinue() {
 
 export function ActiveContinue(props) {
 	return (
-		<Link href={props.href} className={styles.active_container}>
+		<Link href={props.href} className={styles.active_container} onClick={props.onClick}>
 			<button className={styles.active_button}>Continue</button>
 			<Image
 				src="/components/right-arrow-active.svg"
@@ -46,8 +46,8 @@ export function InactiveFinish() {
 
 export function ActiveFinish(props) {
 	return (
-		<Link
-			href={props.href}
+		<div
+			// href={props.href}
 			className={styles.active_container}
 			onClick={props.onClick}
 		>
@@ -58,6 +58,6 @@ export function ActiveFinish(props) {
 				width="11"
 				height="19"
 			/>
-		</Link>
+		</div>
 	);
 }
