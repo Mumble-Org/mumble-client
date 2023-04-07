@@ -1,7 +1,11 @@
 // Get list of cities in each country by state
 
-const axios = require("axios");
-const fs = require("fs");
+// const axios = require("axios");
+// const fs = require("fs");
+// const { countries } = require('./countries');
+import axios from "axios";
+import fs from "fs";
+import { countries } from "./countries";
 
 const cities = [];
 
@@ -9,9 +13,9 @@ async function getCities(countr) {
 	let country = {};
 	// @ts-ignore
 	country.name = countr.name;
-  country.states = [];
+	country["states"] = [];
 
-  let st = countr.states;
+	let st = countr.states;
 
 	if (st) {
 		for (let stat of st) {
@@ -26,7 +30,7 @@ async function getCities(countr) {
 					{
 						// @ts-ignore
 						country: country.name,
-						state: state.name,
+						state: state["name"],
 					}
 				);
 				// @ts-ignore
@@ -36,10 +40,10 @@ async function getCities(countr) {
 				console.log({
 					// @ts-ignore
 					country: country.name,
-					state: state.name,
+					state: state["name"],
 				});
 			}
-			country.states.push(state);
+			country["states"].push(state);
 			// break;
 		}
 		// console.log(country);
@@ -48,19 +52,19 @@ async function getCities(countr) {
 	} else {
 		// @ts-ignore
 		country.cities = countr.cities;
-  }
-  return country;
+	}
+	return country;
 }
 
 async function getCountries() {
-  let promises = [];
+	let promises = [];
 	for (let countr of countries) {
 		promises.push(getCities(countr));
-  }
-  Promise.all(promises).then(result => {
-    // console.log(result);
-    fs.writeFileSync('./cities.json', JSON.stringify(result));
-  });
+	}
+	Promise.all(promises).then((result) => {
+		// console.log(result);
+		fs.writeFileSync("./cities.json", JSON.stringify(result));
+	});
 }
 
 getCountries();

@@ -30,7 +30,7 @@ export function NavBar(props) {
 						<Link href="/login">Login</Link>
 					</div>
 
-					<Link href="" className={styles.upload_beat}>
+					<Link href="/signup" className={styles.upload_beat}>
 						<Image
 							width="20"
 							height="20"
