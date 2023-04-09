@@ -3,3 +3,9 @@
 	flex-direction: column;
 	background-color: #000000;
 }
+
+
+.player {
+	margin: 20px;
+	margin-left: 40px;
+}

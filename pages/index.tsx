@@ -16,7 +16,9 @@ export default function Home() {
       </Head>
 
       <NavBar loggedIn={loggedIn} />
-      <Player />
+      <div className={styles.player}>
+        <Player />
+      </div>
     </div>
   )
 }
