@@ -3,7 +3,7 @@ import { useState } from "react";
 import { set } from "../../redux/actions/signup";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { InactiveContinue, ActiveContinue } from "../continue";
+import { InactiveContinue, ActiveContinue } from "../buttons/continue";
 
 export function Engineer() {
 	const dispatch = useDispatch();

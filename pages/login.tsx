@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/login.module.css';
-import { BackToHome } from '../components/buttons';
+import { BackToHome } from '../components/buttons/buttons';
 import { useState } from 'react';
 import { backend } from '../utils/backend';
 import { useRouter } from 'next/router';
@@ -23,10 +23,10 @@ export default function Login(props) {
   const login = async () => {
 		const body = { ...user };
 		
-		const response = await backend.post('/login', body);
+    const response = await backend.post('/login', body);
 
 		if (response.status === 200) {
-			localStorage.setItem('token', response.data.token);
+			localStorage.setItem('token', response.data.user.token);
 			router.push('/');
 		}
 	}

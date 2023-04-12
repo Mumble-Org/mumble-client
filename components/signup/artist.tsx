@@ -1,7 +1,7 @@
 import styles from "./details.module.css";
 import locationStyles from "../../styles/signup/details.module.css";
 import { genres, Genre } from "../genres";
-import { InactiveFinish, ActiveFinish } from "../continue";
+import { InactiveFinish, ActiveFinish } from "../buttons/continue";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";

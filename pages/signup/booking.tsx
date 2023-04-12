@@ -1,7 +1,7 @@
 import styles from "../../styles/signup/details.module.css";
-import { ActiveCarousel, InactiveCarousel } from "../../components/carousels";
-import { Back } from "../../components/back";
-import { ActiveContinue, ActiveFinish } from "../../components/continue";
+import { ActiveCarousel, InactiveCarousel } from "../../components/carousels/carousels";
+import { Back } from "../../components/buttons/back";
+import { ActiveContinue, ActiveFinish } from "../../components/buttons/continue";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { backend } from "../../utils/backend";
@@ -47,6 +47,7 @@ export default function Booking() {
 		
 		const response = await backend.post('/signup', body);
 
+		console.log(response);
 		if (response.status === 201) {
 			localStorage.setItem('token', response.data.token);
 			if (body.type === 'engineer') {

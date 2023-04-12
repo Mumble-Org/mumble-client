@@ -1,6 +1,6 @@
 import styles from "./details.module.css";
 import { genres, Genre } from "../genres";
-import { InactiveContinue, ActiveContinue } from "../continue";
+import { InactiveContinue, ActiveContinue } from "../buttons/continue";
 import { useState } from "react";
 import { useRouter } from "next/router";
 

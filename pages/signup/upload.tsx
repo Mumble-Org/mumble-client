@@ -1,6 +1,6 @@
 import styles from "../../styles/signup/details.module.css";
 import genreStyles from "../../components/signup/details.module.css";
-import { ActiveCarousel, InactiveCarousel } from "../../components/carousels";
+import { ActiveCarousel, InactiveCarousel } from "../../components/carousels/carousels";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { genres, GenreSingle } from "../../components/genres";
@@ -10,8 +10,8 @@ import { set } from "../../redux/actions/signup";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
-import { Back } from "../../components/back";
-import { ActiveFinish } from "../../components/continue";
+import { Back } from "../../components/buttons/back";
+import { ActiveFinish } from "../../components/buttons/continue";
 
 export default function Upload() {
 	const dispatch = useDispatch();
