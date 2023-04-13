@@ -18,7 +18,7 @@ export default function Name() {
 		const id = setTimeout(async () => {
 			try {
 				const response = await backend.post(
-					"/confirmUser",
+					"/users/confirmUser",
 					JSON.stringify({ name: name })
 				);
 

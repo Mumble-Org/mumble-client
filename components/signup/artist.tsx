@@ -42,7 +42,7 @@ export function Artist() {
 		body.genres = body.genres.split(', ');
 		body.portfolio = body.portfolio?.split(', ');
 		
-		const response = await backend.post('/signup', body);
+		const response = await backend.post('/users/signup', body);
 
 		if (response.status === 201) {
 			localStorage.setItem('token', response.data.token);

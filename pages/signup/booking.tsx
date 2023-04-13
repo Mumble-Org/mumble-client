@@ -45,7 +45,7 @@ export default function Booking() {
 		body.genres = body.genres?.split(', ');
 		body.portfolio = body.portfolio?.split(', ');
 		
-		const response = await backend.post('/signup', body);
+		const response = await backend.post('/users/signup', body);
 
 		console.log(response);
 		if (response.status === 201) {

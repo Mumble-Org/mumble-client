@@ -21,7 +21,7 @@ export default function SignUp(props) {
 		const id = setTimeout(async () => {
       try {
 				const response = await backend.post(
-					"/confirmEmail",
+					"/users/confirmEmail",
 					JSON.stringify({ email: email }),
 				);
 
