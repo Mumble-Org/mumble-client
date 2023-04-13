@@ -33,14 +33,14 @@
 	font-size: smaller;
 }
 
-.timeline {
+/* .timeline {
 	width: 80%;
 	background-color: #27ae60;
 }
 
-input[type="range"] {
+input[type=""] {
 	background-color: #27ae60;
-}
+} */
 
 @media (max-width: 900px) {
 	.component {
