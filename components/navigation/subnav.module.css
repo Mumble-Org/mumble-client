@@ -21,6 +21,7 @@
 	border: none;
 	border-radius: 8px;
 	padding: 8px;
+	transition: background 1s ease-out;
 }
 
 .button:hover {
@@ -30,5 +31,4 @@
 
 .button_active {
 	background: #666666;
-	border-radius: 8px;
 }
