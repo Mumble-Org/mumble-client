@@ -1,5 +1,5 @@
 import styles from "../../styles/signup/details.module.css";
-import { ActiveCarousel, InactiveCarousel } from "../../components/carousels";
+import { ActiveCarousel, InactiveCarousel } from "../../components/carousels/carousels";
 import Image from "next/image";
 
 // redux

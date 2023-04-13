@@ -1,5 +1,5 @@
 import styles from "../../styles/signup/details.module.css";
-import { ActiveCarousel, InactiveCarousel } from "../../components/carousels";
+import { ActiveCarousel, InactiveCarousel } from "../../components/carousels/carousels";
 import Image from "next/image";
 
 // redux
@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { Back } from "../../components/back";
-import { ActiveContinue } from "../../components/continue";
+import { Back } from "../../components/buttons/back";
+import { ActiveContinue } from "../../components/buttons/continue";
 
 function SongLink(props) {
 	const handleChange = (e) => {

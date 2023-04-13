@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/signup/signup.module.css";
-import { BackToHome } from "../components/buttons";
+import { BackToHome } from "../components/buttons/buttons";
 import { useState, useEffect } from "react";
 import { backend } from "../utils/backend";
 

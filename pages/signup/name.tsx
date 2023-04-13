@@ -1,6 +1,6 @@
 import styles from "../../styles/signup/details.module.css";
-import { ActiveCarousel, InactiveCarousel } from "../../components/carousels";
-import { ActiveNext, InactiveNext } from "../../components/next";
+import { ActiveCarousel, InactiveCarousel } from "../../components/carousels/carousels";
+import { ActiveNext, InactiveNext } from "../../components/buttons/next";
 import { backend } from "../../utils/backend";
 
 // redux
