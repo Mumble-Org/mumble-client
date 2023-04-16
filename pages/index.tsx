@@ -6,6 +6,7 @@ import { NavBar } from "../components/navigation/navbar";
 import { SubNav } from "../components/navigation/subnav";
 import { TrendingBeatsHome } from "../components/home/trending";
 import { Player } from "../components/player";
+import { Profile } from "../components/profile";
 
 export default function Home() {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -18,6 +19,7 @@ export default function Home() {
 			</Head>
 
 			<NavBar loggedIn={loggedIn} />
+			{/* <Profile /> */}
 			<SubNav loggedIn={loggedIn} />
 
 			<TrendingBeatsHome />
