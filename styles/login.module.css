@@ -91,7 +91,6 @@
 
 	background: #666666;
 	border-radius: 8px;
-	border-style: none;
 
 	height: 24px;
 	color: #b2b2b2;
@@ -243,4 +242,22 @@
 	align-items: center;
 	border-radius: 8px;
 	background-color: #000000;
+}
+
+.input_error {
+	border: 1px solid #ffd705;
+	margin-bottom: 0;
+}
+
+.error_message {
+	text-align: right;
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+
+	color: #FFD705;
+	margin: 8px 0;
+	margin-bottom: 40px;
 }
