@@ -10,7 +10,7 @@ import { set } from "../../redux/actions/signup";
 import { useRouter } from "next/router";
 import { backend } from "../../utils/backend";
 
-export function Artist() {
+export function Artist(props) {
 	const dispatch = useDispatch();
 	const user = useSelector((state: any) => state.signup.user);
 	const router = useRouter();
@@ -18,6 +18,7 @@ export function Artist() {
 	const [location, setLocation] = useState("");
 	const [locations, setLocations] = useState([]);
 	const [open, setOpen] = useState(true);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
@@ -38,6 +39,7 @@ export function Artist() {
 	}, [location, open]);
 
 	const signup = async () => {
+		props.setLoading(true);
 		const body = { ...user };
 		body.genres = body.genres.split(', ');
 		body.portfolio = body.portfolio?.split(', ');
@@ -50,6 +52,7 @@ export function Artist() {
 		} else {
 			router.push('/signup');
 		}
+		props.setLoading(false);
 	}
 
 	const handleLocation = (e) => {

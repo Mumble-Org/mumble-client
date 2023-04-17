@@ -1,6 +1,10 @@
 import styles from "../../styles/signup/details.module.css";
-import { ActiveCarousel, InactiveCarousel } from "../../components/carousels/carousels";
+import {
+	ActiveCarousel,
+	InactiveCarousel,
+} from "../../components/carousels/carousels";
 import Image from "next/image";
+import { Loading } from "../../components/loading";
 
 // redux
 import { set } from "../../redux/actions/signup";
@@ -17,6 +21,7 @@ import { resetGenresList } from "../../components/genres";
 export default function Type() {
 	const dispatch = useDispatch();
 	const [type, setType] = useState("producer");
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		dispatch(set("signup_type", type));
@@ -43,14 +48,15 @@ export default function Type() {
 			case "producer":
 				return <Producer />;
 			case "artist":
-				return <Artist />;
+				return <Artist setLoading={setLoading} />;
 			case "engineer":
 				return <Engineer />;
 		}
 	};
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.container} style={loading ? { padding: 0 } : {}}>
+			{loading ? <Loading /> : ""}
 			<h1 className={styles.header}>Tell us a bit more about you</h1>
 
 			<div className={styles.carousel}>

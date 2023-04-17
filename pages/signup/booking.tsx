@@ -1,10 +1,17 @@
 import styles from "../../styles/signup/details.module.css";
-import { ActiveCarousel, InactiveCarousel } from "../../components/carousels/carousels";
+import {
+	ActiveCarousel,
+	InactiveCarousel,
+} from "../../components/carousels/carousels";
 import { Back } from "../../components/buttons/back";
-import { ActiveContinue, ActiveFinish } from "../../components/buttons/continue";
+import {
+	ActiveContinue,
+	ActiveFinish,
+} from "../../components/buttons/continue";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { backend } from "../../utils/backend";
+import { Loading } from "../../components/loading";
 
 import { getCitySuggestions } from "../../utils/getCities";
 
@@ -21,6 +28,7 @@ export default function Booking() {
 	const [location, setLocation] = useState("");
 	const [locations, setLocations] = useState([]);
 	const [open, setOpen] = useState(true);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
@@ -41,24 +49,25 @@ export default function Booking() {
 	}, [location, open]);
 
 	const signup = async () => {
+		setLoading(true);
 		const body = { ...user };
-		body.genres = body.genres?.split(', ');
-		body.portfolio = body.portfolio?.split(', ');
-		
-		const response = await backend.post('/users/signup', body);
+		body.genres = body.genres?.split(", ");
+		body.portfolio = body.portfolio?.split(", ");
 
-		console.log(response);
+		const response = await backend.post("/users/signup", body);
+
 		if (response.status === 201) {
-			localStorage.setItem('token', response.data.token);
-			if (body.type === 'engineer') {
-				router.push('/');
+			localStorage.setItem("token", response.data.token);
+			if (body.type === "engineer") {
+				router.push("/");
 			} else {
-				router.push('/signup/upload');
+				router.push("/signup/upload");
 			}
 		} else {
-			router.push('/signup');
+			router.push("/signup");
 		}
-	}
+		setLoading(false);
+	};
 
 	const handleCalendar = (e) => {
 		const link = e.target.value;
@@ -88,7 +97,8 @@ export default function Booking() {
 	};
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.container} style={loading ? { padding: 0 } : {}}>
+			{loading ? <Loading /> : ""}
 			<h1 className={styles.header}>Add your booking information</h1>
 
 			<div className={styles.carousel}>
@@ -96,7 +106,7 @@ export default function Booking() {
 				<InactiveCarousel />
 				<InactiveCarousel />
 				<ActiveCarousel />
-				{type === 'producer' ? <InactiveCarousel /> : ''}
+				{type === "producer" ? <InactiveCarousel /> : ""}
 			</div>
 
 			<h2 className={styles.portfolio_subheader}>
@@ -174,8 +184,12 @@ export default function Booking() {
 			</div>
 
 			<div className={styles.next_page}>
-        <Back href="/signup/portfolio" />
-        {type === 'producer' ? <ActiveContinue onClick={signup} /> : <ActiveFinish onClick={signup} /> }
+				<Back href="/signup/portfolio" />
+				{type === "producer" ? (
+					<ActiveContinue onClick={signup} />
+				) : (
+					<ActiveFinish onClick={signup} />
+				)}
 			</div>
 		</div>
 	);

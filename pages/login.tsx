@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/login.module.css";
 import { BackToHome } from "../components/buttons/buttons";
+import { Loading } from "../components/loading";
 import { useState } from "react";
 import { backend } from "../utils/backend";
 import { useRouter } from "next/router";
@@ -20,10 +21,12 @@ export default function Login(props) {
 	const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
 	const [error, setError] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const login = async () => {
-    const body = { ...user };
-    let response;
+		setLoading(true);
+		const body = { ...user };
+		let response;
 
 		try {
 			response = await backend.post("/users/login", body);
@@ -34,9 +37,10 @@ export default function Login(props) {
 				router.push("/");
 			}
 		} catch (error) {
-      setError(true);
-      setValid(false);
+			setError(true);
+			setValid(false);
 		}
+		setLoading(false);
 	};
 
 	const isValidEmail = (email: string): boolean => {
@@ -52,8 +56,8 @@ export default function Login(props) {
 		setEmail(e.target.value);
 
 		if (isValidEmail(e.target.value) && isValidPassword(password)) {
-      setValid(true);
-      setError(false);
+			setValid(true);
+			setError(false);
 		} else setValid(false);
 	};
 
@@ -62,13 +66,15 @@ export default function Login(props) {
 		setPassword(e.target.value);
 
 		if (isValidPassword(e.target.value) && isValidEmail(email)) {
-      setValid(true);
-      setError(false);
+			setValid(true);
+			setError(false);
 		} else setValid(false);
 	};
 
 	return (
 		<div className={styles.container}>
+			{loading ? <Loading /> : ""}
+	
 			<div className={styles.studio}>
 				<Image src="/Logo.svg" alt="Mumble's logo" width="80" height="80" />
 			</div>
