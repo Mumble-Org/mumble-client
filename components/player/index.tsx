@@ -4,7 +4,7 @@ import styles from "./player.module.css";
 
 export function Player(props) {
 	const [playing, setPlaying] = useState(false);
-	const audio = useRef();
+	const audio = useRef<any>();
 	const duration = audio.current ? audio.current?.duration : 0;
 	const [interval, setIntervalObj] = useState() as any;
 	const [progress, setProgress] = useState(0);
