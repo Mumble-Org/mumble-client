@@ -1,14 +1,17 @@
 import styles from "./trending.module.css";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+import { backend } from "../../utils/backend";
 
 import { genres } from "../genres";
+import { Beat } from "../beat";
 
 export function TrendingBeatsHome(props) {
 	const [priceOpen, setPriceOpen] = useState(false);
 	const [priceFilter, setPriceFilter] = useState("Any price");
 	const [genresOpen, setGenresOpen] = useState(false);
 	const [genresFilter, setGenresFilter] = useState("All genres");
+	const [trendingBeats, setTrendingBeats] = useState([]);
 
 	const ClickOutside = (props) => {
 		const ref = useRef(null);
@@ -17,7 +20,7 @@ export function TrendingBeatsHome(props) {
 			const handleClickOutside = (event) => {
 				if (ref.current && !ref.current.contains(event.target)) {
 					// The click was outside the component, do something
-					props.set(false)
+					props.set(false);
 				}
 			};
 
@@ -28,8 +31,21 @@ export function TrendingBeatsHome(props) {
 			};
 		}, [props, ref]);
 
-		return <div style={{'cursor': 'pointer'}} ref={ref}>{props.children}</div>;
+		return (
+			<div style={{ cursor: "pointer" }} ref={ref}>
+				{props.children}
+			</div>
+		);
 	};
+
+	useEffect(() => {
+		// Fetch trending beats from backend
+		async function fetchBeats() {
+			const response = await backend.get("/beats/?page=1&limit=3");
+			setTrendingBeats(response.data.beats);
+		}
+		fetchBeats();
+	}, []);
 
 	const handlePriceOpen = () => {
 		setPriceOpen(!priceOpen);
@@ -139,6 +155,16 @@ export function TrendingBeatsHome(props) {
 							)}
 						</div>
 					</ClickOutside>
+				</div>
+			</div>
+
+			{trendingBeats.map((beat) => {
+				return <Beat beat={beat} key={beat._id} />;
+			})}
+
+			<div className={styles.view_more_outer}>
+				<div className={styles.view_more_inner}>
+					<p>View More Trending Beats</p>
 				</div>
 			</div>
 		</div>

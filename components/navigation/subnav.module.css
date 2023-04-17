@@ -1,7 +1,7 @@
 .container {
 	display: flex;
 	justify-content: center;
-	gap: 10px;
+	gap: 8px;
 
 	height: 40px;
 	padding: 4px 0;
@@ -31,4 +31,41 @@
 
 .button_active {
 	background: #666666;
+}
+
+@media screen and (max-width: 1400px) {
+	.container {
+		display: flex;
+		justify-content: center;
+		gap: 4px;
+
+		height: 32px;
+		padding: 2px 0;
+		width: 100%;
+	}
+
+	.button {
+		font-family: "Space Grotesk";
+		font-style: normal;
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 150%;
+		font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+		color: #ffffff;
+
+		background: none;
+		border: none;
+		border-radius: 4px;
+		padding: 4px;
+		transition: background 1s ease-out;
+	}
+
+	.button:hover {
+		cursor: pointer;
+		background: #666666;
+	}
+
+	.button_active {
+		background: #666666;
+	}
 }

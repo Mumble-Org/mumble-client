@@ -54,13 +54,13 @@ export function NavBar(props) {
 	return (
 		<div className={styles.container}>
 			<Link href="/">
-				<Image width="56" height="56" alt="mumble logo" src="/Logo.svg" />
+				<Image width="56" height="56" alt="mumble logo" src="/Logo.svg" className={styles.logo} />
 			</Link>
 
 			<div className={styles.search_container}>
 				<Image
-					width="17"
-					height="17"
+					width="16"
+					height="16"
 					alt="Search for producers, beats, genres and engineers"
 					src="/search.svg"
 				/>
