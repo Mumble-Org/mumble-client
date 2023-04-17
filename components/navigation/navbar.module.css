@@ -50,6 +50,7 @@
 .actions_container {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	gap: 20px;
 	max-width: 29%;
 }
@@ -78,6 +79,7 @@
 	display: flex;
 	align-items: center;
 	gap: 12px;
+	height: 24px;
 
 	padding: 8px 16px;
 
@@ -246,7 +248,7 @@
 		font-family: "Space Grotesk";
 		font-style: normal;
 		font-weight: 700;
-		font-size: 8px;
+		font-size: 12px;
 		line-height: 150%;
 		font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
 
@@ -261,13 +263,18 @@
 		align-items: center;
 		gap: 8px;
 
-		padding: 4px 8px;
+		padding: 4px 12px;
 
 		background: linear-gradient(91.8deg, #febfff 0%, #00ffff 100%);
 		border-radius: 4px;
 		text-decoration: none;
 
 		font-size: 8px;
+	}
+
+	.upload_beat img {
+		width: 12px;
+		height: 12px;
 	}
 
 	.upload_beat:hover {
@@ -283,6 +290,7 @@
 	.upload_beat p {
 		color: #000000;
 		margin: 0;
+		font-size: 12px;
 	}
 
 	.profile_container {
