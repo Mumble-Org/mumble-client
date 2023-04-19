@@ -4,8 +4,14 @@
 	background-color: #000000;
 }
 
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 36px;
+}
 
-.player {
-	margin: 20px;
-	margin-left: 40px;
+@media screen and (max-width: 1400px) {
+	.content {
+		gap: 32px;
+	}
 }

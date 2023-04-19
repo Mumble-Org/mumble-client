@@ -16,7 +16,7 @@ export default function Home() {
 	const token = userState.token;
 
 	useEffect(() => {
-		if (token != '' && token != undefined) {
+		if (token != "" && token != undefined) {
 			setLoggedIn(true);
 		}
 	}, []);
@@ -33,12 +33,13 @@ export default function Home() {
 			{/* <Profile /> */}
 			<SubNav loggedIn={loggedIn} />
 
-			<TrendingBeatsHome />
+			<div className={styles.content}>
+				<TrendingBeatsHome />
 
-			<PopularBeatsHome />
+				<PopularBeatsHome />
 
-			<PopularProducersHome />
-
+				<PopularProducersHome />
+			</div>
 		</div>
 	);
 }
