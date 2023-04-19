@@ -1,18 +1,32 @@
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import styles from "./player.module.css";
+import { backend } from "../../utils/backend";
+
+let interval;
 
 export function Player(props) {
 	const [playing, setPlaying] = useState(false);
 	const audio = useRef<any>();
 	const duration = audio.current ? audio.current?.duration : 0;
-	const [interval, setIntervalObj] = useState() as any;
+	// const [interval, setIntervalObj] = useState() as any;
 	const [progress, setProgress] = useState(0);
 	const [percentage, setPercentage] = useState(0);
+	const [done, setDone] = useState(true);
 
 	useEffect(() => {
-		let value = (progress / audio.current?.duration) * 100;
-		setPercentage(value);
+		const timeOut = setTimeout(() => {
+			const pro = progress;
+			if (!(pro > audio.current?.duration)) {
+				let value = (pro / audio.current?.duration) * 100;
+				setPercentage(value);
+			}
+			console.log(pro);
+		});
+
+		return () => {
+			clearTimeout(timeOut);
+		};
 	}, [progress]);
 
 	const handlePlay = () => {
@@ -20,19 +34,34 @@ export function Player(props) {
 		setPlaying(play);
 		let value = progress;
 
+		console.log('value', value);
 		if (play) {
+			const status = done;
 			audio.current?.play();
-			setIntervalObj(setInterval(() => {
+			interval = setInterval(() => {
+					if (value > audio.current?.duration && audio.current?.paused) {
+						setProgress(0);
+						setPlaying(false);
+						setPercentage(0);
+						setDone(true);
+						value = 0;
+						clearInterval(interval);
+					} else {
+						setProgress(value += 1);
+						setDone(false);
+					}
+				}, 1000);
 
-				if (value > audio.current?.duration) {
-					setProgress(0);
-					setPlaying(false);
-				} else {
-					setProgress(value += 1);
+			if (status) {
+				try {
+					backend.put(`/beats/plays?id=${props.beatId}`).then(() => {
+						setDone(false);
+					});
+				} catch (e) {
+					console.log(e);
 				}
-			}, 1000));
-		}
-		else {
+			}
+		} else {
 			audio.current?.pause();
 			clearInterval(interval);
 		}
@@ -50,11 +79,16 @@ export function Player(props) {
 			/>
 
 			<div className={styles.progress_bar}>
-				<div className={styles.progress} style={{ width: `${percentage}%`, maxWidth: '100%' }}></div>
+				<div
+					className={styles.progress}
+					style={{ width: `${percentage}%`, maxWidth: "100%" }}
+				></div>
 			</div>
 
 			<p className={styles.timer}>
-				{duration ? `${Math.round(duration / 60)} : ${Math.round(duration % 60)}` : ''}
+				{duration
+					? `${Math.round(duration / 60)} : ${Math.round(duration % 60)}`
+					: ""}
 			</p>
 
 			<audio

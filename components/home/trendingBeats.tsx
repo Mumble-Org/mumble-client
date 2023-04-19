@@ -211,7 +211,7 @@ export function TrendingBeats(props) {
 		// Fetch trending beats from backend
 		async function fetchBeats() {
 			try {
-				const response = await backend.get("/beats/?page=1&limit=24");
+				const response = await backend.get("/beats/trending/?page=1&limit=24");
 				setTrendingBeats(response.data.beats);
 			} catch (err) {
 				console.log(err);

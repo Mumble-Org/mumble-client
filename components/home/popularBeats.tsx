@@ -211,7 +211,7 @@ export function PopularBeatsHome(props) {
 		// Fetch popular beats from backend
 		async function fetchBeats() {
 			try {
-				const response = await backend.get("/beats/?page=1&limit=24");
+				const response = await backend.get("/beats/popular/?page=1&limit=24");
 				setPopularBeats(response.data.beats);
 			} catch (err) {
 				console.log(err);

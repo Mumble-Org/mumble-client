@@ -80,7 +80,7 @@ export function Beat(props) {
 					</div>
 				</div>
 
-				<Player src={props.beat.audioSignedUrl} />
+				<Player src={props.beat.audioSignedUrl} beatId={props.beat._id} />
 
 				<div className={styles.footer}>
 					<div className={styles.footer_left}>
