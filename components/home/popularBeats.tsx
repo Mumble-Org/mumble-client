@@ -5,13 +5,15 @@ import { backend } from "../../utils/backend";
 
 import { genres } from "../genres";
 import { Beat } from "../beat";
+import { ThreeDots } from "react-loader-spinner";
 
-export function PopularBeats(props) {
+export function PopularBeatsHome(props) {
 	const [priceOpen, setPriceOpen] = useState(false);
 	const [priceFilter, setPriceFilter] = useState("Any price");
 	const [genresOpen, setGenresOpen] = useState(false);
 	const [genresFilter, setGenresFilter] = useState("All genres");
 	const [popularBeats, setPopularBeats] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	const ClickOutside = (props) => {
 		const ref = useRef(null);
@@ -41,12 +43,14 @@ export function PopularBeats(props) {
 	useEffect(() => {
 		// Fetch popular beats from backend
 		async function fetchBeats() {
+			setLoading(true);
 			try {
 				const response = await backend.get("/beats/?page=1&limit=3");
 				setPopularBeats(response.data.beats);
 			} catch (err) {
 				console.log(err);
 			}
+			setLoading(false);
 		}
 		fetchBeats();
 	}, []);
@@ -162,6 +166,17 @@ export function PopularBeats(props) {
 				</div>
 			</div>
 
+			{loading ? (
+				<ThreeDots
+					height="64"
+					width="64"
+					color="#febfff"
+					wrapperClass="loader"
+				/>
+			) : (
+				""
+			)}
+
 			{popularBeats.map((beat) => {
 				return <Beat beat={beat} key={beat._id} type='popular' />;
 			})}
@@ -175,12 +190,13 @@ export function PopularBeats(props) {
 	);
 }
 
-export function PopularBeatsHome(props) {
+export function PopularBeats(props) {
 	const [priceOpen, setPriceOpen] = useState(false);
 	const [priceFilter, setPriceFilter] = useState("Any price");
 	const [genresOpen, setGenresOpen] = useState(false);
 	const [genresFilter, setGenresFilter] = useState("All genres");
 	const [popularBeats, setPopularBeats] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	const ClickOutside = (props) => {
 		const ref = useRef(null);
@@ -210,12 +226,14 @@ export function PopularBeatsHome(props) {
 	useEffect(() => {
 		// Fetch popular beats from backend
 		async function fetchBeats() {
+			setLoading(true);
 			try {
 				const response = await backend.get("/beats/popular/?page=1&limit=24");
 				setPopularBeats(response.data.beats);
 			} catch (err) {
 				console.log(err);
 			}
+			setLoading(false);
 		}
 		fetchBeats();
 	}, []);
@@ -330,6 +348,17 @@ export function PopularBeatsHome(props) {
 					</ClickOutside>
 				</div>
 			</div>
+
+			{loading ? (
+				<ThreeDots
+					height="64"
+					width="64"
+					color="#febfff"
+					wrapperClass="loader"
+				/>
+			) : (
+				""
+			)}
 
 			{popularBeats.map((beat) => {
 				return <Beat beat={beat} key={beat._id} type='popular' />;

@@ -22,3 +22,14 @@ p {
 
 	color: #ffffff;
 }
+
+.loader {
+	align-self: center;
+}
+
+@media screen and (max-width: 1400px) {
+	.loader {
+		width: 12;
+		height: 12;
+	}
+}

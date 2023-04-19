@@ -5,6 +5,7 @@ import { backend } from "../../utils/backend";
 
 import { genres } from "../genres";
 import { Beat } from "../beat";
+import { ThreeDots } from "react-loader-spinner";
 
 export function TrendingBeatsHome(props) {
 	const [priceOpen, setPriceOpen] = useState(false);
@@ -12,6 +13,7 @@ export function TrendingBeatsHome(props) {
 	const [genresOpen, setGenresOpen] = useState(false);
 	const [genresFilter, setGenresFilter] = useState("All genres");
 	const [trendingBeats, setTrendingBeats] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	const ClickOutside = (props) => {
 		const ref = useRef(null);
@@ -41,12 +43,14 @@ export function TrendingBeatsHome(props) {
 	useEffect(() => {
 		// Fetch trending beats from backend
 		async function fetchBeats() {
+			setLoading(true);
 			try {
 				const response = await backend.get("/beats/?page=1&limit=3");
 				setTrendingBeats(response.data.beats);
 			} catch (err) {
 				console.log(err);
 			}
+			setLoading(false);
 		}
 		fetchBeats();
 	}, []);
@@ -73,6 +77,7 @@ export function TrendingBeatsHome(props) {
 
 	return (
 		<div className={styles.container}>
+
 			<div className={styles.header}>
 				<h3>Trending beats</h3>
 
@@ -162,6 +167,17 @@ export function TrendingBeatsHome(props) {
 				</div>
 			</div>
 
+			{loading ? (
+				<ThreeDots
+					height="64"
+					width="64"
+					color="#febfff"
+					wrapperClass="loader"
+				/>
+			) : (
+				""
+			)}
+
 			{trendingBeats.map((beat) => {
 				return <Beat beat={beat} key={beat._id} type="trending" />;
 			})}
@@ -181,6 +197,7 @@ export function TrendingBeats(props) {
 	const [genresOpen, setGenresOpen] = useState(false);
 	const [genresFilter, setGenresFilter] = useState("All genres");
 	const [trendingBeats, setTrendingBeats] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	const ClickOutside = (props) => {
 		const ref = useRef(null);
@@ -210,12 +227,14 @@ export function TrendingBeats(props) {
 	useEffect(() => {
 		// Fetch trending beats from backend
 		async function fetchBeats() {
+			setLoading(true);
 			try {
 				const response = await backend.get("/beats/trending/?page=1&limit=24");
 				setTrendingBeats(response.data.beats);
 			} catch (err) {
 				console.log(err);
 			}
+			setLoading(false);
 		}
 		fetchBeats();
 	}, []);
@@ -330,6 +349,17 @@ export function TrendingBeats(props) {
 					</ClickOutside>
 				</div>
 			</div>
+
+			{loading ? (
+				<ThreeDots
+					height="64"
+					width="64"
+					color="#febfff"
+					wrapperClass="loader"
+				/>
+			) : (
+				""
+			)}
 
 			{trendingBeats.map((beat) => {
 				return <Beat beat={beat} key={beat._id} type="trending" />;

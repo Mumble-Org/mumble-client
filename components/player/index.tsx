@@ -17,11 +17,8 @@ export function Player(props) {
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
 			const pro = progress;
-			if (!(pro > audio.current?.duration)) {
-				let value = (pro / audio.current?.duration) * 100;
-				setPercentage(value);
-			}
-			console.log(pro);
+			let value = (pro / audio.current?.duration) * 100;
+			setPercentage(value);
 		});
 
 		return () => {
@@ -34,23 +31,21 @@ export function Player(props) {
 		setPlaying(play);
 		let value = progress;
 
-		console.log('value', value);
 		if (play) {
 			const status = done;
 			audio.current?.play();
 			interval = setInterval(() => {
-					if (value > audio.current?.duration && audio.current?.paused) {
-						setProgress(0);
-						setPlaying(false);
-						setPercentage(0);
-						setDone(true);
-						value = 0;
-						clearInterval(interval);
-					} else {
-						setProgress(value += 1);
-						setDone(false);
-					}
-				}, 1000);
+				if (value > audio.current?.duration && audio.current?.paused) {
+					setProgress(0);
+					setPlaying(false);
+					setPercentage(0);
+					setDone(true);
+					clearInterval(interval);
+				} else {
+					setProgress((value += 1));
+					setDone(false);
+				}
+			}, 1000);
 
 			if (status) {
 				try {
