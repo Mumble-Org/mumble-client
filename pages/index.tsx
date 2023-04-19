@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 
 import { NavBar } from "../components/navigation/navbar";
 import { SubNav } from "../components/navigation/subnav";
-import { TrendingBeatsHome } from "../components/home/trending";
-import { Profile } from "../components/profile";
+import { TrendingBeatsHome } from "../components/home/trendingBeats";
+import { PopularBeatsHome } from "../components/home/popularBeats";
 
 export default function Home() {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -33,6 +33,8 @@ export default function Home() {
 			<SubNav loggedIn={loggedIn} />
 
 			<TrendingBeatsHome />
+
+			<PopularBeatsHome />
 
 		</div>
 	);

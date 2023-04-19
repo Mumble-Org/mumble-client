@@ -1,4 +1,4 @@
-import styles from "./trending.module.css";
+import styles from "./trendingBeats.module.css";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { backend } from "../../utils/backend";
@@ -159,7 +159,7 @@ export function TrendingBeatsHome(props) {
 			</div>
 
 			{trendingBeats.map((beat) => {
-				return <Beat beat={beat} key={beat._id} />;
+				return <Beat beat={beat} key={beat._id} type='trending' />;
 			})}
 
 			<div className={styles.view_more_outer}>

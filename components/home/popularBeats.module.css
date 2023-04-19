@@ -152,70 +152,29 @@
 
 @media screen and (max-width: 1400px) {
 	.container {
-		display: flex;
-		flex-direction: column;
-
 		padding: 0 48px;
 	}
 
-	.header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
 	.header h3 {
-		font-family: "Space Grotesk";
-		font-style: normal;
-		font-weight: 700;
 		font-size: 16px;
-		line-height: 133%;
-		color: #ffffff;
 	}
 
 	.filter {
-		display: flex;
 		gap: 8px;
-	}
-
-	.filter_object {
-		position: relative;
 	}
 
 	.filter_container {
 		padding: 1px;
-
-		background: linear-gradient(91.8deg, #febfff 0%, #00ffff 100%);
 		border-radius: 4px;
 	}
 
 	.filter_container p {
 		margin: 0;
-
-		font-family: "Space Grotesk";
-		font-style: normal;
-		font-weight: 700;
 		font-size: 12px;
-		line-height: 150%;
-		font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
-
-		background: linear-gradient(91.8deg, #febfff 0%, #00ffff 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.filter_container:hover {
-		cursor: pointer;
 	}
 
 	.filter_background {
-		display: flex;
-		align-items: center;
 		gap: 4px;
-
-		background: #000000;
-
 		padding: 4px 8px;
 		border-radius: 4px;
 	}
@@ -226,65 +185,27 @@
 	}
 
 	.dropdown {
-		position: absolute;
-
-		background: #ffffff;
 		border-radius: 4px;
 		margin-top: 4px;
 		width: 100%;
 		max-height: 248px;
-		overflow-y: auto;
-	}
-
-	.dropdown:hover {
-		cursor: pointer;
 	}
 
 	.dropdown option {
 		padding: 4px 8px;
 		border-radius: 8px;
 
-		font-family: "Space Grotesk";
-		font-style: normal;
-		font-weight: 700;
 		font-size: 8px;
-		line-height: 150%;
-
-		font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
-
-		color: #000000;
-	}
-
-	.dropdown option:hover {
-		background: #febfff;
-	}
-
-	.dropdown option:active {
-		background: #00ffff;
 	}
 
 	.view_more_outer {
-		align-self: center;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		width: 168px;
 		height: 30px;
-
-		background: linear-gradient(91.8deg, #febfff 0%, #00ffff 100%);
 		border-radius: 4px;
 		padding: 1px;
 	}
 
-	.view_more_outer:hover {
-		cursor: pointer;
-	}
-
 	.view_more_inner {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background: #000000;
 		width: 100%;
 		height: 100%;
 
@@ -293,18 +214,7 @@
 	}
 
 	.view_more_inner p {
-		font-family: "Space Grotesk";
-		font-style: normal;
-		font-weight: 700;
 		font-size: 12px;
-		line-height: 150%;
-
-		font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
-
-		background: linear-gradient(91.8deg, #febfff 0%, #00ffff 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
 		margin: 0;
 	}
 }

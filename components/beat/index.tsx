@@ -22,13 +22,36 @@ export function Beat(props) {
 				<div className={styles.header}>
 					<h1>{props.beat.name}</h1>
 					<div className={styles.trending_icon}>
-						<Image
-							width="19"
-							height="11"
-							alt="trending icon"
-							src="/trending.svg"
-						/>
-						<p>Trending</p>
+						{(() => {
+							switch (props.type) {
+								case "trending":
+									return (
+										<Image
+											width="19"
+											height="11"
+											alt="trending icon"
+											src="/trending.svg"
+										/>
+									);
+								case "popular":
+									return (
+										<Image
+											width="13"
+											height="20"
+											alt="popular icon"
+											src="/popular.svg"
+										/>
+									);
+							}
+						})()}
+						<p className={styles[props.type]}>{(() => {
+							switch (props.type) {
+								case 'trending':
+									return 'Trending';
+								case 'popular':
+									return 'Popular';
+							}
+						})()}</p>
 					</div>
 				</div>
 
@@ -94,7 +117,14 @@ export function Beat(props) {
 					</div>
 
 					<div className={styles.footer_right}>
-						<p className={styles.subtext}>Uploaded {new Date(props.beat.createdAt).toLocaleString('en-us', {month: 'long', day: 'numeric', year: 'numeric'})}</p>
+						<p className={styles.subtext}>
+							Uploaded{" "}
+							{new Date(props.beat.createdAt).toLocaleString("en-us", {
+								month: "long",
+								day: "numeric",
+								year: "numeric",
+							})}
+						</p>
 					</div>
 				</div>
 			</div>
