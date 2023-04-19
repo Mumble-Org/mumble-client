@@ -25,6 +25,7 @@ export default function Home() {
 			<Head>
 				<title>Mumble</title>
 				<link rel="" href="" />
+				<link rel="icon" type="img/x-icon" href="/Logo.svg" />
 			</Head>
 
 			<NavBar loggedIn={loggedIn} />

@@ -36,9 +36,14 @@ export function Beat(props) {
 					{props.beat.producer?.image != undefined ? (
 						""
 					) : (
-						<div className={styles.producer_icon}>T</div>
+						<div className={styles.producer_icon}>
+							{props.beat.producer.name.charAt(0).toUpperCase()}
+						</div>
 					)}
-					<h2>Teepee</h2>
+					<h2>
+						{props.beat.producer.name.charAt(0).toUpperCase() +
+							props.beat.producer.name.slice(1)}
+					</h2>
 					<div className={styles.rating}>
 						{[1, 2, 3, 4, 5].map((star) => (
 							<Image
@@ -71,19 +76,25 @@ export function Beat(props) {
 							src="/price_tag.svg"
 						/>
 
-						<p className={styles.text}>NGN. {setPrice(100000)}</p>
+						<p className={styles.text}>NGN. {setPrice(props.beat.price)}</p>
 
 						<Image width="22" height="12" alt="license type" src="/key.svg" />
 
-						<p className={styles.text}>Exclusive</p>
+						<p className={styles.text}>
+							{props.beat.license.charAt(0).toUpperCase() +
+								props.beat.license.slice(1)}
+						</p>
 
 						<Image width="12" height="18" alt="genre" src="/treble_clef.svg" />
 
-						<p className={styles.text}>Afrobeats</p>
+						<p className={styles.text}>
+							{props.beat.genre.charAt(0).toUpperCase() +
+								props.beat.genre.slice(1)}
+						</p>
 					</div>
 
 					<div className={styles.footer_right}>
-						<p className={styles.subtext}>Uploaded March 31, 2023</p>
+						<p className={styles.subtext}>Uploaded {new Date(props.beat.createdAt).toLocaleString('en-us', {month: 'long', day: 'numeric', year: 'numeric'})}</p>
 					</div>
 				</div>
 			</div>
