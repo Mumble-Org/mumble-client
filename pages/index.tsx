@@ -7,6 +7,7 @@ import { NavBar } from "../components/navigation/navbar";
 import { SubNav } from "../components/navigation/subnav";
 import { TrendingBeatsHome } from "../components/home/trendingBeats";
 import { PopularBeatsHome } from "../components/home/popularBeats";
+import { PopularProducersHome } from "../components/home/popularProducers";
 
 export default function Home() {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -35,6 +36,8 @@ export default function Home() {
 			<TrendingBeatsHome />
 
 			<PopularBeatsHome />
+
+			<PopularProducersHome />
 
 		</div>
 	);
