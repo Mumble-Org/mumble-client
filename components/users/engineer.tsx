@@ -1,7 +1,7 @@
-import styles from "./producer.module.css";
+import styles from "./engineer.module.css";
 import Image from "next/image";
 
-export function Producer(props) {
+export function Engineer(props) {
 	return (
 		<div className={styles.container}>
 			<Image
@@ -28,18 +28,18 @@ export function Producer(props) {
 
 			<div className={styles.subheading}>
 				<div className={styles.subtitle}>
-					<Image width='20' height='20' alt='beats' src='/beats.svg' />
-					<p>Beats sold</p>
+					<Image width='20' height='20' alt='beats' src='/mixer.svg' />
+					<p>Songs mixed</p>
 				</div>
 				<div><p>200</p></div>
 			</div>
 
 			<div className={styles.subheading}>
 				<div className={styles.subtitle}>
-					<Image width='20' height='20' alt='beats' src='/upload.svg' />
-					<p>Beats uploaded</p>
+					<Image width='20' height='20' alt='beats' src='/rate.svg' />
+					<p>Rate per song</p>
 				</div>
-				<div><p>2,000</p></div>
+				<div><p>NGN. 100,000</p></div>
 			</div>
 
 			<div className={styles.subheading}>

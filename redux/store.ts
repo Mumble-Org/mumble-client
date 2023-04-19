@@ -5,6 +5,7 @@ import { signupReducer } from "./reducers/signup";
 import { loginReducer } from "./reducers/login";
 import logger from "redux-logger";
 import { userReducer } from "./reducers/user";
+import { homeReducer } from "./reducers/home";
 
 const persistConfig = {
   key: 'root',
@@ -13,6 +14,7 @@ const persistConfig = {
 
 export const store = configureStore({
 	reducer: {
+		home: homeReducer,
 		signup: signupReducer,
 		login: loginReducer,
 		user: persistReducer(persistConfig, userReducer),

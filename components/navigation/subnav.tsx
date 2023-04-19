@@ -1,13 +1,19 @@
 import styles from "./subnav.module.css";
 import { useState } from "react";
+import { set } from "../../redux/actions/home";
+import { useSelector, useDispatch } from "react-redux";
 
 export function SubNav(props) {
-	const [active, setActive] = useState("home");
+	const dispatch = useDispatch();
+	const position = useSelector((state: any) => state.home.position);
+	const [active, setActive] = useState(position);
 
 	const handleClick = (e) => {
 		const button = e.target.value;
 
 		setActive(button);
+		props.setPosition(button);
+		dispatch(set('home_position', button));
 	}
 
 	return (

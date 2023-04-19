@@ -5,15 +5,22 @@ import { useSelector } from "react-redux";
 
 import { NavBar } from "../components/navigation/navbar";
 import { SubNav } from "../components/navigation/subnav";
-import { TrendingBeatsHome } from "../components/home/trendingBeats";
-import { PopularBeatsHome } from "../components/home/popularBeats";
+import {
+	TrendingBeatsHome,
+	TrendingBeats,
+} from "../components/home/trendingBeats";
+import {
+	PopularBeatsHome,
+	PopularBeats,
+} from "../components/home/popularBeats";
 import { PopularProducersHome } from "../components/home/popularProducers";
+import { PopularEngineersHome } from "../components/home/popularEngineers";
 
 export default function Home() {
 	const [loggedIn, setLoggedIn] = useState(false);
 	const userState = useSelector((state: any) => state.user);
-	const user = userState.user;
 	const token = userState.token;
+	const [position, setPosition] = useState("home");
 
 	useEffect(() => {
 		if (token != "" && token != undefined) {
@@ -31,15 +38,40 @@ export default function Home() {
 
 			<NavBar loggedIn={loggedIn} />
 			{/* <Profile /> */}
-			<SubNav loggedIn={loggedIn} />
+			<SubNav loggedIn={loggedIn} setPosition={setPosition} />
 
-			<div className={styles.content}>
-				<TrendingBeatsHome />
+			{(() => {
+				switch (position) {
+					case "home":
+						return (
+							<div className={styles.content}>
+								<TrendingBeatsHome />
 
-				<PopularBeatsHome />
+								<PopularBeatsHome />
 
-				<PopularProducersHome />
-			</div>
+								<PopularProducersHome />
+
+								<PopularEngineersHome />
+							</div>
+						);
+					case "trending":
+						return (
+							<div className={styles.content}>
+								<TrendingBeats />
+							</div>
+						);
+					case "discover":
+						return (
+							<div className={styles.content}>
+								<PopularBeats />
+							</div>
+						);
+					case "producers":
+						return <div className={styles.content}>producers</div>;
+					case "engineers":
+						return <div className={styles.content}>engineers</div>;
+				}
+			})()}
 		</div>
 	);
 }
