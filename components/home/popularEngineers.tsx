@@ -4,11 +4,29 @@ import { useState, useEffect, useRef } from "react";
 import { backend } from "../../utils/backend";
 import { getCitySuggestions } from "../../utils/getCities";
 import { Engineer } from "../users/engineer";
+import { ThreeDots } from "react-loader-spinner";
 
 export function PopularEngineersHome(props) {
 	const [location, setLocation] = useState("");
 	const [locations, setLocations] = useState([]);
 	const [open, setOpen] = useState(true);
+	const [loading, setLoading] = useState(false);
+	const [engineers, setEngineers] = useState([]);
+
+	useEffect(() => {
+		// Fetch popular beats from backend
+		async function fetchEngineers() {
+			setLoading(true);
+			try {
+				const response = await backend.get("/users/engineers/?page=1&limit=24");
+				setEngineers(response.data.engineers);
+			} catch (err) {
+				console.log(err);
+			}
+			setLoading(false);
+		}
+		fetchEngineers();
+	}, []);
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
@@ -83,15 +101,21 @@ export function PopularEngineersHome(props) {
 				)}
 			</div>
 
+			{loading ? (
+				<ThreeDots
+					height="64"
+					width="64"
+					color="#febfff"
+					wrapperClass="loader"
+				/>
+			) : (
+				""
+			)}
+
 			<div className={styles.producers}>
-				<Engineer />
-				<Engineer />
-				<Engineer />
-				<Engineer />
-				<Engineer />
-				<Engineer />
-				<Engineer />
-				<Engineer />
+				{engineers && engineers.map((engineer) => {
+					return <Engineer user={engineer} key={engineer._id} />
+				})}
 			</div>
 
 			<div className={styles.view_more_outer}>

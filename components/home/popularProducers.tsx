@@ -4,11 +4,30 @@ import { useState, useEffect, useRef } from "react";
 import { backend } from "../../utils/backend";
 import { getCitySuggestions } from "../../utils/getCities";
 import { Producer } from "../users/producer";
+import {ThreeDots } from "react-loader-spinner";
 
 export function PopularProducersHome(props) {
 	const [location, setLocation] = useState("");
 	const [locations, setLocations] = useState([]);
 	const [open, setOpen] = useState(true);
+	const [loading, setLoading] = useState(false);
+	const [producers, setProducers] = useState([]);
+
+	useEffect(() => {
+		// Fetch popular beats from backend
+		async function fetchProducers() {
+			setLoading(true);
+			try {
+				const response = await backend.get("/users/trendingProducers/?page=1&limit=24");
+				setProducers(response.data.producers);
+			} catch (err) {
+				console.log(err);
+			}
+			setLoading(false);
+		}
+		fetchProducers();
+	}, []);
+
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
@@ -83,15 +102,21 @@ export function PopularProducersHome(props) {
 				)}
 			</div>
 
+			{loading ? (
+				<ThreeDots
+					height="64"
+					width="64"
+					color="#febfff"
+					wrapperClass="loader"
+				/>
+			) : (
+				""
+			)}
+
 			<div className={styles.producers}>
-				<Producer />
-				<Producer />
-				<Producer />
-				<Producer />
-				<Producer />
-				<Producer />
-				<Producer />
-				<Producer />
+			{producers && producers.map((producer) => {
+				return <Producer user={producer} key={producer._id} />;
+			})}
 			</div>
 
 			<div className={styles.view_more_outer}>

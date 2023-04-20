@@ -67,9 +67,9 @@ export default function Home() {
 							</div>
 						);
 					case "producers":
-						return <div className={styles.content}>producers</div>;
+						return <div className={styles.content}><PopularProducersHome /></div>;
 					case "engineers":
-						return <div className={styles.content}>engineers</div>;
+						return <div className={styles.content}><PopularEngineersHome /></div>;
 				}
 			})()}
 		</div>
