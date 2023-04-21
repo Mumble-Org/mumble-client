@@ -4,56 +4,66 @@ import { useState, useEffect } from "react";
 
 export function Producer(props) {
 	const { user } = props;
+	console.log(user);
 
 	const [userRating, setUserRating] = useState([]);
 
-    useEffect(() => {
-			if (user) {
-				// Change later
-				const rating = genRating(user.rating || 5);
-  			setUserRating(rating);
-			}
-    }, 
-    []);
+	useEffect(() => {
+		if (user) {
+			// Change later
+			const rating = genRating(user.rating || 5);
+			setUserRating(rating);
+		}
+	}, []);
 
 	return (
 		<div className={styles.container}>
-			<Image
-				width="320"
-				height="320"
-				alt="profile image"
-				src={user.img}
-				className={styles.profile_img}
-			/>
+			{user.img ? (
+				<Image
+					width="320"
+					height="320"
+					alt="profile image"
+					src={user.img}
+					className={styles.profile_img}
+				/>
+			) : (
+				<div className={`${styles.profile_img} ${styles.profile_txt}`}>
+					<p>{user.name.charAt(0).toUpperCase()}</p>
+				</div>
+			)}
 
 			<h3 className={styles.title}>{user.name}</h3>
 
-			<div className={styles.rating}>
-          {userRating}
-      </div>
+			<div className={styles.rating}>{userRating}</div>
 
 			<div className={styles.subheading}>
 				<div className={styles.subtitle}>
-					<Image width='20' height='20' alt='beats' src='/beats.svg' />
+					<Image width="20" height="20" alt="beats" src="/beats.svg" />
 					<p>Beats sold</p>
 				</div>
-				<div><p>{user.beats_sold}</p></div>
+				<div>
+					<p>{user.beats_sold}</p>
+				</div>
 			</div>
 
 			<div className={styles.subheading}>
 				<div className={styles.subtitle}>
-					<Image width='20' height='20' alt='beats' src='/upload.svg' />
+					<Image width="20" height="20" alt="beats" src="/upload.svg" />
 					<p>Beats uploaded</p>
 				</div>
-				<div><p>{user.beats_uploaded}</p></div>
+				<div>
+					<p>{user.beats_uploaded}</p>
+				</div>
 			</div>
 
 			<div className={styles.subheading}>
 				<div className={styles.subtitle}>
-					<Image width='20' height='20' alt='beats' src='/location.svg' />
+					<Image width="20" height="20" alt="beats" src="/location.svg" />
 					<p>Location</p>
 				</div>
-				<div><p>{(user.location && user.location.split(" ")[0]) || "Mushin" }</p></div>
+				<div>
+					<p>{(user.location && user.location.split(", ")[0]) || "-"}</p>
+				</div>
 			</div>
 
 			<div className={styles.view_profile}>
@@ -63,22 +73,21 @@ export function Producer(props) {
 	);
 }
 
-
 const genRating = (rating: number) => {
-	const ratings: Array<any> = []
+	const ratings: Array<any> = [];
 	for (let i: number = 0; i < rating; i++) {
-			ratings.push([(
-					<div className={styles.rate}>
-							<Image src="/star.svg" alt="rating" height="17" width="17" />
-					</div>
-			)])
+		ratings.push([
+			<div className={styles.rate} key={i}>
+				<Image src="/star.svg" alt="rating" height="17" width="17" />
+			</div>,
+		]);
 	}
 
-	return ratings
-}
+	return ratings;
+};
 
-
-{/* <div className={styles.container}>
+{
+	/* <div className={styles.container}>
 			<Image
 				width="320"
 				height="320"
@@ -128,4 +137,5 @@ const genRating = (rating: number) => {
 			<div className={styles.view_profile}>
 				<p>View Profile</p>
 			</div>
-		</div> */}
+		</div> */
+}
