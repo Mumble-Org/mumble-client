@@ -45,7 +45,13 @@ export function TrendingBeatsHome(props) {
 		async function fetchBeats() {
 			setLoading(true);
 			try {
-				const response = await backend.get("/beats/?page=1&limit=3");
+				const response = await backend.get(
+					`/beats/trending?page=1&limit=3&genre=${
+						genresFilter === "All genres"
+							? genresFilter
+							: genresFilter.toLowerCase()
+					}&price=${priceFilter}`
+				);
 				setTrendingBeats(response.data.beats);
 			} catch (err) {
 				console.log(err);
@@ -53,7 +59,7 @@ export function TrendingBeatsHome(props) {
 			setLoading(false);
 		}
 		fetchBeats();
-	}, []);
+	}, [genresFilter, priceFilter]);
 
 	const handlePriceOpen = () => {
 		setPriceOpen(!priceOpen);
@@ -77,7 +83,6 @@ export function TrendingBeatsHome(props) {
 
 	return (
 		<div className={styles.container}>
-
 			<div className={styles.header}>
 				<h3>Trending beats</h3>
 
@@ -229,7 +234,13 @@ export function TrendingBeats(props) {
 		async function fetchBeats() {
 			setLoading(true);
 			try {
-				const response = await backend.get("/beats/trending/?page=1&limit=24");
+				const response = await backend.get(
+					`/beats/trending/?page=1&limit=24&genre=${
+						genresFilter === "All genres"
+							? genresFilter
+							: genresFilter.toLowerCase()
+					}&price=${priceFilter}`
+				);
 				setTrendingBeats(response.data.beats);
 			} catch (err) {
 				console.log(err);
@@ -237,7 +248,7 @@ export function TrendingBeats(props) {
 			setLoading(false);
 		}
 		fetchBeats();
-	}, []);
+	}, [genresFilter, priceFilter]);
 
 	const handlePriceOpen = () => {
 		setPriceOpen(!priceOpen);
