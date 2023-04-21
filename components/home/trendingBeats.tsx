@@ -187,7 +187,10 @@ export function TrendingBeatsHome(props) {
 				return <Beat beat={beat} key={beat._id} type="trending" />;
 			})}
 
-			<div className={styles.view_more_outer}>
+			<div
+				className={styles.view_more_outer}
+				onClick={() => props.setPosition("trending")}
+			>
 				<div className={styles.view_more_inner}>
 					<p>View More Trending Beats</p>
 				</div>
