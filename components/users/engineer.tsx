@@ -4,12 +4,12 @@ import React, { useEffect, useState } from "react";
 
 export function Engineer(props) {
 	const [userRating, setUserRating] = useState([]);
+	const { user } = props;
 
 	useEffect(() => {
 		const rating = genRating(user.rating);
 		setUserRating(rating);
 	}, []);
-	const { user } = props;
 
 	return (
 		<div className={styles.container}>
@@ -47,7 +47,7 @@ export function Engineer(props) {
 					<p>Rate per song</p>
 				</div>
 				<div>
-					<p>NGN. {user.rate}</p>
+					<p>NGN. {user.rate.toLocaleString()}</p>
 				</div>
 			</div>
 

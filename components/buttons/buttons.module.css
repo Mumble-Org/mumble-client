@@ -8,22 +8,32 @@
 
 .text {
 	margin: 0px 12px;
-	width: 107px;
+	max-width: 107px;
 	height: 100%;
 
-	/* Body/Bold */
 	font-family: "Space Grotesk";
 	font-style: normal;
 	font-weight: 700;
 	font-size: 16px;
 	line-height: 150%;
-	/* identical to box height, or 150% */
 
 	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
 
-	/* Gradient */
 	background: linear-gradient(91.8deg, #febfff 0%, #00ffff 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
+}
+
+@media screen and (max-width: 1400px) {
+	.link img {
+		width: 12px;
+		height: 12px;
+	}
+
+	.text {
+		margin: 0px 8px;
+		font-size: 12px;
+		line-height: 150%;
+	}
 }
