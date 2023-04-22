@@ -19,7 +19,7 @@ export function PopularProducersHome(props) {
 			setLoading(true);
 			try {
 				const response = await backend.get(
-					"/users/trendingProducers/?page=1&limit=8"
+					`/users/trendingProducers/?page=1&limit=8&location=${location}`
 				);
 				setProducers(response.data.producers);
 			} catch (err) {
@@ -28,7 +28,7 @@ export function PopularProducersHome(props) {
 			setLoading(false);
 		}
 		fetchProducers();
-	}, []);
+	}, [location]);
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
@@ -141,7 +141,7 @@ export function PopularProducers(props) {
 			setLoading(true);
 			try {
 				const response = await backend.get(
-					"/users/trendingProducers/?page=1&limit=24"
+					`/users/trendingProducers/?page=1&limit=8&location=${location}`
 				);
 				setProducers(response.data.producers);
 			} catch (err) {
@@ -150,7 +150,7 @@ export function PopularProducers(props) {
 			setLoading(false);
 		}
 		fetchProducers();
-	}, []);
+	}, [location]);
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {

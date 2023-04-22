@@ -18,7 +18,7 @@ export function PopularEngineersHome(props) {
 		async function fetchEngineers() {
 			setLoading(true);
 			try {
-				const response = await backend.get("/users/engineers/?page=1&limit=8");
+				const response = await backend.get(`/users/engineers/?page=1&limit=8&location=${location}`);
 				setEngineers(response.data.engineers);
 			} catch (err) {
 				console.log(err);
@@ -26,7 +26,7 @@ export function PopularEngineersHome(props) {
 			setLoading(false);
 		}
 		fetchEngineers();
-	}, []);
+	}, [location]);
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
@@ -139,7 +139,7 @@ export function PopularEngineers(props) {
 		async function fetchEngineers() {
 			setLoading(true);
 			try {
-				const response = await backend.get("/users/engineers/?page=1&limit=24");
+				const response = await backend.get(`/users/engineers/?page=1&limit=8&location=${location}`);
 				setEngineers(response.data.engineers);
 			} catch (err) {
 				console.log(err);
@@ -147,7 +147,7 @@ export function PopularEngineers(props) {
 			setLoading(false);
 		}
 		fetchEngineers();
-	}, []);
+	}, [location]);
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
