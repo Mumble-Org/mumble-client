@@ -64,10 +64,19 @@
   font-weight: 700;
 }
 
+.userContentChild hr {
+  display: None;
+}
+
 .activeUserContentChild {
   color: #00FFFF;
   margin-right: 16px;
   font-weight: 700;
+}
+
+.activeUserContentChild hr {
+  border: 1px solid #00FFFF;
+    display: block;
 }
 
 .active {

@@ -2,34 +2,44 @@ import React, {useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import Image from "next/image";
 import styles from './profile.module.css';
+import UploadedBeats from './uploadedBeats';
+import { userAgent } from 'next/server';
 
 type Props = {}
 
-export const Profile = (props: Props) => {
-    const [user, setUser] = useState({
-        name: "John Doe",
-        email: "Johndoe@gmail.com",
-        password: "",
-        type: "Producer",
-        genres: "",
-        portfolio: "",
-        location: "Lagos, Nigeria",
-        calendar: "",
-        phone_number: "+2348001110111",
-        rating: 5,
-        rate:"",
-        beatsSold: 1000,
-        beatsUploaded: 10,
-        image: ""
-	});
-    // const user = useSelector((state: {}) => state.signup.user);
+export const Profile = (props) => {
+    // const [user, setUser] = useState({
+    //     name: "John Doe",
+    //     email: "Johndoe@gmail.com",
+    //     password: "",
+    //     type: "Producer",
+    //     genres: "",
+    //     portfolio: "",
+    //     location: "Lagos, Nigeria",
+    //     calendar: "",
+    //     phone_number: "+2348001110111",
+    //     rating: 5,
+    //     rate:"",
+    //     beats_sold: 1000,
+    //     beats_uploaded: 10,
+    //     image: "",
+    //     _id: "643dceb9a04817c0fd352cf6"
+	// });
+    const { user } = props;
+    console.log(user);
     const [userRating, setUserRating] = useState([]);
+    const [scene, setScene] = useState("uploaded_beats");
 
     useEffect(() => {
-            const rating = genRating(user.rating);
+            const rating = genRating(user.ratings || 4);
             setUserRating(rating);
         }, 
     []);
+
+    const handleClick = (e) => {
+        // e.preventDefault();
+        setScene(e.target.id);
+    }
 
 
     return (
@@ -52,7 +62,7 @@ export const Profile = (props: Props) => {
             </div>
             <div className={styles.location}>
                     <Image src="/location-profile.svg" alt="location" width="16" height="18" className={styles.locationImg} />
-                    {user.location}
+                    {user.location?.split(", ")[0] || "Lagos"}
             </div>
             <div className={styles.rating}>
                 {userRating}
@@ -63,14 +73,14 @@ export const Profile = (props: Props) => {
                         <div className={styles.title}>
                             Beats Sold
                         </div>
-                         {user.beatsSold}
+                         {user.beats_sold}
                     </div>
                     <div className={styles.infoChild}>
                         <Image src="/upload.svg" alt="beats uploaded" width="20" height="20" />
                         <div className={styles.title}>
                             Beats Uploaded
                         </div>
-                        {user.beatsUploaded}
+                        {user.beats_uploaded}
                     </div>
                     <div className={styles.infoChild}>
                         <Image src="/mail.svg" alt="email" width="20" height="20" />
@@ -84,25 +94,54 @@ export const Profile = (props: Props) => {
                         <div className={styles.title}>
                             Phone Number
                         </div>
-                        {user.phone_number}
+                        {user.phone_number || "+23480300300"}
                     </div>
             </div>
             <div className={styles.userContent}>
-                <div className={styles.activeUserContentChild}>
+                <div className={`${scene == "uploaded_beats"? styles.activeUserContentChild: styles.userContentChild}` } 
+                    id="uploaded_beats" 
+                    onClick={handleClick}
+                >
                         Uploaded Beats
-                        <hr className={styles.active} />
+                        <hr />
                 </div>
-                <div className={styles.userContentChild}>
+                <div className={`${scene == "songs_produced"? styles.activeUserContentChild: styles.userContentChild}` }
+                    id="songs_produced" 
+                    onClick={handleClick}
+                >
                         Songs Produced
-                        <hr className={styles.inactive} />
+                        <hr />
                 </div>
-                <div className={styles.userContentChild}>
+                <div className={`${scene == "reviews"? styles.activeUserContentChild: styles.userContentChild}`} 
+                    id="reviews" 
+                    onClick={handleClick}>
                         Reviews
-                        <hr className={styles.inactive} />
+                        <hr />
                 </div>
+                
             </div>
+            <SubScene id={user._id} scene={scene} />
         </div>
     )
+}
+
+function SubScene(props) {
+
+    const { scene, id} = props;
+
+    if (scene == "uploaded_beats") {
+        return (
+            <UploadedBeats id={id} />
+        )
+    } else if (scene == "songs_produced") {
+        return (
+            <div style={{margin: "20px"}}>Wow, Such empty!</div>
+        )
+    } else {
+        return (
+            <div style={{margin: "20px"}}>No Reviews! </div>
+        )
+    }
 }
 
 
