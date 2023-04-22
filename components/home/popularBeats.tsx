@@ -45,7 +45,13 @@ export function PopularBeatsHome(props) {
 		async function fetchBeats() {
 			setLoading(true);
 			try {
-				const response = await backend.get("/beats/?page=1&limit=3");
+				const response = await backend.get(
+					`/beats/trending?page=1&limit=3&genre=${
+						genresFilter === "All genres"
+							? genresFilter
+							: genresFilter.toLowerCase()
+					}&price=${priceFilter}`
+				);
 				setPopularBeats(response.data.beats);
 			} catch (err) {
 				console.log(err);
@@ -53,7 +59,7 @@ export function PopularBeatsHome(props) {
 			setLoading(false);
 		}
 		fetchBeats();
-	}, []);
+	}, [genresFilter, priceFilter]);
 
 	const handlePriceOpen = () => {
 		setPriceOpen(!priceOpen);
@@ -178,10 +184,13 @@ export function PopularBeatsHome(props) {
 			)}
 
 			{popularBeats.map((beat) => {
-				return <Beat beat={beat} key={beat._id} type='popular' />;
+				return <Beat beat={beat} key={beat._id} type="popular" />;
 			})}
 
-			<div className={styles.view_more_outer}>
+			<div
+				className={styles.view_more_outer}
+				onClick={() => props.setPosition("discover")}
+			>
 				<div className={styles.view_more_inner}>
 					<p>Discover More Beats</p>
 				</div>
@@ -228,7 +237,13 @@ export function PopularBeats(props) {
 		async function fetchBeats() {
 			setLoading(true);
 			try {
-				const response = await backend.get("/beats/popular/?page=1&limit=24");
+				const response = await backend.get(
+					`/beats/popular/?page=1&limit=24&genre=${
+						genresFilter === "All genres"
+							? genresFilter
+							: genresFilter.toLowerCase()
+					}&price=${priceFilter}`
+				);
 				setPopularBeats(response.data.beats);
 			} catch (err) {
 				console.log(err);
@@ -236,7 +251,7 @@ export function PopularBeats(props) {
 			setLoading(false);
 		}
 		fetchBeats();
-	}, []);
+	}, [genresFilter, priceFilter]);
 
 	const handlePriceOpen = () => {
 		setPriceOpen(!priceOpen);
@@ -361,7 +376,7 @@ export function PopularBeats(props) {
 			)}
 
 			{popularBeats.map((beat) => {
-				return <Beat beat={beat} key={beat._id} type='popular' />;
+				return <Beat beat={beat} key={beat._id} type="popular" />;
 			})}
 		</div>
 	);

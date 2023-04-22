@@ -13,8 +13,8 @@ import {
 	PopularBeatsHome,
 	PopularBeats,
 } from "../components/home/popularBeats";
-import { PopularProducersHome } from "../components/home/popularProducers";
-import { PopularEngineersHome } from "../components/home/popularEngineers";
+import { PopularProducersHome, PopularProducers } from "../components/home/popularProducers";
+import { PopularEngineersHome,PopularEngineers } from "../components/home/popularEngineers";
 
 export default function Home() {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -38,20 +38,20 @@ export default function Home() {
 
 			<NavBar loggedIn={loggedIn} />
 			{/* <Profile /> */}
-			<SubNav loggedIn={loggedIn} setPosition={setPosition} />
+			<SubNav loggedIn={loggedIn} setPosition={setPosition} position={position} />
 
 			{(() => {
 				switch (position) {
 					case "home":
 						return (
 							<div className={styles.content}>
-								<TrendingBeatsHome />
+								<TrendingBeatsHome setPosition={setPosition} />
 
-								<PopularBeatsHome />
+								<PopularBeatsHome setPosition={setPosition} />
 
-								<PopularProducersHome />
+								<PopularProducersHome setPosition={setPosition} />
 
-								<PopularEngineersHome />
+								<PopularEngineersHome setPosition={setPosition} />
 							</div>
 						);
 					case "trending":
@@ -67,9 +67,17 @@ export default function Home() {
 							</div>
 						);
 					case "producers":
-						return <div className={styles.content}><PopularProducersHome /></div>;
+						return (
+							<div className={styles.content}>
+								<PopularProducers />
+							</div>
+						);
 					case "engineers":
-						return <div className={styles.content}><PopularEngineersHome /></div>;
+						return (
+							<div className={styles.content}>
+								<PopularEngineers />
+							</div>
+						);
 				}
 			})()}
 		</div>

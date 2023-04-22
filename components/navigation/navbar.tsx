@@ -44,6 +44,10 @@ export function NavBar(props) {
 		setProfileOpen(!open);
 	};
 
+	const handleSettings = () => {
+		router.push('/settings');
+	}
+
 	const handleSignOut = () => {
 		dispatch(userSet("user", ""));
 		dispatch(userSet("token", ""));
@@ -91,7 +95,7 @@ export function NavBar(props) {
 						{profileOpen ? (
 							<div className={styles.profile_dropdown}>
 								<p onClick={() => router.push("/profile")}>Dashboard</p>
-								<p>Settings</p>
+								<p onClick={handleSettings}>Settings</p>
 								<p onClick={handleSignOut}>Sign Out</p>
 							</div>
 						) : (
