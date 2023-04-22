@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 export default function ProfilePage() {
 	const userState = useSelector((state: any) => state.user.user);
+
   return (
     <div className={styles.container}>
 			<Head>
