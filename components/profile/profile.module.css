@@ -62,6 +62,7 @@
   margin-right: 16px;
   color: gray;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .userContentChild hr {
@@ -72,6 +73,7 @@
   color: #00FFFF;
   margin-right: 16px;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .activeUserContentChild hr {
