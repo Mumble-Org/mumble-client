@@ -48,8 +48,8 @@ export function Artist(props) {
 		const response = await backend.post('/users/signup', body);
 
 		if (response.status === 201) {
-			dispatch(userSet("user", response.data.user.user));
-			dispatch(userSet("token", response.data.user.token));
+			dispatch(userSet("user", response.data.user));
+			dispatch(userSet("token", response.data.token));
 			router.push('/');
 		} else {
 			router.push('/signup');

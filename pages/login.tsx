@@ -32,8 +32,9 @@ export default function Login(props) {
 			response = await backend.post("/users/login", body);
 
 			if (response.status === 200) {
-				dispatch(userSet("user", response.data.user.user));
-				dispatch(userSet("token", response.data.user.token));
+				dispatch(userSet("user", response.data.user));
+				dispatch(userSet("token", response.data.token));
+				console.log(response.data);
 				router.push("/");
 			}
 		} catch (error) {

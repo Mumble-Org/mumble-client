@@ -58,8 +58,8 @@ export default function Booking() {
 		const response = await backend.post("/users/signup", body);
 
 		if (response.status === 201) {
-			dispatch(userSet("user", response.data.user.user));
-			dispatch(userSet("token", response.data.user.token));
+			dispatch(userSet("user", response.data.user));
+			dispatch(userSet("token", response.data.token));
 			if (body.type === "engineer") {
 				router.push("/");
 			} else {
