@@ -17,6 +17,7 @@ import { getCitySuggestions } from "../../utils/getCities";
 
 // redux
 import { set } from "../../redux/actions/signup";
+import { set as userSet } from "../../redux/actions/user";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -57,7 +58,8 @@ export default function Booking() {
 		const response = await backend.post("/users/signup", body);
 
 		if (response.status === 201) {
-			localStorage.setItem("token", response.data.token);
+			dispatch(userSet("user", response.data.user.user));
+			dispatch(userSet("token", response.data.user.token));
 			if (body.type === "engineer") {
 				router.push("/");
 			} else {

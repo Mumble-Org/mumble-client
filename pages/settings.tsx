@@ -9,9 +9,13 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { ThreeDots } from "react-loader-spinner";
+import { useDispatch } from "react-redux";
+import { set as userSet } from "../redux/actions/user";
 
 export default function Settings() {
+	const dispatch = useDispatch();
 	const userState = useSelector((state: any) => state.user);
+	console.log(userState);
 	const token = userState.token;
 	const [loggedIn, setLoggedIn] = useState(false);
 	const router = useRouter();
@@ -44,6 +48,8 @@ export default function Settings() {
 				})
 				.then((response) => {
 					setProfilePicture(response.data.imageUrl);
+					response.data.user.imageUrl = response.data.imageUrl;
+					dispatch(userSet("user", response.data.user));
 				});
 		} catch (e) {}
 	}, []);

@@ -14,7 +14,6 @@ export function NavBar(props) {
 	const user = userState.user;
 	const token = userState.token;
 	const [profileOpen, setProfileOpen] = useState(false);
-	const [profilePicture, setProfilePicture] = useState("");
 
 	const ClickOutside = (props) => {
 		const ref = useRef(null);
@@ -40,18 +39,6 @@ export function NavBar(props) {
 			</div>
 		);
 	};
-
-	useEffect(() => {
-		backend
-			.get("/users/profile", {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setProfilePicture(response.data.imageUrl);
-			});
-	}, []);
 
 	const handleProfileOpen = () => {
 		const open = profileOpen;
@@ -97,12 +84,12 @@ export function NavBar(props) {
 					<ClickOutside>
 						<div className={styles.profile_button} onClick={handleProfileOpen}>
 							<div className={styles.profile_image}>
-								{profilePicture && profilePicture != "" ? (
+								{user.imageUrl && user.imageUrl != "" ? (
 									<Image
 										width="56"
 										height="56"
 										alt="profile picture"
-										src={profilePicture}
+										src={user.imageUrl}
 									/>
 								) : (
 									<div className={styles.profile_letter_div}>

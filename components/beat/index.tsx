@@ -7,7 +7,6 @@ export function Beat(props) {
 		const formattedInput = Number(price).toLocaleString();
 		return formattedInput;
 	};
-	console.log(props.beat);
 
 	return (
 		<div className={styles.container}>

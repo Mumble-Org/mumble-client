@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { getCitySuggestions } from "../../utils/getCities";
 import { set } from "../../redux/actions/signup";
+import {set as userSet} from "../../redux/actions/user";
 import { useRouter } from "next/router";
 import { backend } from "../../utils/backend";
 
@@ -47,7 +48,8 @@ export function Artist(props) {
 		const response = await backend.post('/users/signup', body);
 
 		if (response.status === 201) {
-			localStorage.setItem('token', response.data.token);
+			dispatch(userSet("user", response.data.user.user));
+			dispatch(userSet("token", response.data.user.token));
 			router.push('/');
 		} else {
 			router.push('/signup');
