@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function Settings() {
 	const userState = useSelector((state: any) => state.user);
@@ -17,6 +18,7 @@ export default function Settings() {
 	const [transparent, setTransparent] = useState(false);
 	const [picture, setPicture] = useState({ preview: "", data: "" });
 	const [profilePicture, setProfilePicture] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	/**
 	 * Make sure user is logged in
@@ -63,6 +65,7 @@ export default function Settings() {
 	};
 
 	const handleSaveProfilePicture = async (e) => {
+		setLoading(true);
 		const formData = new FormData();
 		formData.append("image", picture.data);
 		try {
@@ -72,11 +75,12 @@ export default function Settings() {
 					"Content-Type": "multipart/form-data",
 				},
 			});
-
+			setLoading(false);
 			router.reload();
 		} catch (e) {
 			// router.push('/login');
 		}
+		setLoading(false);
 	};
 
 	return (
@@ -106,6 +110,19 @@ export default function Settings() {
 						alt="profile picture"
 						src={picture.preview != "" ? picture.preview : profilePicture}
 					/>
+
+					{loading ? (
+						<ThreeDots
+							color="#febfff"
+							wrapperStyle={{
+								alignSelf: "center",
+								position: 'absolute',
+								bottom: '24px'
+							}}
+						/>
+					) : (
+						""
+					)}
 
 					<div className={styles.save_container}>
 						<div

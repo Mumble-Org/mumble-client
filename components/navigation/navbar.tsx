@@ -5,6 +5,7 @@ import styles from "./navbar.module.css";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { set as userSet } from "../../redux/actions/user";
+import { backend } from "../../utils/backend";
 
 export function NavBar(props) {
 	const dispatch = useDispatch();
@@ -13,6 +14,7 @@ export function NavBar(props) {
 	const user = userState.user;
 	const token = userState.token;
 	const [profileOpen, setProfileOpen] = useState(false);
+	const [profilePicture, setProfilePicture] = useState("");
 
 	const ClickOutside = (props) => {
 		const ref = useRef(null);
@@ -39,14 +41,26 @@ export function NavBar(props) {
 		);
 	};
 
+	useEffect(() => {
+		backend
+			.get("/users/profile", {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setProfilePicture(response.data.imageUrl);
+			});
+	}, []);
+
 	const handleProfileOpen = () => {
 		const open = profileOpen;
 		setProfileOpen(!open);
 	};
 
 	const handleSettings = () => {
-		router.push('/settings');
-	}
+		router.push("/settings");
+	};
 
 	const handleSignOut = () => {
 		dispatch(userSet("user", ""));
@@ -58,7 +72,13 @@ export function NavBar(props) {
 	return (
 		<div className={styles.container}>
 			<Link href="/">
-				<Image width="56" height="56" alt="mumble logo" src="/Logo.svg" className={styles.logo} />
+				<Image
+					width="56"
+					height="56"
+					alt="mumble logo"
+					src="/Logo.svg"
+					className={styles.logo}
+				/>
 			</Link>
 
 			<div className={styles.search_container}>
@@ -76,8 +96,19 @@ export function NavBar(props) {
 				<div className={styles.profile_container}>
 					<ClickOutside>
 						<div className={styles.profile_button} onClick={handleProfileOpen}>
-							<div className={styles.profile_letter_div}>
-								{user.name.charAt(0).toUpperCase()}
+							<div className={styles.profile_image}>
+								{profilePicture && profilePicture != "" ? (
+									<Image
+										width="56"
+										height="56"
+										alt="profile picture"
+										src={profilePicture}
+									/>
+								) : (
+									<div className={styles.profile_letter_div}>
+										{user.name.charAt(0).toUpperCase()}
+									</div>
+								)}
 							</div>
 
 							<Image
