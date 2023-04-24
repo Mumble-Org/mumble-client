@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 
 export function Producer(props) {
 	const { user } = props;
-	console.log(user);
 
 	const [userRating, setUserRating] = useState([]);
 
@@ -18,12 +17,12 @@ export function Producer(props) {
 
 	return (
 		<div className={styles.container}>
-			{user.img ? (
+			{user.imageUrl && user.imageUrl != "" ? (
 				<Image
 					width="320"
 					height="320"
 					alt="profile image"
-					src={user.img}
+					src={user.imageUrl}
 					className={styles.profile_img}
 				/>
 			) : (

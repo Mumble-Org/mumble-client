@@ -7,6 +7,7 @@ export function Beat(props) {
 		const formattedInput = Number(price).toLocaleString();
 		return formattedInput;
 	};
+	console.log(props.beat);
 
 	return (
 		<div className={styles.container}>
@@ -44,14 +45,16 @@ export function Beat(props) {
 									);
 							}
 						})()}
-						<p className={styles[props.type]}>{(() => {
-							switch (props.type) {
-								case 'trending':
-									return 'Trending';
-								case 'popular':
-									return 'Popular';
-							}
-						})()}</p>
+						<p className={styles[props.type]}>
+							{(() => {
+								switch (props.type) {
+									case "trending":
+										return "Trending";
+									case "popular":
+										return "Popular";
+								}
+							})()}
+						</p>
 					</div>
 				</div>
 
@@ -60,7 +63,16 @@ export function Beat(props) {
 						""
 					) : (
 						<div className={styles.producer_icon}>
-							{props.beat.producer.name.charAt(0).toUpperCase()}
+							{props.beat.producer.imageUrl != "" ? (
+								<Image
+									width="40"
+									height="40"
+									alt="producer profile picture"
+									src={props.beat.producer.imageUrl}
+								/>
+							) : (
+								props.beat.producer.name.charAt(0).toUpperCase()
+							)}
 						</div>
 					)}
 					<h2>

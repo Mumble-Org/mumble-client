@@ -23,7 +23,6 @@ export default function Name() {
 				);
 
 				const exists = response.data.value;
-				console.log(exists);
 				if (exists) {
 					setError(true);
 					setValid(false);
