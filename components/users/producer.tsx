@@ -1,8 +1,10 @@
 import styles from "./producer.module.css";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
 export function Producer(props) {
+	const router = useRouter();
 	const { user } = props;
 	console.log(user);
 
@@ -66,7 +68,11 @@ export function Producer(props) {
 				</div>
 			</div>
 
-			<div className={styles.view_profile}>
+			<div className={styles.view_profile} onClick={() => {
+				const username = user.name.toString().replace(" ", "_");
+				router.push({pathname: `/profile/[username]`, query: {username: `${username}`}});
+				}
+				}>
 				<p>View Profile</p>
 			</div>
 		</div>
