@@ -93,7 +93,7 @@ export function NavBar(props) {
 									/>
 								) : (
 									<div className={styles.profile_letter_div}>
-										{user.name?.charAt(0).toUpperCase()}
+										{user.name.charAt(0).toUpperCase()}
 									</div>
 								)}
 							</div>

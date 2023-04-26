@@ -9,7 +9,9 @@ import { useSelector } from "react-redux";
 import { Loading } from "../components/loading";
 
 export default function ProfilePage() {
-	// const userState = useSelector((state: any) => state.user.user);
+	const [loggedIn, setLoggedIn] = useState(false);
+	const userState = useSelector((state: any) => state.user);
+	const token = userState.token;
 	const [loading, setLoading] = useState(true);
 	const [user, setUser] = useState({});
 	const router = useRouter();
@@ -37,13 +39,19 @@ export default function ProfilePage() {
 		}
 	}, [router.isReady, username]);
 
+	useEffect(() => {
+		if (token != "" && token != undefined) {
+			setLoggedIn(true);
+		}
+	}, []);
+
 	return (
 		<div className={styles.container}>
 			{loading ? (
 				<Loading />
 			) : (
 				<div>
-					<NavBar loggedIn={true} />
+					<NavBar loggedIn={loggedIn} />
 					<Profile user={user} />
 				</div>
 			)}
