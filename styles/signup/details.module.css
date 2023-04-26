@@ -326,6 +326,15 @@
 	padding: 16px 0;
 	gap: 16px;
 	width: 50%;
+	position: relative;
+}
+
+.exit_button {
+	position: absolute;
+	top: 20px;
+	right: 43%;
+	width: 12px;
+	height: 12px;
 }
 
 .upload_beat_details {
@@ -355,6 +364,13 @@
 
 .upload_beat_color {
 	color: #00ffff;
+}
+
+.upload_beat_color2 {
+	background: linear-gradient(91.8deg, #febfff 0%, #00ffff 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
 }
 
 .uploaded_beat {

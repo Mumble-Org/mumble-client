@@ -23,10 +23,9 @@ export default function Upload() {
 	const [price, setPrice] = useState(Number("30000").toLocaleString());
 	const [license, setLicense] = useState("");
 	const [name, setName] = useState("");
-	const [beat, setBeat] = useState("");
-	const [data, setData] = useState("");
+	const [beat, setBeat] = useState<any>("");
+	const [data, setData] = useState<any>("");
 	const [art, setArt] = useState("/logo.svg");
-	console.log(beat, data);
 
 	// file types
 	const audioTypes = [
@@ -70,6 +69,14 @@ export default function Upload() {
 	const deleteBeat = () => {
 		setBeat("");
 		setData("");
+	};
+
+	const removeBeat = () => {
+		setBeat({});
+	};
+
+	const removeData = () => {
+		setData({});
 	};
 
 	const beatDropHandler = (e) => {
@@ -193,12 +200,34 @@ export default function Upload() {
 							accept={audioTypes.join(",")}
 						></input>
 
-						<Image src="/upload_audio.svg" alt="upload beat" width="40" height="40" />
+						<Image
+							src="/upload_audio.svg"
+							alt="upload beat"
+							width="40"
+							height="40"
+						/>
+						{beat ? (
+							<Image
+								src="/exit.svg"
+								alt="remove beat"
+								width="16"
+								height="16"
+								className={styles.exit_button}
+								onClick={removeBeat}
+							/>
+						) : (
+							""
+						)}
 
 						{beat ? (
-							""
+							<div className={styles.upload_beat_details}>
+								<div className={styles.upload_beat_text_div}>
+									<p>{beat.name}</p>
+								</div>
+								<p className={styles.upload_beat_color2}>Upload Another File</p>
+							</div>
 						) : (
-							<div className={styles.upload_beat_details} >
+							<div className={styles.upload_beat_details}>
 								<div className={styles.upload_beat_text_div}>
 									<p>Drag and drop or </p>
 									<p className={styles.upload_beat_color}>Choose File </p>
@@ -221,12 +250,34 @@ export default function Upload() {
 							accept={dataTypes.join(",")}
 						></input>
 
-						<Image src="/upload_file.svg" alt="upload beat" width="40" height="40" />
+						<Image
+							src="/upload_file.svg"
+							alt="upload beat"
+							width="40"
+							height="40"
+						/>
+						{data ? (
+							<Image
+								src="/exit.svg"
+								alt="remove beat"
+								width="16"
+								height="16"
+								className={styles.exit_button}
+								onClick={removeData}
+							/>
+						) : (
+							""
+						)}
 
 						{data ? (
-							""
+							<div className={styles.upload_beat_details}>
+								<div className={styles.upload_beat_text_div}>
+									<p>{data.name}</p>
+								</div>
+								<p className={styles.upload_beat_color2}>Upload Another file</p>
+							</div>
 						) : (
-							<div className={styles.upload_beat_details} >
+							<div className={styles.upload_beat_details}>
 								<div className={styles.upload_beat_text_div}>
 									<p>Drag and drop or </p>
 									<p className={styles.upload_beat_color}>Choose File </p>
