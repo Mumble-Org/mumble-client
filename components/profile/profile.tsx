@@ -5,6 +5,7 @@ import UploadedBeats from "./uploadedBeats";
 
 export const Profile = (props) => {
 	const { user } = props;
+	console.log(user);
 	const [userRating, setUserRating] = useState([]);
 	const [scene, setScene] = useState("uploaded_beats");
 
@@ -20,15 +21,20 @@ export const Profile = (props) => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.profileImage}>
-				<center>
-					<Image
-						src="/Profile image.svg"
-						alt={user.name}
-						width="264"
-						height="264"
-					/>
-				</center>
-				{/* <img src={user.image} alt={user.name}></img> */}
+				{!user.imageUrl ? (
+					<div className={styles.profileImage_name}>
+						{user.name.charAt(0).toUpperCase()}
+					</div>
+				) : (
+					<center>
+						<Image
+							src={user.imageUrl}
+							alt={user.name}
+							width="264"
+							height="264"
+						/>
+					</center>
+				)}
 			</div>
 
 			<div className={styles.producerDetails}>
