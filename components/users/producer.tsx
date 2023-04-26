@@ -69,7 +69,7 @@ export function Producer(props) {
 
 			<div className={styles.view_profile} onClick={() => {
 				const username = user.name.toString().replace(" ", "_");
-				router.push({pathname: `/profile/[username]`, query: {username: `${username}`}});
+				router.push({pathname: `/[username]`, query: {username: `${username}`}});
 				}
 				}>
 				<p>View Profile</p>
@@ -90,57 +90,3 @@ const genRating = (rating: number) => {
 
 	return ratings;
 };
-
-{
-	/* <div className={styles.container}>
-			<Image
-				width="320"
-				height="320"
-				alt="profile image"
-				src="/test_image.svg"
-				className={styles.profile_img}
-			/>
-
-			<h3 className={styles.title}>Beat God</h3>
-
-			<div className={styles.rating}>
-				{[1, 2, 3, 4, 5].map((star) => (
-					<Image
-						width="17"
-						height="17"
-						alt="rating"
-						src="/star.svg"
-						key={star}
-					/>
-				))}
-			</div>
-
-			<div className={styles.subheading}>
-				<div className={styles.subtitle}>
-					<Image width='20' height='20' alt='beats' src='/beats.svg' />
-					<p>Beats sold</p>
-				</div>
-				<div><p>200</p></div>
-			</div>
-
-			<div className={styles.subheading}>
-				<div className={styles.subtitle}>
-					<Image width='20' height='20' alt='beats' src='/upload.svg' />
-					<p>Beats uploaded</p>
-				</div>
-				<div><p>2,000</p></div>
-			</div>
-
-			<div className={styles.subheading}>
-				<div className={styles.subtitle}>
-					<Image width='20' height='20' alt='beats' src='/location.svg' />
-					<p>Location</p>
-				</div>
-				<div><p>Mushin</p></div>
-			</div>
-
-			<div className={styles.view_profile}>
-				<p>View Profile</p>
-			</div>
-		</div> */
-}

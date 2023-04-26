@@ -35,13 +35,13 @@ export const Profile = (props) => {
 			<div className={styles.producerDetails}>
 				<div className={styles.userName}>
 					<center>
-						{user.name.charAt(0).toUpperCase() + user.name.slice(1)}
+						{user.name?.charAt(0).toUpperCase() + user.name?.slice(1)}
 					</center>
 				</div>
 
 				<div className={styles.type}>
 					<center>
-						{user.type.charAt(0).toUpperCase() + user.type.slice(1)}
+						{user.type?.charAt(0).toUpperCase() + user.type?.slice(1)}
 					</center>
 				</div>
 
