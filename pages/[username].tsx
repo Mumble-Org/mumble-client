@@ -25,7 +25,7 @@ export default function ProfilePage() {
 				});
 				setUser(response.data);
 			} catch (err) {
-				console.log('link error', err);
+				console.log(err);
 			}
 			setLoading(false);
 		}
