@@ -5,7 +5,6 @@ import UploadedBeats from "./uploadedBeats";
 
 export const Profile = (props) => {
 	const { user } = props;
-	console.log(user);
 	const [userRating, setUserRating] = useState([]);
 	const [scene, setScene] = useState("uploaded_beats");
 
@@ -23,7 +22,7 @@ export const Profile = (props) => {
 			<div className={styles.profileImage}>
 				{!user.imageUrl ? (
 					<div className={styles.profileImage_name}>
-						{user.name.charAt(0).toUpperCase()}
+						{user.name?.charAt(0).toUpperCase()}
 					</div>
 				) : (
 					<center>

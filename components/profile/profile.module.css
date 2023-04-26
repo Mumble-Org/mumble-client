@@ -152,6 +152,21 @@
 		gap: 16px;
 	}
 
+	.profileImage {
+		width: 200px;
+		height: 200px;
+		border-radius: 200px;
+	}
+
+	.profileImage img {
+		width: 200px;
+		height: 200px;
+	}
+	
+	.profileImage_name {
+		font-size: 94px;
+	}
+
 	.producerDetails {
 		gap: 12px;
 	}
