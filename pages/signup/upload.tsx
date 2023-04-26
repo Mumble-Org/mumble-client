@@ -1,6 +1,9 @@
 import styles from "../../styles/signup/details.module.css";
 import genreStyles from "../../components/signup/details.module.css";
-import { ActiveCarousel, InactiveCarousel } from "../../components/carousels/carousels";
+import {
+	ActiveCarousel,
+	InactiveCarousel,
+} from "../../components/carousels/carousels";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { genres, GenreSingle } from "../../components/genres";
@@ -20,16 +23,20 @@ export default function Upload() {
 	const [price, setPrice] = useState(Number("30000").toLocaleString());
 	const [license, setLicense] = useState("");
 	const [name, setName] = useState("");
-	const [beat, setBeat] = useState('');
+	const [beat, setBeat] = useState("");
+	const [data, setData] = useState("");
 	const [art, setArt] = useState("/logo.svg");
+	console.log(beat, data);
 
 	// file types
-	const types = [
+	const audioTypes = [
 		"application/mp3",
 		"application/flac",
 		"application/wav",
 		"audio/mpeg",
 	];
+
+	const dataTypes = ["application/vnd.rar", "application/zip", ""];
 
 	const handleBeatname = (e) => {
 		const input = e.target.value;
@@ -52,49 +59,78 @@ export default function Upload() {
 		e.preventDefault();
 		const beat = e.target.files[0];
 		setBeat(beat);
-  };
-  
-  const deleteBeat = () => {
-    setBeat('');
-  }
+	};
 
-	const dropHandler = (e) => {
-    e.preventDefault();
-    let file;
-    let beat;
+	const dataHandler = (e) => {
+		e.preventDefault();
+		const data = e.target.files[0];
+		setData(data);
+	};
 
-    if (e.dataTransfer.items) {
-      file = e.dataTransfer.items[0];
+	const deleteBeat = () => {
+		setBeat("");
+		setData("");
+	};
 
-      if (types.includes(file.type)) {
-        beat = file.getAsFile();
-      }
-    } else {
-      file = e.dataTransfer.files[0]
+	const beatDropHandler = (e) => {
+		e.preventDefault();
+		let file;
+		let beat;
 
-      if (types.includes(file.type)) {
-        beat = file;
-      }
-    }
+		if (e.dataTransfer.items) {
+			file = e.dataTransfer.items[0];
 
-    setBeat(beat);
+			if (audioTypes.includes(file.type)) {
+				beat = file.getAsFile();
+			}
+		} else {
+			file = e.dataTransfer.files[0];
+
+			if (audioTypes.includes(file.type)) {
+				beat = file;
+			}
+		}
+
+		setBeat(beat);
+	};
+
+	const dataDropHandler = (e) => {
+		e.preventDefault();
+		let file;
+		let data;
+
+		if (e.dataTransfer.items) {
+			file = e.dataTransfer.items[0];
+
+			if (dataTypes.includes(file.type)) {
+				data = file.getAsFile();
+			}
+		} else {
+			file = e.dataTransfer.files[0];
+
+			if (dataTypes.includes(file.type)) {
+				data = file;
+			}
+		}
+
+		setData(data);
 	};
 
 	const dragOverHandler = (e) => {
 		e.preventDefault();
 	};
 
-  const handleArt = (e) => {
-    e.preventDefault();
-    const image = e.target.files[0];
-    try {
-      setArt(URL.createObjectURL(image));
-    } catch (e) { };
-  };
-  
-  const uploadBeat = () => {
+	const handleArt = (e) => {
+		e.preventDefault();
+		const image = e.target.files[0];
+		try {
+			setArt(URL.createObjectURL(image));
+		} catch (e) {}
+	};
+
+	const uploadBeat = () => {
 		router.push("/");
-  }
+	};
 
 	return (
 		<div className={styles.container}>
@@ -112,7 +148,7 @@ export default function Upload() {
 				Upload your first beat and start selling!
 			</h2>
 
-			{beat ? (
+			{beat && data ? (
 				<div className={styles.uploaded_beat}>
 					<div className={styles.uploaded_beat_main}>
 						<Image
@@ -123,15 +159,15 @@ export default function Upload() {
 							className={styles.uploaded_beat_image}
 						/>
 
-            <div className={styles.uploaded_beat_submain}>
-              {/* @ts-ignore */}
+						<div className={styles.uploaded_beat_submain}>
+							{/* @ts-ignore */}
 							<p>{beat.name}</p>
 							<label className={styles.add_artwork} onChange={handleArt}>
 								<input
 									name="art"
 									type="file"
 									accept="image/*"
-                  onChange={handleArt}
+									onChange={handleArt}
 								></input>
 								<Image src="/add.svg" alt="add link" width="14" height="14" />
 								<p>Add Artwork</p>
@@ -144,25 +180,63 @@ export default function Upload() {
 					</div>
 				</div>
 			) : (
-				<label
-					className={styles.upload_beat}
-					onDrop={dropHandler}
-					onDragOver={dragOverHandler}
-				>
-					<input
-						name="beat"
-						type="file"
-						onChange={beatHandler}
-						accept={types.join(",")}
-					></input>
-					<Image src="/upload.svg" alt="upload beat" width="37" height="36" />
-					<div className={styles.upload_beat_text_div}>
-						<p>Drag and drop or </p>
-						<p className={styles.upload_beat_color}>Choose File </p>
-						<p>to upload</p>
-					</div>
-					<p>File types allowed: mp3, FLAC & wav</p>
-				</label>
+				<div className={styles.uploads_container}>
+					<label
+						className={styles.upload_beat}
+						onDrop={beatDropHandler}
+						onDragOver={dragOverHandler}
+					>
+						<input
+							name="beat"
+							type="file"
+							onChange={beatHandler}
+							accept={audioTypes.join(",")}
+						></input>
+
+						<Image src="/upload_audio.svg" alt="upload beat" width="40" height="40" />
+
+						{beat ? (
+							""
+						) : (
+							<div className={styles.upload_beat_details} >
+								<div className={styles.upload_beat_text_div}>
+									<p>Drag and drop or </p>
+									<p className={styles.upload_beat_color}>Choose File </p>
+									<p>to upload audio file</p>
+								</div>
+								<p>File types allowed: mp3, FLAC & wav</p>
+							</div>
+						)}
+					</label>
+
+					<label
+						className={styles.upload_beat}
+						onDrop={dataDropHandler}
+						onDragOver={dragOverHandler}
+					>
+						<input
+							name="beat"
+							type="file"
+							onChange={dataHandler}
+							accept={dataTypes.join(",")}
+						></input>
+
+						<Image src="/upload_file.svg" alt="upload beat" width="40" height="40" />
+
+						{data ? (
+							""
+						) : (
+							<div className={styles.upload_beat_details} >
+								<div className={styles.upload_beat_text_div}>
+									<p>Drag and drop or </p>
+									<p className={styles.upload_beat_color}>Choose File </p>
+									<p>to upload the stems of your beat</p>
+								</div>
+								<p>File types allowed: rar & zip</p>
+							</div>
+						)}
+					</label>
+				</div>
 			)}
 
 			<div className={genreStyles.genres}>
@@ -187,6 +261,7 @@ export default function Upload() {
 							className={styles.info_input}
 							name="input"
 							placeholder="Enter beat name"
+							onChange={handleBeatname}
 						></input>
 					</div>
 				</div>
