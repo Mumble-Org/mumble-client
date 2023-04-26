@@ -11,6 +11,5 @@ export const homeReducer = createReducer(initialState, (builder) => {
 		.addCase("home_position", (state, action) => {
 			// @ts-ignore
 			state.position = action.payload;
-			console.log("here");
 		})
 })

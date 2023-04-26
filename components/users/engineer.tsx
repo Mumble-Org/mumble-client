@@ -13,7 +13,7 @@ export function Engineer(props) {
 
 	return (
 		<div className={styles.container}>
-			{user.img ? (
+			{user.imageUrl && user.imageUrl != "" ? (
 				<Image
 					width="320"
 					height="320"
