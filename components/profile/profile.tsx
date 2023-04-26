@@ -5,7 +5,6 @@ import UploadedBeats from "./uploadedBeats";
 
 export const Profile = (props) => {
 	const { user } = props;
-	console.log(user);
 	const [userRating, setUserRating] = useState([]);
 	const [scene, setScene] = useState("uploaded_beats");
 
@@ -83,7 +82,7 @@ export const Profile = (props) => {
 					<div className={styles.infoChild}>
 						<Image src="/phone.svg" alt="phone number" width="20" height="20" />
 						<div className={styles.title}>Phone Number</div>
-						{user.phone_number || "+23480300300"}
+						{user.phone_number || "-"}
 					</div>
 				</div>
 			</div>

@@ -23,7 +23,7 @@ export default function ProfilePage() {
 				const response = await backend.post(`/users/`, {
 					name: `${username.toString().replace("_", " ")}`,
 				});
-				setUser(response.data.user);
+				setUser(response.data);
 			} catch (err) {
 				console.log('link error', err);
 			}
@@ -35,7 +35,7 @@ export default function ProfilePage() {
 		} else {
 			setLoading(true);
 		}
-	}, [router.isReady]);
+	}, [router.isReady, username]);
 
 	return (
 		<div className={styles.container}>
