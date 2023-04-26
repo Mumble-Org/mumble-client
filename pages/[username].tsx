@@ -10,7 +10,7 @@ import { Loading } from "../components/loading";
 
 export default function ProfilePage() {
 	// const userState = useSelector((state: any) => state.user.user);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [user, setUser] = useState({});
 	const router = useRouter();
 	const { username } = router.query;
@@ -25,12 +25,17 @@ export default function ProfilePage() {
 				});
 				setUser(response.data.user);
 			} catch (err) {
-				console.log(err);
+				console.log('link error', err);
 			}
 			setLoading(false);
 		}
-		fetchUser();
-	}, []);
+
+		if (router.isReady) {
+			fetchUser();
+		} else {
+			setLoading(true);
+		}
+	}, [router.isReady]);
 
 	return (
 		<div className={styles.container}>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import Image from "next/image";
 import styles from "./profile.module.css";
 import UploadedBeats from "./uploadedBeats";
 
 export const Profile = (props) => {
 	const { user } = props;
+	console.log(user);
 	const [userRating, setUserRating] = useState([]);
 	const [scene, setScene] = useState("uploaded_beats");
 
