@@ -169,7 +169,6 @@ export default function Upload() {
 
 	const uploadBeat = async () => {
 		setLoading(true);
-		console.log(1);
 
 		if (beat && data && name && license && price) {
 			try {
@@ -180,7 +179,7 @@ export default function Upload() {
 				formData.append("title", name);
 				formData.append("genre", genrename.toLowerCase());
 				formData.append("license", license);
-				formData.append("price", price);
+				formData.append("price", price.replace(",", ""));
 
 				const response = await backend.post("/beats", formData, {
 					headers: {
