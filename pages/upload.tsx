@@ -1,22 +1,23 @@
-import styles from "../../styles/signup/details.module.css";
-import genreStyles from "../../components/signup/details.module.css";
-import {
-	ActiveCarousel,
-	InactiveCarousel,
-} from "../../components/carousels/carousels";
+import styles from "../styles/upload.module.css";
+import genreStyles from "../components/signup/details.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { genres, GenreSingle } from "../../components/genres";
+import { genres, GenreSingle } from "../components/genres";
+import { backend } from "../utils/backend";
 
 // redux
-import { set } from "../../redux/actions/signup";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-import { Back } from "../../components/buttons/back";
-import { ActiveFinish } from "../../components/buttons/continue";
+import { Back } from "../components/buttons/back";
+import { ActiveFinish } from "../components/buttons/continue";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function Upload() {
+	const [loggedIn, setLoggedIn] = useState(false);
+	const userState = useSelector((state: any) => state.user);
+	const token = userState.token;
 	const dispatch = useDispatch();
 	const router = useRouter();
 	const [genrename, setGenre] = useState("Afrobeats");
@@ -26,6 +27,29 @@ export default function Upload() {
 	const [beat, setBeat] = useState<any>("");
 	const [data, setData] = useState<any>("");
 	const [art, setArt] = useState<any>("/logo.svg");
+	const [loading, setLoading] = useState(false);
+	const [success, setSuccess] = useState(false);
+	const [error, setError] = useState(false);
+
+	useEffect(() => {
+		if (token != "" && token != undefined) {
+			setLoggedIn(true);
+		} else {
+			router.push("/login");
+		}
+	}, []);
+
+	useEffect(() => {
+		// sleep for 3 seconds
+		sleep();
+		setSuccess(false);
+	}, [success]);
+
+	useEffect(() => {
+		// sleep for 3 seconds
+		sleep();
+		setError(false);
+	}, [error]);
 
 	// file types
 	const audioTypes = [
@@ -40,6 +64,13 @@ export default function Upload() {
 	const handleBeatname = (e) => {
 		const input = e.target.value;
 		setName(input);
+	};
+
+	const sleep = () => {
+		let end = new Date().getTime() + 3000;
+		while (new Date().getTime() < end) {}
+
+		return;
 	};
 
 	const handlePrice = (e) => {
@@ -132,35 +163,70 @@ export default function Upload() {
 		e.preventDefault();
 		const image = e.target.files[0];
 		try {
-			setArt(URL.createObjectURL(image));
+			setArt(image);
 		} catch (e) {}
 	};
 
-	const uploadBeat = () => {
-		router.push("/");
+	const uploadBeat = async () => {
+		setLoading(true);
+		console.log(1);
+
+		if (beat && data && name && license && price) {
+			try {
+				const formData = new FormData();
+				formData.append("audio", beat);
+				formData.append("image", art);
+				formData.append("data", data);
+				formData.append("title", name);
+				formData.append("genre", genrename.toLowerCase());
+				formData.append("license", license);
+				formData.append("price", price);
+
+				const response = await backend.post("/beats", formData, {
+					headers: {
+						Authorization: `Bearer ${token}`,
+						"Content-Type": "multipart/form-data",
+					},
+				});
+
+				if (response.status === 201) {
+					// show success message
+					setSuccess(true);
+					router.push("/dashboard");
+				} else {
+					setError(true);
+				}
+			} catch (e) {
+				setError(true);
+			}
+		}
+
+		setLoading(false);
 	};
 
 	return (
 		<div className={styles.container}>
-			<h1 className={styles.header}>Upload your first beat</h1>
+			{success ? (
+				<div className={styles.success}>Beat uploaded successfully</div>
+			) : (
+				""
+			)}
 
-			<div className={styles.carousel}>
-				<InactiveCarousel />
-				<InactiveCarousel />
-				<InactiveCarousel />
-				<InactiveCarousel />
-				<ActiveCarousel />
-			</div>
+			{error ? (
+				<div className={styles.error}>Problem uploading beat! Please try again</div>
+			) : (
+				""
+			)}
 
-			<h2 className={styles.portfolio_subheader}>
-				Upload your first beat and start selling!
-			</h2>
+			<h1 className={styles.header}>Upload a beat</h1>
+
+			<h2 className={styles.subheader}>Upload a beat and start selling!</h2>
 
 			{beat && data ? (
 				<div className={styles.uploaded_beat}>
 					<div className={styles.uploaded_beat_main}>
 						<Image
-							src={typeof art === 'string' ? art : URL.createObjectURL(art)}
+							src={typeof art === "string" ? art : URL.createObjectURL(art)}
 							alt="artwork"
 							width="80"
 							height="80"
@@ -351,8 +417,14 @@ export default function Upload() {
 				</div>
 			</div>
 
+			{loading ? (
+				<ThreeDots color="#febfff" wrapperStyle={{ alignSelf: "center" }} />
+			) : (
+				""
+			)}
+
 			<div className={styles.next_page}>
-				<Back href="/signup/booking" />
+				<Back href="/dashboard" />
 				<ActiveFinish onClick={uploadBeat} />
 			</div>
 		</div>

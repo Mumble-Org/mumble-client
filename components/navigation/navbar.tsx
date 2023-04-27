@@ -45,6 +45,10 @@ export function NavBar(props) {
 		setProfileOpen(!open);
 	};
 
+	const handleDashboard = () => {
+		router.push("/dashboard");
+	};
+
 	const handleSettings = () => {
 		router.push("/settings");
 	};
@@ -112,7 +116,7 @@ export function NavBar(props) {
 
 						{profileOpen ? (
 							<div className={styles.profile_dropdown}>
-								<p onClick={() => router.push("/profile")}>Dashboard</p>
+								<p onClick={handleDashboard}>Dashboard</p>
 								<p onClick={handleSettings}>Settings</p>
 								<p onClick={handleSignOut}>Sign Out</p>
 							</div>
