@@ -63,6 +63,10 @@
 	align-items: center;
 }
 
+.producer:hover {
+	cursor: pointer;
+}
+
 .producer_icon {
 	display: flex;
 	justify-content: center;

@@ -1,12 +1,19 @@
 import styles from "./beat.module.css";
 import Image from "next/image";
 import { Player } from "../player";
+import { useRouter } from "next/router";
 
 export function Beat(props) {
+	const router = useRouter();
+
 	const setPrice = (price) => {
 		const formattedInput = Number(price).toLocaleString();
 		return formattedInput;
 	};
+
+	const openProducerProfile = () => {
+		router.push(`/${props.beat.producer.name.replace(" ", "_")}`);
+	}
 
 	return (
 		<div className={styles.container}>
@@ -57,7 +64,7 @@ export function Beat(props) {
 					</div>
 				</div>
 
-				<div className={styles.producer}>
+				<div className={styles.producer} onClick={openProducerProfile} >
 					{props.beat.producer?.image != undefined ? (
 						""
 					) : (
