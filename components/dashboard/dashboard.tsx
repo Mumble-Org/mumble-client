@@ -3,6 +3,8 @@ import Image from "next/image";
 import styles from "./dashboard.module.css";
 import UploadedBeats from "../profile/uploadedBeats";
 import { useRouter } from "next/router";
+import { SongsProduced } from "../profile/songsProduced";
+import { Reviews } from "../profile/reviews";
 
 export const Dashboard = (props) => {
 	const { user } = props;
@@ -159,20 +161,20 @@ export const Dashboard = (props) => {
 					<hr />
 				</div>
 			</div>
-			<SubScene id={user._id} scene={scene} />
+			<SubScene id={user._id} scene={scene} user={user} />
 		</div>
 	);
 };
 
 function SubScene(props) {
-	const { scene, id } = props;
+	const { scene, id, user} = props;
 
 	if (scene == "uploaded_beats") {
 		return <UploadedBeats id={id} />;
 	} else if (scene == "songs_produced") {
-		return <div style={{ margin: "20px" }}>Wow, Such empty!</div>;
+		return <div style={{ margin: "20px" }}><SongsProduced user={user} /></div>;
 	} else {
-		return <div style={{ margin: "20px" }}>No Reviews! </div>;
+		return <div style={{ margin: "20px" }}><Reviews user={user}/></div>;
 	}
 }
 
