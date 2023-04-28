@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./profile.module.css";
 import UploadedBeats from "./uploadedBeats";
+import { SongsProduced } from "./songsProduced";
+import { Reviews } from "./reviews";
 
 export const Profile = (props) => {
 	const { user } = props;
@@ -130,20 +132,20 @@ export const Profile = (props) => {
 					<hr />
 				</div>
 			</div>
-			<SubScene id={user._id} scene={scene} />
+			<SubScene id={user._id} scene={scene} user={user} />
 		</div>
 	);
 };
 
 function SubScene(props) {
-	const { scene, id } = props;
+	const { scene, id, user } = props;
 
 	if (scene == "uploaded_beats") {
 		return <UploadedBeats id={id} />;
 	} else if (scene == "songs_produced") {
-		return <div style={{ margin: "20px" }}>Wow, Such empty!</div>;
+		return <div style={{ margin: "20px" }}><SongsProduced user={user} /></div>;
 	} else {
-		return <div style={{ margin: "20px" }}>No Reviews! </div>;
+		return <div style={{ margin: "20px" }}><Reviews user={user}/></div>;
 	}
 }
 
