@@ -198,5 +198,7 @@ export default function Settings() {
 		);
 	} catch (e) {
 		router.push("/login");
+
+		return (<></>);
 	}
 }
