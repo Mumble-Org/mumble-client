@@ -4,7 +4,8 @@
 	flex-direction: column;
 	background-color: $black;
 
-	button, label {
+	button,
+	label {
 		text-transform: none;
 		border-radius: 8px;
 		font-size: 16px;
@@ -40,7 +41,6 @@
 		top: 32px;
 		background: $black;
 		max-width: 1000px;
-		// max-height: 568px;
 		z-index: 2;
 		align-self: center;
 		padding: 24px;
@@ -123,6 +123,23 @@
 						max-height: 36px;
 					}
 				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1400px) {
+	.container {
+		.change_profile_picture {
+			max-width: 872px;
+
+			h4 {
+				font-size: 16px;
+			}
+
+			.profile_picture {
+				width: 336px;
+				height: 336px;
 			}
 		}
 	}

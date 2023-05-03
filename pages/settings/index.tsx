@@ -1,7 +1,7 @@
-import styles from "../styles/settings.module.scss";
-import { NavBar } from "../components/navigation/navbar";
-import { BackToHome } from "../components/buttons/buttons";
-import { backend } from "../utils/backend";
+import styles from "../../styles/settings.module.scss";
+import { NavBar } from "../../components/navigation/navbar";
+import { BackToHome } from "../../components/buttons/buttons";
+import { backend } from "../../utils/backend";
 
 import Image from "next/image";
 
@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { ThreeDots } from "react-loader-spinner";
 import { useDispatch } from "react-redux";
-import { set as userSet } from "../redux/actions/user";
+import { set as userSet } from "../../redux/actions/user";
 
 // material ui
 import {
