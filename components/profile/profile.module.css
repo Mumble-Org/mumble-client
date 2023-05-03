@@ -146,6 +146,175 @@
 	display: none;
 }
 
+.songs {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+}
+.song {
+	display: flex;
+	gap: 16px;
+	justify-content: space-between;
+}
+
+.songLeft {
+	display: flex;
+	flex-direction: row;
+	gap: 16px;
+}
+
+.songInfo {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 24px;
+}
+
+.songTitle {
+	font-weight: 700;
+	font-size: 40px;
+	color: #FFFFFF;
+}
+
+.songProducer {
+	font-weight: 500;
+	font-size: 20px;
+	color: #F2F2F2;
+}
+
+.linkButton {
+	background: linear-gradient(91.8deg, #FEBFFF 0%, #00FFFF 100%);
+	border-radius: 8px;
+	height: 40px;
+	width: 120px;
+	color: #000000;
+	padding: 8px 16px;
+	font-size: 16px;
+	font-weight: 700;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border: none;
+}
+
+.reviews {
+	display: flex;
+	flex-direction: column;
+	gap: 40;
+}
+
+.reviewTop {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.reviewT {
+	font-weight: 700;
+	font-size: 24px;
+}
+
+.reviewInput {
+	height: 128px;
+	width: 100%;
+	border-radius: 8px;
+	background-color: #666666;
+	color: #d2caca;
+	text-align: start;
+	padding: 8px 16px;
+
+}
+
+.rates {
+	display: flex;
+	flex-direction: row;
+	gap: 12px;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.reviewButton {
+	width: 125px;
+	height: 40px;
+	background: #B2B2B2;
+	border: none;
+	border-radius: 8px;
+	align-self:flex-end;
+}
+
+.UsersReview {
+	display: flex;
+	flex-direction: column;
+	gap: 80px;
+}
+
+.review {
+	background: #5B247A;
+	padding: 16px;
+	border-radius: 8px;
+	gap: 20px;
+}
+
+.reviewItems {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.reviewLeft {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+}
+
+.songProducer {
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 24px;
+}
+
+
+.reviewerRating {
+	display: flex;
+	flex-direction: row;
+	height: 18px;
+	width:17px;
+}
+
+.star {
+	height: 40px;
+	width: 27px;
+	font-size: 40px;
+}
+
+.reviewText {
+	font-weight: 400;
+	font-size: 16px;
+	color: #FFFFFF;
+}
+
+.reply {
+	text-align: right;
+	color: linear-gradient(91.8deg, #FEBFFF 0%, #00FFFF 100%);
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 24px;
+}
+
+.mainReview {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.reviewRating {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 8px;
+}
+
 @media screen and (max-width: 1400px) {
 	.container {
 		padding: 48px;
@@ -228,172 +397,4 @@
 	.activeUserContentChild {
 		font-size: 16px;
 	}
-}
-
-.songs {
-	display: flex;
-	flex-direction: column;
-	gap: 40px;
-}
-.song {
-	display: flex;
-	gap: 16px;
-	justify-content: space-between;
-}
-
-.songLeft {
-	display: flex;
-	flex-direction: row;
-	gap: 16px;
-}
-
-.songInfo {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	gap: 24px;
-}
-
-.songTitle {
-	font-weight: 700;
-	font-size: 40px;
-	color: #FFFFFF;
-}
-
-.songProducer {
-	font-weight: 500;
-	font-size: 20px;
-	color: #F2F2F2;
-}
-
-.linkButton {
-	background: linear-gradient(91.8deg, #FEBFFF 0%, #00FFFF 100%);
-	border-radius: 8px;
-	height: 40px;
-	width: 120px;
-	color: #000000;
-	padding: 8px 16px 8px 16px;
-	font-size: 15px;
-	font-weight: 700;
-	display: flex;
-	justify-content: center;
-	cursor: pointer;
-	border: none;
-}
-
-.reviews {
-	display: flex;
-	flex-direction: column;
-	gap: 40;
-}
-
-.reviewTop {
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-}
-
-.reviewT {
-	font-weight: 700;
-	font-size: 24px;
-}
-
-.reviewInput {
-	height: 128px;
-	width: 100%;
-	border-radius: 8px;
-	background-color: #666666;
-	color: #d2caca;
-	text-align: start;
-	padding: 8px 16px 8px 16px;
-
-}
-
-.rates {
-	display: flex;
-	flex-direction: row;
-	gap: 13px;
-	font-size: 20px;
-	font-weight: 700;
-}
-
-.reviewButton {
-	width: 125px;
-	height: 40px;
-	background: #B2B2B2;
-	border: none;
-	border-radius: 8px;
-	align-self:flex-end;
-}
-
-.UsersReview {
-	display: flex;
-	flex-direction: column;
-	gap: 80px;
-}
-
-.review {
-	background: #5B247A;
-	padding: 16px;
-	border-radius: 8px;
-	gap: 20px;
-}
-
-.reviewItems {
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-}
-
-.reviewLeft {
-	display: flex;
-	flex-direction: row;
-	gap: 8px;
-}
-
-.songProducer {
-	font-weight: 700;
-	font-size: 20px;
-	line-height: 24px;
-}
-
-
-.reviewerRating {
-	display: flex;
-	flex-direction: row;
-	height: 18px;
-	width:17px;
-}
-
-.star {
-	height: 40px;
-	width: 27px;
-	font-size: 40px;
-}
-
-.reviewText {
-	font-weight: 400;
-	font-size: 16px;
-	color: #FFFFFF;
-}
-
-.reply {
-	text-align: right;
-	color: linear-gradient(91.8deg, #FEBFFF 0%, #00FFFF 100%);
-	font-weight: 700;
-	font-size: 16px;
-	line-height: 24px;
-}
-
-.mainReview {
-	display: flex;
-	flex-direction: column;
-	gap: 14px;
-}
-
-.reviewRating {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	gap: 11px;
 }

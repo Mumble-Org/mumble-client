@@ -1,0 +1,19 @@
+@font-face {
+	font-family: "Space Grotesk";
+	src: url('../../Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf');
+}
+
+// Colors
+$primary: #febfff;
+$secondary: #00ffff;
+$black: #000000;
+$white: #ffffff;
+
+$gradient: linear-gradient(91.8deg, $primary 0%, $secondary 100%);
+
+// font
+@mixin fontProperties {
+	font-family: "Space Grotesk";
+	font-style: normal;
+	font-weight: 700;
+}

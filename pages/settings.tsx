@@ -1,4 +1,4 @@
-import styles from "../styles/settings.module.css";
+import styles from "../styles/settings.module.scss";
 import { NavBar } from "../components/navigation/navbar";
 import { BackToHome } from "../components/buttons/buttons";
 import { backend } from "../utils/backend";
@@ -12,10 +12,19 @@ import { ThreeDots } from "react-loader-spinner";
 import { useDispatch } from "react-redux";
 import { set as userSet } from "../redux/actions/user";
 
+// material ui
+import {
+	Grid,
+	Box,
+	Button,
+	Avatar,
+	Typography,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+
 export default function Settings() {
 	const dispatch = useDispatch();
 	const userState = useSelector((state: any) => state.user);
-	console.log(userState);
 	const token = userState.token;
 	const [loggedIn, setLoggedIn] = useState(false);
 	const router = useRouter();
@@ -39,19 +48,20 @@ export default function Settings() {
 	 * Get profile picture of user
 	 */
 	useEffect(() => {
-		try {
-			backend
-				.get("/users/profile", {
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				})
-				.then((response) => {
-					setProfilePicture(response.data.imageUrl);
-					response.data.user.imageUrl = response.data.imageUrl;
-					dispatch(userSet("user", response.data.user));
-				});
-		} catch (e) {}
+		backend
+			.get("/users/profile", {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setProfilePicture(response.data.imageUrl);
+				response.data.user.imageUrl = response.data.imageUrl;
+				dispatch(userSet("user", response.data.user));
+			})
+			.catch((e) => {
+				if (e.response.status === 401) router.push("/login");
+			});
 	}, []);
 
 	const handleChangeProfilePicture = (e) => {
@@ -90,31 +100,27 @@ export default function Settings() {
 	};
 
 	return (
-		<div className={styles.container}>
-			<div
-				className={`${styles.transparent} ${
-					transparent ? styles.transparent_active : ""
-				}`}
-			></div>
+		<Grid container className={styles.container}>
+			{transparent ? <Box className={styles.transparent}></Box> : ""}
 
 			{transparent ? (
-				<div className={styles.set_picture}>
-					<div className={styles.set_picture_header}>
-						<h4>Edit Photo</h4>
-						<Image
-							width="20"
-							height="20"
-							alt="exit"
-							src="/exit.svg"
-							onClick={() => setTransparent(false)}
-						/>
-					</div>
+				<Grid container className={styles.change_profile_picture}>
+					<CloseIcon
+						className={styles.close}
+						onClick={() => {
+							setTransparent(false);
+							setPicture({ preview: "", data: "" });
+						}}
+					/>
+
+					<Typography variant="h4">Edit Photo</Typography>
 
 					<Image
 						width="400"
 						height="400"
 						alt="profile picture"
 						src={picture.preview != "" ? picture.preview : profilePicture}
+						className={styles.profile_picture}
 					/>
 
 					{loading ? (
@@ -122,67 +128,71 @@ export default function Settings() {
 							color="#febfff"
 							wrapperStyle={{
 								alignSelf: "center",
-								position: 'absolute',
-								bottom: '24px'
+								position: "absolute",
+								bottom: "24px",
 							}}
 						/>
 					) : (
 						""
 					)}
 
-					<div className={styles.save_container}>
-						<div
-							className={styles.save_button}
-							onClick={handleSaveProfilePicture}
-						>
-							Save
-						</div>
-					</div>
-				</div>
+					<Button
+						variant="contained"
+						className={styles.contained_button}
+						sx={{ alignSelf: "flex-end" }}
+						onClick={handleSaveProfilePicture}
+					>
+						Save
+					</Button>
+				</Grid>
 			) : (
 				""
 			)}
 
 			<NavBar loggedIn={loggedIn} />
 
-			<div className={styles.profile_picture}>
-				<div className={styles.back}>
+			<Grid container className={styles.profile_picture}>
+				<Box className={styles.back}>
 					<BackToHome text="Back" />
-				</div>
+				</Box>
 
-				<div className={styles.profile_image}>
-					{profilePicture != "" ? (
-						<Image
-							width="264"
-							height="264"
-							alt="profile picture"
-							src={profilePicture}
-						/>
-					) : (
-						<div className={styles.profile_image_text}>
-							{userState.user.name.charAt(0).toUpperCase()}
-						</div>
-					)}
-				</div>
+				<Box className={styles.image_container}>
+					<Avatar
+						alt="profile picture"
+						src={profilePicture}
+						className={styles.image}
+					>
+						{userState.user.name.charAt(0).toUpperCase()}
+					</Avatar>
+				</Box>
 
-				<div className={styles.buttons}>
-					<label className={styles.change} onClick={handleChangeProfilePicture}>
+				<Grid container className={styles.buttons}>
+					<Button
+						variant="contained"
+						component="label"
+						className={styles.contained_button}
+						sx={{ alignSelf: "flex-end" }}
+						onClick={handleChangeProfilePicture}
+					>
 						Change Profile Picture
 						<input
-							name="profile"
-							type="file"
+							hidden
 							accept="image/*"
+							multiple
+							type="file"
 							onChange={handlePicture}
-						></input>
-					</label>
+						/>
+					</Button>
 
-					<div className={styles.edit}>
-						<div className={styles.edit_inner}>
-							<p>Edit Profile Picture</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+					<Box className={styles.outline_button}>
+						<Box className={styles.inline_button}>
+							<Button variant="outlined" className={styles.edit_picture}>
+								Edit Profile Photo
+							</Button>
+						</Box>
+					</Box>
+				</Grid>
+			</Grid>
+		</Grid>
 	);
 }

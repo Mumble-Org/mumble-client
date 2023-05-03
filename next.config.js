@@ -1,8 +1,13 @@
 // next.config.js
+const path = require("path");
 
 module.exports = {
   images: {
     domains: ['mumbleaudios.s3.eu-north-1.amazonaws.com'],
+  },
+
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
   },
 
   webpack (config, options) {

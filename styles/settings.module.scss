@@ -1,0 +1,129 @@
+@import "./partials/variables";
+
+.container {
+	flex-direction: column;
+	background-color: $black;
+
+	button, label {
+		text-transform: none;
+		border-radius: 8px;
+		font-size: 16px;
+		@include fontProperties;
+		padding: 8px 16px;
+	}
+
+	.contained_button {
+		background: $gradient;
+		color: $black;
+		max-height: 40px;
+	}
+
+	.contained_button:hover {
+		background: $primary;
+	}
+
+	.contained_button:active {
+		background: $secondary;
+	}
+
+	.transparent {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(4px);
+		z-index: 1;
+	}
+
+	.change_profile_picture {
+		position: fixed;
+		top: 32px;
+		background: $black;
+		max-width: 1000px;
+		// max-height: 568px;
+		z-index: 2;
+		align-self: center;
+		padding: 24px;
+		flex-direction: column;
+		gap: 16px;
+
+		.close {
+			width: 20px;
+			height: 20px;
+			align-self: flex-end;
+		}
+
+		.close:hover {
+			cursor: pointer;
+			width: 22px;
+			height: 22px;
+		}
+
+		h4 {
+			color: $white;
+			@include fontProperties;
+			font-size: 20px;
+			line-height: 24px;
+		}
+
+		.profile_picture {
+			align-self: center;
+			margin: 0;
+		}
+	}
+
+	.profile_picture {
+		flex-direction: column;
+		align-items: center;
+		gap: 24px;
+		margin-top: 24px;
+		position: relative;
+
+		.back {
+			position: absolute;
+			left: 56px;
+		}
+
+		.image_container {
+			border: 1px solid $white;
+			border-radius: 264px;
+			margin-top: 48px;
+
+			.image {
+				width: 264px;
+				height: 264px;
+				background-color: $secondary;
+				font-size: 128px;
+				color: $black;
+				@include fontProperties;
+			}
+		}
+
+		.buttons {
+			justify-content: center;
+			gap: 16px;
+
+			.outline_button {
+				background: linear-gradient(91.8deg, $primary 0%, $secondary 100%);
+				border-radius: 8px;
+				padding: 2px;
+				max-height: 40px;
+
+				.inline_button {
+					background: $black;
+					border-radius: 8px;
+					height: 100%;
+
+					.edit_picture {
+						background: linear-gradient(91.8deg, $primary 0%, $secondary 100%);
+						-webkit-background-clip: text;
+						-webkit-text-fill-color: transparent;
+						background-clip: text;
+						border: linear-gradient(91.8deg, $primary 0%, $secondary 100%);
+						max-height: 36px;
+					}
+				}
+			}
+		}
+	}
+}

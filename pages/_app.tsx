@@ -3,6 +3,7 @@ import { persistor, store } from "../redux/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import Head from "next/head";
+import { StyledEngineProvider } from "@mui/material/styles";
 
 export default function MyApp({ Component, pageProps }) {
 	return (
@@ -15,7 +16,9 @@ export default function MyApp({ Component, pageProps }) {
 
 			<Provider store={store}>
 				<PersistGate loading={null} persistor={persistor}>
-					<Component {...pageProps} />
+					<StyledEngineProvider injectFirst>
+						<Component {...pageProps} />
+					</StyledEngineProvider>
 				</PersistGate>
 			</Provider>
 		</div>
