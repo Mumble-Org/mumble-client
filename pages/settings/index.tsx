@@ -99,100 +99,104 @@ export default function Settings() {
 		setLoading(false);
 	};
 
-	return (
-		<Grid container className={styles.container}>
-			{transparent ? <Box className={styles.transparent}></Box> : ""}
-
-			{transparent ? (
-				<Grid container className={styles.change_profile_picture}>
-					<CloseIcon
-						className={styles.close}
-						onClick={() => {
-							setTransparent(false);
-							setPicture({ preview: "", data: "" });
-						}}
-					/>
-
-					<Typography variant="h4">Edit Photo</Typography>
-
-					<Image
-						width="400"
-						height="400"
-						alt="profile picture"
-						src={picture.preview != "" ? picture.preview : profilePicture}
-						className={styles.profile_picture}
-					/>
-
-					{loading ? (
-						<ThreeDots
-							color="#febfff"
-							wrapperStyle={{
-								alignSelf: "center",
-								position: "absolute",
-								bottom: "24px",
+	try {
+		return (
+			<Grid container className={styles.container}>
+				{transparent ? <Box className={styles.transparent}></Box> : ""}
+	
+				{transparent ? (
+					<Grid container className={styles.change_profile_picture}>
+						<CloseIcon
+							className={styles.close}
+							onClick={() => {
+								setTransparent(false);
+								setPicture({ preview: "", data: "" });
 							}}
 						/>
-					) : (
-						""
-					)}
-
-					<Button
-						variant="contained"
-						className={styles.contained_button}
-						sx={{ alignSelf: "flex-end" }}
-						onClick={handleSaveProfilePicture}
-					>
-						Save
-					</Button>
-				</Grid>
-			) : (
-				""
-			)}
-
-			<NavBar loggedIn={loggedIn} />
-
-			<Grid container className={styles.profile_picture}>
-				<Box className={styles.back}>
-					<BackToHome text="Back" />
-				</Box>
-
-				<Box className={styles.image_container}>
-					<Avatar
-						alt="profile picture"
-						src={profilePicture}
-						className={styles.image}
-					>
-						{userState.user.name.charAt(0).toUpperCase()}
-					</Avatar>
-				</Box>
-
-				<Grid container className={styles.buttons}>
-					<Button
-						variant="contained"
-						component="label"
-						className={styles.contained_button}
-						sx={{ alignSelf: "flex-end" }}
-						onClick={handleChangeProfilePicture}
-					>
-						Change Profile Picture
-						<input
-							hidden
-							accept="image/*"
-							multiple
-							type="file"
-							onChange={handlePicture}
+	
+						<Typography variant="h4">Edit Photo</Typography>
+	
+						<Image
+							width="400"
+							height="400"
+							alt="profile picture"
+							src={picture.preview != "" ? picture.preview : profilePicture}
+							className={styles.profile_picture}
 						/>
-					</Button>
-
-					<Box className={styles.outline_button}>
-						<Box className={styles.inline_button}>
-							<Button variant="outlined" className={styles.edit_picture}>
-								Edit Profile Photo
-							</Button>
-						</Box>
+	
+						{loading ? (
+							<ThreeDots
+								color="#febfff"
+								wrapperStyle={{
+									alignSelf: "center",
+									position: "absolute",
+									bottom: "24px",
+								}}
+							/>
+						) : (
+							""
+						)}
+	
+						<Button
+							variant="contained"
+							className={styles.contained_button}
+							sx={{ alignSelf: "flex-end" }}
+							onClick={handleSaveProfilePicture}
+						>
+							Save
+						</Button>
+					</Grid>
+				) : (
+					""
+				)}
+	
+				<NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+	
+				<Grid container className={styles.profile_picture}>
+					<Box className={styles.back}>
+						<BackToHome text="Back" />
 					</Box>
+	
+					<Box className={styles.image_container}>
+						<Avatar
+							alt="profile picture"
+							src={profilePicture}
+							className={styles.image}
+						>
+							{userState.user.name.charAt(0).toUpperCase()}
+						</Avatar>
+					</Box>
+	
+					<Grid container className={styles.buttons}>
+						<Button
+							variant="contained"
+							component="label"
+							className={styles.contained_button}
+							sx={{ alignSelf: "flex-end" }}
+							onClick={handleChangeProfilePicture}
+						>
+							Change Profile Picture
+							<input
+								hidden
+								accept="image/*"
+								multiple
+								type="file"
+								onChange={handlePicture}
+							/>
+						</Button>
+	
+						<Box className={styles.outline_button}>
+							<Box className={styles.inline_button}>
+								<Button variant="outlined" className={styles.edit_picture}>
+									Edit Profile Photo
+								</Button>
+							</Box>
+						</Box>
+					</Grid>
 				</Grid>
 			</Grid>
-		</Grid>
-	);
+		);
+	} catch (e) {
+		router.push("/login");
+	}
 }
