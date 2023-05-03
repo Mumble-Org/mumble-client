@@ -21,6 +21,7 @@ import {
 	Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { Producer } from "../../components/settings/producer";
 
 export default function Settings() {
 	const dispatch = useDispatch();
@@ -150,7 +151,7 @@ export default function Settings() {
 					""
 				)}
 	
-				<NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+				<NavBar loggedIn={loggedIn} />
 	
 				<Grid container className={styles.profile_picture}>
 					<Box className={styles.back}>
@@ -194,6 +195,8 @@ export default function Settings() {
 						</Box>
 					</Grid>
 				</Grid>
+
+				<Producer />
 			</Grid>
 		);
 	} catch (e) {
