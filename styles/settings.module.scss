@@ -4,6 +4,13 @@
 	flex-direction: column;
 	background-color: $black;
 
+	.alert {
+		position: fixed;
+		top: 56px;
+		right: 56px;
+		z-index: 3;
+	}
+
 	button,
 	label {
 		text-transform: none;
@@ -130,6 +137,11 @@
 
 @media screen and (max-width: 1400px) {
 	.container {
+
+		.alert {
+			right: 48px;
+		}
+
 		.change_profile_picture {
 			max-width: 872px;
 

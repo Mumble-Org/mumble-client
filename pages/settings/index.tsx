@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { set as userSet } from "../../redux/actions/user";
 
 // material ui
-import { Grid, Box, Button, Avatar, Typography } from "@mui/material";
+import { Grid, Box, Button, Avatar, Typography, Alert } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Producer } from "../../components/settings/producer";
 import { Engineer } from "../../components/settings/engineer";
@@ -30,6 +30,7 @@ export default function Settings() {
 	const [picture, setPicture] = useState({ preview: "", data: "" });
 	const [profilePicture, setProfilePicture] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [success, setSuccess] = useState(false);
 
 	/**
 	 * Make sure user is logged in
@@ -115,6 +116,7 @@ export default function Settings() {
 				},
 			});
 			setLoading(false);
+			setSuccess(true);
 			router.reload();
 		} catch (e) {
 			// router.push('/login');
@@ -154,13 +156,19 @@ export default function Settings() {
 
 						<Typography variant="h4">Edit Photo</Typography>
 
-						<Image
-							width="400"
-							height="400"
-							alt="profile picture"
-							src={picture.preview != "" ? picture.preview : profilePicture}
-							className={styles.profile_picture}
-						/>
+						{profilePicture || picture.preview ? (
+							<Image
+								width="400"
+								height="400"
+								alt="profile picture"
+								src={picture.preview != "" ? picture.preview : profilePicture}
+								className={styles.profile_picture}
+							/>
+						) : (
+							<Typography sx={{ alignSelf: "center", padding: "200px" }}>
+								No Picture Selected
+							</Typography>
+						)}
 
 						{loading ? (
 							<ThreeDots
@@ -245,6 +253,12 @@ export default function Settings() {
 							bottom: "24px",
 						}}
 					/>
+				)}
+
+				{success && (
+					<Alert severity="success" className={styles.alert}>
+						Profile Picture Updated Successfully
+					</Alert>
 				)}
 			</Grid>
 		);
