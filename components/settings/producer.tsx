@@ -10,7 +10,7 @@ import {
 	TextField,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./details.module.scss";
 import { getCitySuggestions } from "../../utils/getCities";
 import { genres, GenreProfile } from "../genres";
@@ -38,13 +38,16 @@ export function Producer(props) {
 	const [error, setError] = useState(false);
 	const [loading, setLoading] = useState(false);
 
+	/**
+	 * Memoized function to get city suggestions
+	 */
+	const getCities = useMemo(() => getCitySuggestions(location), [location]);
+
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
 			if (location && open) {
 				setOpen(true);
-				getCitySuggestions(location).then((locations) =>
-					setLocations(locations)
-				);
+				getCities.then((locations) => setLocations(locations));
 			} else {
 				setOpen(false);
 				setLocations([]);
@@ -131,7 +134,7 @@ export function Producer(props) {
 				setError(true);
 				if (e.response.status === 401) router.push("/login");
 			});
-		
+
 		// Fetch User Profile
 		backend
 			.get("/users/profile", {
