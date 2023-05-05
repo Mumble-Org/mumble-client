@@ -31,6 +31,7 @@ export default function Settings() {
 	const [profilePicture, setProfilePicture] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
+	const [error, setError] = useState(false);
 
 	/**
 	 * Make sure user is logged in
@@ -120,6 +121,7 @@ export default function Settings() {
 			router.reload();
 		} catch (e) {
 			// router.push('/login');
+			setError(true);
 		}
 		setLoading(false);
 	};
@@ -258,6 +260,16 @@ export default function Settings() {
 				{success && (
 					<Alert severity="success" className={styles.alert}>
 						Profile Picture Updated Successfully
+					</Alert>
+				)}
+
+				{error && (
+					<Alert
+						severity="error"
+						className={styles.alert}
+						onClose={() => setError(false)}
+					>
+						Error uploading profile picture. Please try again
 					</Alert>
 				)}
 			</Grid>
