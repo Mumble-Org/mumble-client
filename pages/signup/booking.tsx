@@ -51,22 +51,26 @@ export default function Booking() {
 
 	const signup = async () => {
 		setLoading(true);
-		const body = { ...user };
+		const body = { ...user, rate: Number(user.rate?.replaceAll(",", "")) };
 		body.genres = body.genres?.split(", ");
 		body.portfolio = body.portfolio?.split(", ");
 
-		const response = await backend.post("/users/signup", body);
+		try {
+			const response = await backend.post("/users/signup", body);
 
-		if (response.status === 201) {
-			dispatch(userSet("user", response.data.user));
-			dispatch(userSet("token", response.data.token));
-			if (body.type === "engineer") {
-				router.push("/");
+			if (response.status === 201) {
+				dispatch(userSet("user", response.data.user));
+				dispatch(userSet("token", response.data.token));
+				if (body.type === "engineer") {
+					router.push("/");
+				} else {
+					router.push("/signup/upload");
+				}
 			} else {
-				router.push("/signup/upload");
+				router.push("/signup");
 			}
-		} else {
-			router.push("/signup");
+		} catch (e) {
+			console.log(e);
 		}
 		setLoading(false);
 	};
