@@ -13,13 +13,7 @@ import { useDispatch } from "react-redux";
 import { set as userSet } from "../../redux/actions/user";
 
 // material ui
-import {
-	Grid,
-	Box,
-	Button,
-	Avatar,
-	Typography,
-} from "@mui/material";
+import { Grid, Box, Button, Avatar, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Producer } from "../../components/settings/producer";
 
@@ -27,6 +21,7 @@ export default function Settings() {
 	const dispatch = useDispatch();
 	const userState = useSelector((state: any) => state.user);
 	const token = userState.token;
+	const [user, setUser] = useState<any>(undefined);
 	const [loggedIn, setLoggedIn] = useState(false);
 	const router = useRouter();
 	const [transparent, setTransparent] = useState(false);
@@ -63,6 +58,31 @@ export default function Settings() {
 			.catch((e) => {
 				if (e.response.status === 401) router.push("/login");
 			});
+	}, []);
+
+	/**
+	 * Get user profile
+	 */
+	useEffect(() => {
+		setLoading(true);
+		backend
+			.post(
+				"/users/",
+				{ name: userState.user.name },
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			)
+			.then((response) => {
+				setUser(response.data);
+				dispatch(userSet("user", response.data));
+			})
+			.catch((e) => {
+				if (e.response.status === 401) router.push("/login");
+			});
+		setLoading(false);
 	}, []);
 
 	const handleChangeProfilePicture = (e) => {
@@ -104,7 +124,7 @@ export default function Settings() {
 		return (
 			<Grid container className={styles.container}>
 				{transparent ? <Box className={styles.transparent}></Box> : ""}
-	
+
 				{transparent ? (
 					<Grid container className={styles.change_profile_picture}>
 						<CloseIcon
@@ -114,9 +134,9 @@ export default function Settings() {
 								setPicture({ preview: "", data: "" });
 							}}
 						/>
-	
+
 						<Typography variant="h4">Edit Photo</Typography>
-	
+
 						<Image
 							width="400"
 							height="400"
@@ -124,7 +144,7 @@ export default function Settings() {
 							src={picture.preview != "" ? picture.preview : profilePicture}
 							className={styles.profile_picture}
 						/>
-	
+
 						{loading ? (
 							<ThreeDots
 								color="#febfff"
@@ -137,7 +157,7 @@ export default function Settings() {
 						) : (
 							""
 						)}
-	
+
 						<Button
 							variant="contained"
 							className={styles.contained_button}
@@ -150,14 +170,14 @@ export default function Settings() {
 				) : (
 					""
 				)}
-	
+
 				<NavBar loggedIn={loggedIn} />
-	
+
 				<Grid container className={styles.profile_picture}>
 					<Box className={styles.back}>
 						<BackToHome text="Back" />
 					</Box>
-	
+
 					<Box className={styles.image_container}>
 						<Avatar
 							alt="profile picture"
@@ -167,7 +187,7 @@ export default function Settings() {
 							{userState.user.name.charAt(0).toUpperCase()}
 						</Avatar>
 					</Box>
-	
+
 					<Grid container className={styles.buttons}>
 						<Button
 							variant="contained"
@@ -185,7 +205,7 @@ export default function Settings() {
 								onChange={handlePicture}
 							/>
 						</Button>
-	
+
 						<Box className={styles.outline_button}>
 							<Box className={styles.inline_button}>
 								<Button variant="outlined" className={styles.edit_picture}>
@@ -196,12 +216,24 @@ export default function Settings() {
 					</Grid>
 				</Grid>
 
-				<Producer />
+				{/* User Information */}
+				{user ? (
+					<Producer user={user} token={token} setUser={setUser} />
+				) : (
+					<ThreeDots
+						color="#febfff"
+						wrapperStyle={{
+							alignSelf: "center",
+							position: "absolute",
+							bottom: "24px",
+						}}
+					/>
+				)}
 			</Grid>
 		);
 	} catch (e) {
 		router.push("/login");
 
-		return (<></>);
+		return <></>;
 	}
 }

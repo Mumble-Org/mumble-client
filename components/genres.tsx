@@ -42,6 +42,57 @@ export function Genre(props) {
 	);
 }
 
+let genres_profile_list = [];
+/**
+ * Genre component but only for the settings page
+ * @param props
+ * @returns
+ */
+export function GenreProfile(props) {
+	const [selected, setSelected] = useState(false);
+
+	useEffect(() => {
+		// Set the genre has selected
+		if (props.selected) {
+			genres_profile_list.push(props.text.toLowerCase());
+			setSelected(true);
+		}
+		props.setState(genres_profile_list.join(", "));
+	}, []);
+
+	const handleClick = () => {
+		let select = !selected;
+		setSelected(select);
+
+		if (select) {
+			genres_profile_list.push(props.text.toLowerCase());
+		} else {
+			genres_profile_list.splice(
+				genres_profile_list.indexOf(props.text.toLowerCase()),
+				1
+			);
+		}
+
+		props.setState(genres_profile_list.join(", "));
+	};
+	return (
+		<div
+			onClick={handleClick}
+			className={`${styles.container} ${
+				selected ? styles.container_active : styles.container_inactive
+			}`}
+		>
+			<Image
+				src={selected ? "/checked_box.svg" : "/unchecked_box.svg"}
+				alt={selected ? "unchecked box" : "checked box"}
+				width="18"
+				height="18"
+			/>
+			<p>{props.text}</p>
+		</div>
+	);
+}
+
 /**
  * Genre component but only one can be selected
  * @param props

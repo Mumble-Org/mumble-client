@@ -1,0 +1,163 @@
+@import "../../styles/partials/_variables";
+
+.container {
+	padding: 56px;
+	gap: 24px;
+	flex-direction: column;
+
+	.alert {
+		position: fixed;
+		right: 56px;
+		top: 56px;
+	}
+
+	.input_elem {
+		padding: 0;
+		outline: none;
+		color: $white;
+		@include fontProperties;
+		font-size: 16px;
+		line-height: 24px;
+		background: #666666;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+		border-bottom: 0;
+		width: 100%;
+	}
+
+	.input_elem::before, .input_elem::after {
+		border-bottom: none;
+	}
+
+	.scene_container {
+		position: relative;
+
+		.underline {
+			position: absolute;
+			bottom: 4px;
+			width: 100%;
+			height: 4px;
+			background: $secondary;
+			border: none;
+			margin: 0;
+			border-radius: 8px;
+		}
+
+		.scene_active {
+			padding: 8px 0;
+			@include fontProperties;
+			font-size: 24px;
+			line-height: 32px;
+			color: $secondary;
+		}
+
+		.scene_inactive {
+			color: $gray;
+		}
+	}
+
+	.form {
+		gap: 16px;
+
+		.input_container {
+			gap: 8px;
+	
+			.label {
+				color: $white;
+				padding: 0;
+			}
+	
+			.input {
+				background: #666666;
+				border-radius: 8px;
+				padding: 8px 16px;
+				border: 0;
+				height: 24px;
+	
+				div, div::before, div::after {
+					height: 100%;
+					border-bottom: none;
+					padding: 0;
+				}
+			}
+		}
+
+		.locations {
+			background: $white;
+			color: $black;
+			overflow-y: scroll;
+			max-height: 360px;
+			z-index: 1;
+			border-radius: 0 0 8px 8px;
+
+			.location_select {
+				padding: 8px 16px;
+				display: flex;
+				gap: 8px;
+				font-size: 16px;
+				@include fontProperties;
+			}
+		}
+	}
+
+	.contained_button {
+		background: $gradient;
+		color: $black;
+		max-height: 40px;
+	}
+
+	.contained_button:hover {
+		background: $primary;
+	}
+
+	.contained_button:active {
+		background: $secondary;
+	}
+}
+
+@media screen and (max-width: 1400px) {
+	.container {
+		padding: 48px;
+		gap: 16px;
+
+		.alert {
+			right: 48px;
+		}
+
+		.icon {
+			width: 16px;
+			height: 16px;
+		}
+	
+		.input_elem {
+			font-size: 12px;
+			line-height: 16px;
+		}
+	
+		.scene_container {
+			.scene_active {
+				font-size: 16px;
+				line-height: 24px;
+			}
+		}
+	
+		.form {
+			gap: 12px;
+	
+			.input_container {
+				gap: 8px;
+
+				.label {
+					font-size: 12px;
+				}
+			}
+	
+			.locations {
+				.location_select {
+					font-size: 12px;
+				}
+			}
+		}
+	}
+}
