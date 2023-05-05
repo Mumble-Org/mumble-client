@@ -13,7 +13,6 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./details.module.scss";
 import { getCitySuggestions } from "../../utils/getCities";
-import { genres, GenreProfile } from "../genres";
 import { Portfolio } from "./portfolio";
 import { backend } from "../../utils/backend";
 import { useDispatch } from "react-redux";
@@ -21,7 +20,7 @@ import { set as userSet } from "../../redux/actions/user";
 import { useRouter } from "next/router";
 import { ThreeDots } from "react-loader-spinner";
 
-export function Producer(props) {
+export function Engineer(props) {
 	const dispatch = useDispatch();
 	const router = useRouter();
 	const [scene, setScene] = useState("account information");
@@ -32,8 +31,8 @@ export function Producer(props) {
 	const [open, setOpen] = useState(true);
 	const [calendar, setCalendar] = useState(props.user.calendar);
 	const [phoneNumber, setPhoneNumber] = useState(props.user.phone_number);
-	const [genresList, setGenres] = useState("");
 	const [portfolio, setPortfolio] = useState([]);
+	const [rate, setRate] = useState(props.user.rate.toLocaleString());
 	const [success, setSuccess] = useState(false);
 	const [error, setError] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -120,10 +119,10 @@ export function Producer(props) {
 				{
 					name,
 					calendar,
-					genres: genresList.split(", "),
 					location,
 					phone_number: phoneNumber,
 					portfolio,
+					rate: Number(rate.replaceAll(",", "")),
 				},
 				{
 					headers: {
@@ -309,19 +308,20 @@ export function Producer(props) {
 							></TextField>
 						</Stack>
 
-						{/* Genres */}
+						{/* Rate per song */}
 						<Stack className={styles.input_container}>
-							<FormLabel className={styles.label}>Genre(s)</FormLabel>
-							<Grid container className={styles.input_container}>
-								{genres?.map((genre) => (
-									<GenreProfile
-										key={genre}
-										text={genre}
-										selected={props.user.genres?.includes(genre.toLowerCase())}
-										setState={setGenres}
-									/>
-								))}
-							</Grid>
+							<FormLabel className={styles.label}>Rate per song</FormLabel>
+							<TextField
+								variant="filled"
+								className={styles.input}
+								inputProps={{ className: styles.input_elem }}
+								value={rate}
+								onChange={(e) => {
+									// remove comma and convert to number
+									let rate = Number(e.target.value.replaceAll(",", ""));
+									setRate(rate.toLocaleString());
+								}}
+							></TextField>
 						</Stack>
 					</Stack>
 				</>

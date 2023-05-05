@@ -16,6 +16,8 @@ import { set as userSet } from "../../redux/actions/user";
 import { Grid, Box, Button, Avatar, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Producer } from "../../components/settings/producer";
+import { Engineer } from "../../components/settings/engineer";
+import { Artist } from "../../components/settings/artist";
 
 export default function Settings() {
 	const dispatch = useDispatch();
@@ -120,6 +122,21 @@ export default function Settings() {
 		setLoading(false);
 	};
 
+	/**
+	 * Select user profile component based on user type
+	 * @returns component
+	 */
+	const handleUserInformation = () => {
+		switch (user.type) {
+			case "producer":
+				return <Producer user={user} token={token} setUser={setUser} />;
+			case "engineer":
+				return <Engineer user={user} token={token} setUser={setUser} />;
+			case "artist":
+				return <Artist user={user} token={token} setUser={setUser} />;
+		}
+	};
+
 	try {
 		return (
 			<Grid container className={styles.container}>
@@ -218,7 +235,7 @@ export default function Settings() {
 
 				{/* User Information */}
 				{user ? (
-					<Producer user={user} token={token} setUser={setUser} />
+					handleUserInformation()
 				) : (
 					<ThreeDots
 						color="#febfff"

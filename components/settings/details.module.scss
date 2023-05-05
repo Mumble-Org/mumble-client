@@ -55,6 +55,14 @@
 		.scene_inactive {
 			color: $gray;
 		}
+
+		.scene {
+			padding: 8px 0;
+			@include fontProperties;
+			font-size: 24px;
+			line-height: 32px;
+			color: $white;
+		}
 	}
 
 	.form {
@@ -137,6 +145,11 @@
 	
 		.scene_container {
 			.scene_active {
+				font-size: 16px;
+				line-height: 24px;
+			}
+
+			.scene {
 				font-size: 16px;
 				line-height: 24px;
 			}
