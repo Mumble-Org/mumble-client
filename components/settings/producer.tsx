@@ -20,6 +20,8 @@ import { useDispatch } from "react-redux";
 import { set as userSet } from "../../redux/actions/user";
 import { useRouter } from "next/router";
 import { ThreeDots } from "react-loader-spinner";
+import AddIcon from "@mui/icons-material/Add";
+import Image from "next/image";
 
 export function Producer(props) {
 	const dispatch = useDispatch();
@@ -329,6 +331,14 @@ export function Producer(props) {
 				<>
 					{/* Past Work */}
 					<Stack className={styles.form}>
+						<Button
+							className={styles.add_link}
+							startIcon={<Image width="14" height="14" alt="add new link" src="/add.svg" />}
+							onClick={handleAddLink}
+						>
+							Add New Link
+						</Button>
+
 						{portfolio?.map((link) => {
 							return (
 								<div key={portfolio.indexOf(link)}>
@@ -341,8 +351,6 @@ export function Producer(props) {
 								</div>
 							);
 						})}
-
-						<Button onClick={handleAddLink}>Add Link</Button>
 					</Stack>
 				</>
 			)}

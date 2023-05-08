@@ -26,7 +26,8 @@
 		width: 100%;
 	}
 
-	.input_elem::before, .input_elem::after {
+	.input_elem::before,
+	.input_elem::after {
 		border-bottom: none;
 	}
 
@@ -70,20 +71,22 @@
 
 		.input_container {
 			gap: 8px;
-	
+
 			.label {
 				color: $white;
 				padding: 0;
 			}
-	
+
 			.input {
 				background: #666666;
 				border-radius: 8px;
 				padding: 8px 16px;
 				border: 0;
 				height: 24px;
-	
-				div, div::before, div::after {
+
+				div,
+				div::before,
+				div::after {
 					height: 100%;
 					border-bottom: none;
 					padding: 0;
@@ -105,6 +108,22 @@
 				gap: 8px;
 				font-size: 16px;
 				@include fontProperties;
+			}
+		}
+
+		.add_link {
+			background: $gradient;
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			gap: 12px;
+
+			align-self: flex-start;
+			padding: 0px;
+			font-size: 16px;
+
+			span {
+				margin: 0;
 			}
 		}
 	}
@@ -137,12 +156,12 @@
 			width: 16px;
 			height: 16px;
 		}
-	
+
 		.input_elem {
 			font-size: 12px;
 			line-height: 16px;
 		}
-	
+
 		.scene_container {
 			.scene_active {
 				font-size: 16px;
@@ -154,10 +173,10 @@
 				line-height: 24px;
 			}
 		}
-	
+
 		.form {
 			gap: 12px;
-	
+
 			.input_container {
 				gap: 8px;
 
@@ -165,10 +184,22 @@
 					font-size: 12px;
 				}
 			}
-	
+
 			.locations {
 				.location_select {
 					font-size: 12px;
+				}
+			}
+
+			.add_link {
+				gap: 8px;
+				font-size: 12px;
+
+				span {
+					img {
+						width: 12px;
+						height: 12px;
+					}
 				}
 			}
 		}
