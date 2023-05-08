@@ -6,6 +6,7 @@ import { backend } from "../../utils/backend";
 import { genres } from "../genres";
 import { Beat } from "../beat";
 import { ThreeDots } from "react-loader-spinner";
+import { Stack } from "@mui/material";
 
 export function TrendingBeatsHome(props) {
 	const [priceOpen, setPriceOpen] = useState(false);
@@ -183,9 +184,11 @@ export function TrendingBeatsHome(props) {
 				""
 			)}
 
-			{trendingBeats.map((beat) => {
-				return <Beat beat={beat} key={beat._id} type="trending" />;
-			})}
+			<Stack className={styles.beats_container}>
+				{trendingBeats.map((beat) => {
+					return <Beat beat={beat} key={beat._id} type="trending" />;
+				})}
+			</Stack>
 
 			<div
 				className={styles.view_more_outer}
@@ -375,9 +378,11 @@ export function TrendingBeats(props) {
 				""
 			)}
 
-			{trendingBeats.map((beat) => {
-				return <Beat beat={beat} key={beat._id} type="trending" />;
-			})}
+			<Stack className={styles.beats_container}>
+				{trendingBeats.map((beat) => {
+					return <Beat beat={beat} key={beat._id} type="trending" />;
+				})}
+			</Stack>
 		</div>
 	);
 }

@@ -151,6 +151,10 @@
 	margin: 0;
 }
 
+.beats_container {
+	gap: 24px;
+}
+
 @media screen and (max-width: 1400px) {
 	.container {
 		padding: 0 48px;
@@ -217,5 +221,9 @@
 	.view_more_inner p {
 		font-size: 12px;
 		margin: 0;
+	}
+
+	.beats_container {
+		gap: 16px;
 	}
 }

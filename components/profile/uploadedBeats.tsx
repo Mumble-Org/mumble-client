@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { backend } from '../../utils/backend';
 import { Beat } from '../beat';
+import { Stack } from '@mui/material';
+import styles from "./uploadedBeats.module.scss";
 
 export function UploadedBeats(props) {
   const [beats, setBeat] = useState([]);
@@ -12,13 +14,14 @@ export function UploadedBeats(props) {
       setBeat(response.data);
     }
     fetchUserBeats();
-  }, [])
+  }, []);
+
   return (
-    <div style={{margin: "20px"}}>
+    <Stack className={styles.container}>
       {beats && beats.map((beat) => {
         return <Beat beat={beat} key={beat._id} />
       })}
-    </div>
+    </Stack>
   )
 }
 

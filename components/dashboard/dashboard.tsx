@@ -1,190 +1,276 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
-import styles from "./dashboard.module.css";
+import styles from "./dashboard.module.scss";
 import UploadedBeats from "../profile/uploadedBeats";
 import { useRouter } from "next/router";
 import { SongsProduced } from "../profile/songsProduced";
 import { Reviews } from "../profile/reviews";
+import {
+	Alert,
+	Avatar,
+	Box,
+	Button,
+	Grid,
+	Stack,
+	Typography,
+} from "@mui/material";
+import { LocationOn } from "@mui/icons-material";
+import StarIcon from "@mui/icons-material/Star";
+import EmailIcon from "@mui/icons-material/Email";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 
 export const Dashboard = (props) => {
 	const { user } = props;
 	const [userRating, setUserRating] = useState([]);
-	const [scene, setScene] = useState("uploaded_beats");
+	const [scene, setScene] = useState("uploaded beats");
 	const router = useRouter();
+	const [alert, setAlert] = useState(false);
 
 	useEffect(() => {
 		const rating = genRating(user.ratings || 5);
 		setUserRating(rating);
 	}, []);
 
+	// Close alert
+	useEffect(() => {
+		setTimeout(() => setAlert(false), 5000);
+	}, [alert]);
+
 	const handleClick = (e) => {
 		setScene(e.target.id);
 	};
 
 	const copyProfileURL = () => {
-		navigator.clipboard.writeText(`https://mumble-client.vercel.app/${user.name.replace(" ", "_")}`);
-		// TODO: Add popup message when successful
-	}
+		navigator.clipboard.writeText(
+			`https://mumble-client.vercel.app/${user.name.replace(" ", "_")}`
+		);
+		setAlert(true);
+	};
 
 	const handleUpload = () => {
 		router.push("/upload");
-	}
+	};
 
 	return (
-		<div className={styles.container}>
-			<div className={styles.profileImage}>
-				{!user.imageUrl ? (
-					<div className={styles.profileImage_name}>
-						{user.name?.charAt(0).toUpperCase()}
-					</div>
-				) : (
-					<center>
-						<Image
-							src={user.imageUrl}
-							alt={user.name}
-							width="264"
-							height="264"
-						/>
-					</center>
-				)}
-			</div>
+		<Grid container direction="column" className={styles.container}>
+			{/* Profile image */}
+			<Grid container className={styles.profile_image_container}>
+				<Avatar
+					src={user.imageUrl}
+					alt="Profile image"
+					className={styles.image}
+				>
+					{user.name?.charAt(0).toUpperCase()}
+				</Avatar>
+			</Grid>
 
-			<div className={styles.producerDetails}>
-				<div className={styles.userName}>
-					<center>
+			<Grid container direction="column" className={styles.producer_details}>
+				<Box className={styles.user_name}>
+					<Typography className={styles.text}>
 						{user.name?.charAt(0).toUpperCase() + user.name?.slice(1)}
-					</center>
-				</div>
+					</Typography>
+				</Box>
 
-				<div className={styles.type}>
-					<center>
+				<Box className={styles.type}>
+					<Typography className={styles.text}>
 						{user.type?.charAt(0).toUpperCase() + user.type?.slice(1)}
-					</center>
-				</div>
+					</Typography>
+				</Box>
 
-				<div className={styles.location}>
-					<Image
-						src="/location-profile.svg"
-						alt="location"
-						width="16"
-						height="18"
-						className={styles.locationImg}
-					/>
-					{user.location?.split(", ")[0] || "-"}
-				</div>
-				<div className={styles.rating}>{userRating}</div>
+				<Stack direction="row" className={styles.location}>
+					<LocationOn sx={{ color: "#B2B2B2" }} className={styles.icon} />
+					<Typography className={styles.text}>
+						{user.location?.split(", ")[0] || "-"}
+					</Typography>
+				</Stack>
 
-				<div className={styles.info}>
-					<div className={styles.infoChild}>
-						<Image src="/divisor.svg" alt="beats sold" width="20" height="20" />
-						<div className={styles.title}>Beats Sold</div>
+				<Stack direction="row" className={styles.rating}>
+					{userRating}
+				</Stack>
+
+				{/* Info section */}
+				<Stack direction="row" className={styles.info}>
+					{/* Beats sold */}
+					<Stack direction="row" className={styles.info_child}>
+						<Image
+							src="/divisor.svg"
+							alt="beats sold"
+							width="20"
+							height="20"
+							className={styles.icon}
+						/>
+						<Typography className={styles.text}>Beats Sold</Typography>
 						{user.beats_sold}
-					</div>
+					</Stack>
 
-					<div className={styles.infoChild}>
+					{/* Beats uploaded */}
+					<Stack direction="row" className={styles.info_child}>
 						<Image
 							src="/upload.svg"
 							alt="beats uploaded"
 							width="20"
 							height="20"
+							className={styles.icon}
 						/>
-						<div className={styles.title}>Beats Uploaded</div>
+						<Typography className={styles.text}>Beats Uploaded</Typography>
 						{user.beats_uploaded}
-					</div>
+					</Stack>
 
-					<div className={styles.infoChild}>
-						<Image src="/mail.svg" alt="email" width="20" height="20" />
-						<div className={styles.title}>Email Address</div>
+					{/* Email */}
+					<Stack direction="row" className={styles.info_child}>
+						<EmailIcon className={styles.icon} />
+						<Typography className={styles.text}>Email Address</Typography>
 						{user.email}
-					</div>
-					<div className={styles.infoChild}>
-						<Image src="/phone.svg" alt="phone number" width="20" height="20" />
-						<div className={styles.title}>Phone Number</div>
+					</Stack>
+
+					{/* Phone number */}
+					<Stack direction="row" className={styles.info_child}>
+						<LocalPhoneIcon className={styles.icon} />
+						<Typography className={styles.text}>Phone Number</Typography>
 						{user.phone_number || "-"}
-					</div>
-				</div>
-			</div>
+					</Stack>
+				</Stack>
+			</Grid>
 
-			<div className={styles.actions}>
-				<div className={styles.upload_beat} onClick={handleUpload}>
-					<Image
-						width="16"
-						height="16"
-						alt="Upload beat"
-						src="/upload_black.svg"
-					/>
-					<p>Upload Beat</p>
-				</div>
+			<Stack direction="row" className={styles.actions}>
+				<Button
+					className={styles.upload_beat}
+					onClick={handleUpload}
+					startIcon={
+						<Image
+							width="16"
+							height="16"
+							alt="Upload beat"
+							src="/upload_black.svg"
+						/>
+					}
+				>
+					<Typography className={styles.text}>Upload Beat</Typography>
+				</Button>
 
-				<div className={styles.share_profile_outer} onClick={copyProfileURL}>
-					<div className={styles.share_profile_inner}>
-						<p>Share Profile</p>
-					</div>
-				</div>
-			</div>
+				<Box className={styles.share_profile} onClick={copyProfileURL}>
+					<Button className={styles.inner}>
+						<Typography className={styles.text}>Share Profile</Typography>
+					</Button>
+				</Box>
+			</Stack>
 
-			<div className={styles.userContent}>
-				<div
-					className={`${
-						scene == "uploaded_beats"
-							? styles.activeUserContentChild
-							: styles.userContentChild
-					}`}
-					id="uploaded_beats"
-					onClick={handleClick}
-				>
-					Uploaded Beats
-					<hr />
-				</div>
-				<div
-					className={`${
-						scene == "songs_produced"
-							? styles.activeUserContentChild
-							: styles.userContentChild
-					}`}
-					id="songs_produced"
-					onClick={handleClick}
-				>
-					Songs Produced
-					<hr />
-				</div>
-				<div
-					className={`${
-						scene == "reviews"
-							? styles.activeUserContentChild
-							: styles.userContentChild
-					}`}
-					id="reviews"
-					onClick={handleClick}
-				>
-					Reviews
-					<hr />
-				</div>
-			</div>
+			{/* Scenes */}
+			<Stack
+				direction="row"
+				sx={{ gap: "16px" }}
+				className={styles.user_content}
+			>
+				{/* Uploaded beats */}
+				<Box className={styles.scene_container}>
+					<Button
+						className={`${styles.scene} ${
+							scene !== "uploaded beats" ? styles.scene_inactive : ""
+						}`}
+						onClick={() => {
+							setScene("uploaded beats");
+						}}
+					>
+						Uploaded Beats
+					</Button>
+
+					{scene === "uploaded beats" ? (
+						<hr className={styles.underline} />
+					) : (
+						""
+					)}
+				</Box>
+
+				{/* Songs Produced */}
+				<Box className={styles.scene_container}>
+					<Button
+						className={`${styles.scene} ${
+							scene !== "songs produced" ? styles.scene_inactive : ""
+						}`}
+						onClick={() => {
+							setScene("songs produced");
+						}}
+					>
+						Songs produced
+					</Button>
+					{scene === "songs produced" ? (
+						<hr className={styles.underline} />
+					) : (
+						""
+					)}
+				</Box>
+
+				{/* Total earnings */}
+				<Box className={styles.scene_container}>
+					<Button
+						className={`${styles.scene} ${
+							scene !== "total earnings" ? styles.scene_inactive : ""
+						}`}
+						onClick={() => {
+							setScene("total earnings");
+						}}
+					>
+						Total earnings
+					</Button>
+
+					{scene === "total earnings" ? (
+						<hr className={styles.underline} />
+					) : (
+						""
+					)}
+				</Box>
+
+				{/* Reviews */}
+				<Box className={styles.scene_container}>
+					<Button
+						className={`${styles.scene} ${
+							scene !== "reviews" ? styles.scene_inactive : ""
+						}`}
+						onClick={() => {
+							setScene("reviews");
+						}}
+					>
+						Reviews
+					</Button>
+					{scene === "reviews" ? <hr className={styles.underline} /> : ""}
+				</Box>
+			</Stack>
+
 			<SubScene id={user._id} scene={scene} user={user} />
-		</div>
+
+			{alert && (
+				<Alert className={styles.alert} onClose={() => setAlert(false)}>
+					Link copied to clipboard
+				</Alert>
+			)}
+		</Grid>
 	);
 };
 
 function SubScene(props) {
-	const { scene, id, user} = props;
+	const { scene, id, user } = props;
 
-	if (scene == "uploaded_beats") {
-		return <UploadedBeats id={id} />;
-	} else if (scene == "songs_produced") {
-		return <div style={{ margin: "20px" }}><SongsProduced user={user} /></div>;
-	} else {
-		return <div style={{ margin: "20px" }}><Reviews user={user}/></div>;
-	}
+	const selectScene = () => {
+		switch (scene) {
+			case "uploaded beats":
+				return <UploadedBeats id={id} />;
+			case "songs produced":
+				return <SongsProduced user={user} />;
+			case "total earnings":
+				<div>Implement me</div>;
+			case "reviews":
+				<Reviews user={user} />;
+		}
+	};
+
+	return <Stack className={styles.scene_content}>{selectScene()}</Stack>;
 }
 
 const genRating = (rating: number) => {
 	const ratings: Array<any> = [];
 	for (let i: number = 0; i < rating; i++) {
 		ratings.push([
-			<div className={styles.rate} key={i}>
-				<Image src="/star.svg" alt="rating" height="16" width="17" />
-			</div>,
+			<StarIcon sx={{ color: "#FFD705" }} className={styles.rate} key={i} />,
 		]);
 	}
 

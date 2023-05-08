@@ -1,0 +1,264 @@
+@import "../../styles/partials/variables";
+
+.container {
+	width: 100%;
+	margin-top: 56px;
+	gap: 24px;
+
+	.alert {
+		position: fixed;
+		right: 56px;
+		top: 80px;
+	}
+
+	.text {
+		@include fontProperties;
+		color: $white;
+	}
+
+	.rate {
+		width: 16px;
+		height: 16px;
+	}
+
+	.profile_image_container {
+		width: 264px;
+		height: 264px;
+		align-self: center;
+		border: 1px solid $white;
+		border-radius: 264px;
+		justify-content: center;
+		align-items: center;
+
+		.image {
+			width: 100%;
+			height: 100%;
+			background: $secondary;
+			@include fontProperties;
+			font-size: 128px;
+			color: $black;
+		}
+	}
+
+	.producer_details {
+		align-items: center;
+		gap: 16px;
+
+		.user_name {
+			.text {
+				font-size: 32px;
+			}
+		}
+
+		.type {
+			.text {
+				font-size: 16px;
+				color: $gray;
+			}
+		}
+
+		.location {
+			align-items: center;
+			gap: 12px;
+
+			.text {
+				font-size: 16px;
+				color: $gray;
+			}
+
+			.icon {
+				width: 16px;
+				height: 16px;
+			}
+		}
+
+		.rating {
+			gap: 8px;
+			align-items: center;
+		}
+
+		.info {
+			align-items: center;
+			gap: 24px;
+
+			.info_child {
+				gap: 8px;
+				align-items: center;
+				@include fontProperties;
+				font-weight: 400;
+
+				.icon {
+					width: 16px;
+					height: 16px;
+				}
+
+				.text {
+					font-size: 16px;
+					color: $white;
+				}
+			}
+		}
+	}
+
+	.actions {
+		align-self: center;
+		align-items: center;
+		gap: 8px;
+
+		.upload_beat {
+			padding: 8px 16px;
+			background: $gradient;
+			border-radius: 8px;
+			align-items: center;
+			gap: 12px;
+			height: 40px;
+
+			span {
+				margin: 0;
+			}
+
+			.text {
+				font-size: 16px;
+				color: $black;
+			}
+		}
+
+		.share_profile {
+			background: $gradient;
+			border-radius: 8px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 2px;
+			height: 36px;
+
+			.inner {
+				padding: 6x 14px;
+				background: $black;
+				border-radius: 8px;
+				align-items: center;
+				gap: 12px;
+				height: 100%;
+
+				.text {
+					font-size: 16px;
+					background: linear-gradient(91.8deg, #febfff 0%, #00ffff 100%);
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+					background-clip: text;
+					text-fill-color: transparent;
+				}
+			}
+		}
+	}
+
+	.user_content {
+		gap: 16px;
+		padding: 0px 56px;
+
+		.scene_container {
+			.scene {
+				padding: 0px;
+				color: $secondary;
+				@include fontProperties;
+				font-size: 24px;
+			}
+
+			.scene_inactive {
+				color: $gray;
+			}
+
+			.underline {
+				width: 100%;
+				height: 4px;
+				border-radius: 4px;
+				border: 0;
+				margin: 0;
+				background: $secondary;
+			}
+		}
+	}
+
+	.scene_content {
+		padding: 0px 56px;
+	}
+}
+
+@media screen and (max-width: 1400px) {
+	.container {
+		width: 100%;
+		margin-top: 48px;
+		gap: 16px;
+	
+		.alert {
+			right: 48px;
+			top: 64px;
+		}
+	
+		.rate {
+			width: 12px;
+			height: 12px;
+		}
+	
+		.producer_details {
+			gap: 12px;
+	
+			.user_name {
+				.text {
+					font-size: 24px;
+				}
+			}
+	
+			.type {
+				.text {
+					font-size: 12px;
+				}
+			}
+	
+			.location {
+				gap: 8px;
+	
+				.text {
+					font-size: 12px;
+				}
+	
+				.icon {
+					width: 12px;
+					height: 12px;
+				}
+			}
+	
+			.info {
+				gap: 16px;
+	
+				.info_child {
+					gap: 8px;
+	
+					.icon {
+						width: 12px;
+						height: 12px;
+					}
+	
+					.text {
+						font-size: 12px;
+					}
+				}
+			}
+		}
+	
+		.user_content {
+			gap: 16px;
+			padding: 0px 48px;
+	
+			.scene_container {
+				.scene {
+					font-size: 16px;
+				}
+			}
+		}
+	
+		.scene_content {
+			padding: 0px 48px;
+		}
+	}
+}

@@ -1,0 +1,9 @@
+.container {
+	gap: 24px;
+}
+
+@media screen and (max-width: 1400px) {
+	.container {
+		gap: 16px;
+	}	
+}

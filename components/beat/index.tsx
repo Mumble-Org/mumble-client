@@ -1,7 +1,11 @@
-import styles from "./beat.module.css";
+import styles from "./beat.module.scss";
 import Image from "next/image";
 import { Player } from "../player";
 import { useRouter } from "next/router";
+import { Avatar, Box, Button, Grid, Stack, Typography } from "@mui/material";
+import StarIcon from '@mui/icons-material/Star';
+import KeyIcon from '@mui/icons-material/Key';
+import MusicNoteRoundedIcon from '@mui/icons-material/MusicNoteRounded';
 
 export function Beat(props) {
 	const router = useRouter();
@@ -13,10 +17,10 @@ export function Beat(props) {
 
 	const openProducerProfile = () => {
 		router.push(`/${props.beat.producer.name.replace(" ", "_")}`);
-	}
+	};
 
 	return (
-		<div className={styles.container}>
+		<Grid container className={styles.container}>
 			<Image
 				width="296"
 				height="296"
@@ -25,10 +29,11 @@ export function Beat(props) {
 				className={styles.beat_art}
 			/>
 
-			<div className={styles.sub_container}>
-				<div className={styles.header}>
-					<h1>{props.beat.name}</h1>
-					<div className={styles.trending_icon}>
+			<Stack className={styles.sub_container}>
+				<Stack direction="row" className={styles.header}>
+					<Typography variant="h1">{props.beat.name}</Typography>
+
+					<Stack direction="row" className={styles.trending_icon}>
 						{(() => {
 							switch (props.type) {
 								case "trending":
@@ -51,7 +56,7 @@ export function Beat(props) {
 									);
 							}
 						})()}
-						<p className={styles[props.type]}>
+						<Typography className={styles[props.type]}>
 							{(() => {
 								switch (props.type) {
 									case "trending":
@@ -60,55 +65,49 @@ export function Beat(props) {
 										return "Popular";
 								}
 							})()}
-						</p>
-					</div>
-				</div>
+						</Typography>
+					</Stack>
+				</Stack>
 
-				<div className={styles.producer} onClick={openProducerProfile} >
+				<Stack
+					direction="row"
+					className={styles.producer}
+					onClick={openProducerProfile}
+				>
 					{props.beat.producer?.image != undefined ? (
 						""
 					) : (
-						<div className={styles.producer_icon}>
-							{props.beat.producer.imageUrl != "" ? (
-								<Image
-									width="40"
-									height="40"
-									alt="producer profile picture"
-									src={props.beat.producer.imageUrl}
-								/>
-							) : (
-								props.beat.producer.name.charAt(0).toUpperCase()
-							)}
-						</div>
+						<Avatar
+							src={props.beat.producer.imageUrl}
+							className={styles.producer_icon}
+						>
+							{props.beat.producer.name.charAt(0).toUpperCase()}
+						</Avatar>
 					)}
-					<h2>
+
+					<Typography variant="h2">
 						{props.beat.producer.name.charAt(0).toUpperCase() +
 							props.beat.producer.name.slice(1)}
-					</h2>
-					<div className={styles.rating}>
+					</Typography>
+
+					<Stack direction="row" className={styles.rating}>
 						{[1, 2, 3, 4, 5].map((star) => (
-							<Image
-								width="17"
-								height="17"
-								alt="rating"
-								src="/star.svg"
-								key={star}
-							/>
+							<StarIcon key={star} sx={{ color: "#FFD705" }} className={styles.image} />
 						))}
-					</div>
-				</div>
+					</Stack>
+				</Stack>
 
 				<Player src={props.beat.audioSignedUrl} beatId={props.beat._id} />
 
-				<div className={styles.footer}>
-					<div className={styles.footer_left}>
-						<button className={styles.buy_now}>Buy Now</button>
+				<Stack direction="row" className={styles.footer}>
+					<Stack direction="row" className={styles.footer_left}>
+						<Button className={styles.buy_now}>Buy Now</Button>
 
-						<div className={styles.save_beat_outer}>
-							<div className={styles.save_beat_inner}>
-								<p>Save Beat</p>
-							</div>
-						</div>
+						<Box className={styles.save_beat_outer}>
+							<Button className={styles.save_beat_inner}>
+								<Typography>Save Beat</Typography>
+							</Button>
+						</Box>
 
 						<Image
 							width="23"
@@ -117,35 +116,35 @@ export function Beat(props) {
 							src="/price_tag.svg"
 						/>
 
-						<p className={styles.text}>NGN. {setPrice(props.beat.price)}</p>
+						<Typography className={styles.text}>NGN. {setPrice(props.beat.price)}</Typography>
 
-						<Image width="22" height="12" alt="license type" src="/key.svg" />
+						<KeyIcon className={styles.icon} sx={{color: "#e5e5e5"}} />
 
-						<p className={styles.text}>
+						<Typography className={styles.text}>
 							{props.beat.license.charAt(0).toUpperCase() +
 								props.beat.license.slice(1)}
-						</p>
+						</Typography>
 
-						<Image width="12" height="18" alt="genre" src="/treble_clef.svg" />
+						<MusicNoteRoundedIcon className={styles.icon} sx={{color: "#e5e5e5"}} />
 
-						<p className={styles.text}>
+						<Typography className={styles.text}>
 							{props.beat.genre.charAt(0).toUpperCase() +
 								props.beat.genre.slice(1)}
-						</p>
-					</div>
+						</Typography>
+					</Stack>
 
-					<div className={styles.footer_right}>
-						<p className={styles.subtext}>
+					<Stack direction="row" className={styles.footer_right}>
+						<Typography className={styles.subtext}>
 							Uploaded{" "}
 							{new Date(props.beat.createdAt).toLocaleString("en-us", {
 								month: "long",
 								day: "numeric",
 								year: "numeric",
 							})}
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
+						</Typography>
+					</Stack>
+				</Stack>
+			</Stack>
+		</Grid>
 	);
 }
