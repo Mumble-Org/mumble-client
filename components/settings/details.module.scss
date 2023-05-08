@@ -75,6 +75,8 @@
 			.label {
 				color: $white;
 				padding: 0;
+				font-size: 16px;
+				@include fontProperties;
 			}
 
 			.input {
@@ -121,6 +123,7 @@
 			align-self: flex-start;
 			padding: 0px;
 			font-size: 16px;
+			@include fontProperties;;
 
 			span {
 				margin: 0;
@@ -132,6 +135,8 @@
 		background: $gradient;
 		color: $black;
 		max-height: 40px;
+		font-size: 16px;
+		@include fontProperties;
 	}
 
 	.contained_button:hover {

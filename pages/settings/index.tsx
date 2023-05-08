@@ -187,7 +187,7 @@ export default function Settings() {
 
 						<Button
 							variant="contained"
-							className={styles.contained_button}
+							className={`${styles.contained_button} ${styles.buttons_props}`}
 							sx={{ alignSelf: "flex-end" }}
 							onClick={handleSaveProfilePicture}
 						>
@@ -219,7 +219,7 @@ export default function Settings() {
 						<Button
 							variant="contained"
 							component="label"
-							className={styles.contained_button}
+							className={`${styles.contained_button} ${styles.buttons_props}`}
 							sx={{ alignSelf: "flex-end" }}
 							onClick={handleChangeProfilePicture}
 						>
@@ -235,7 +235,7 @@ export default function Settings() {
 
 						<Box className={styles.outline_button}>
 							<Box className={styles.inline_button}>
-								<Button variant="outlined" className={styles.edit_picture}>
+								<Button variant="outlined" className={`${styles.edit_picture} ${styles.buttons_props}`}>
 									Edit Profile Photo
 								</Button>
 							</Box>

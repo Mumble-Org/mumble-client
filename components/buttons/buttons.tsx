@@ -1,17 +1,25 @@
-import Image from "next/image"
-import Link from "next/link";
-import styles from './buttons.module.css';
+import Image from "next/image";
+import styles from "./buttons.module.scss";
+import { Button } from "@mui/material";
+import { useRouter } from "next/router";
 
 export function BackToHome(props) {
-  return (
-    <Link className={styles.link} href="/">
-      <Image
-      src="/components/left-arrow.svg"
-      alt="Left arrow"
-      width="11"
-      height="19"
-    />
-      <p className={styles.text}>{ props.text ? props.text : 'Back To Home'}</p>
-    </Link>
-  )
+	const router = useRouter();
+
+	return (
+		<Button
+			startIcon={
+				<Image
+					src="/components/left-arrow.svg"
+					alt="Left arrow"
+					width="11"
+					height="19"
+				/>
+			}
+			onClick={() => router.push("/")}
+			className={styles.button}
+		>
+			Back
+		</Button>
+	);
 }
