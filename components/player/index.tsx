@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
-import styles from "./player.module.css";
+import styles from "./player.module.scss";
 import { backend } from "../../utils/backend";
+import { Stack, Typography } from "@mui/material";
 
 let interval;
 
@@ -9,11 +10,13 @@ export function Player(props) {
 	const [playing, setPlaying] = useState(false);
 	const audio = useRef<any>();
 	const duration = audio.current ? audio.current?.duration : 0;
-	// const [interval, setIntervalObj] = useState() as any;
 	const [progress, setProgress] = useState(0);
 	const [percentage, setPercentage] = useState(0);
 	const [done, setDone] = useState(true);
 
+	/**
+	 * Set progress percentage
+	 */
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
 			const pro = progress;
@@ -63,7 +66,7 @@ export function Player(props) {
 	};
 
 	return (
-		<div className={styles.container}>
+		<Stack direction="row" className={styles.container}>
 			<Image
 				width="56"
 				height="56"
@@ -73,18 +76,19 @@ export function Player(props) {
 				className={styles.button}
 			/>
 
-			<div className={styles.progress_bar}>
-				<div
+			<Stack direction="row" className={styles.progress_bar}>
+				<Stack
+					direction="row"
 					className={styles.progress}
 					style={{ width: `${percentage}%`, maxWidth: "100%" }}
-				></div>
-			</div>
+				></Stack>
+			</Stack>
 
-			<p className={styles.timer}>
+			<Typography className={styles.timer}>
 				{duration
 					? `${Math.round(duration / 60)} : ${Math.round(duration % 60)}`
 					: ""}
-			</p>
+			</Typography>
 
 			<audio
 				src={props.src}
@@ -93,6 +97,6 @@ export function Player(props) {
 				className={styles.audioPlayer}
 				ref={audio}
 			/>
-		</div>
+		</Stack>
 	);
 }

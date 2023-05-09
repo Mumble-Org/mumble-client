@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { set as userSet } from "../../redux/actions/user";
 import { useRouter } from "next/router";
 import { ThreeDots } from "react-loader-spinner";
+import Image from "next/image";
 
 export function Engineer(props) {
 	const dispatch = useDispatch();
@@ -329,6 +330,22 @@ export function Engineer(props) {
 				<>
 					{/* Past Work */}
 					<Stack className={styles.form}>
+						{/* Add new link button */}
+						<Button
+							className={styles.add_link}
+							startIcon={
+								<Image
+									width="14"
+									height="14"
+									alt="add new link"
+									src="/add.svg"
+								/>
+							}
+							onClick={handleAddLink}
+						>
+							Add New Link
+						</Button>
+
 						{portfolio?.map((link) => {
 							return (
 								<div key={portfolio.indexOf(link)}>
@@ -341,8 +358,6 @@ export function Engineer(props) {
 								</div>
 							);
 						})}
-
-						<Button onClick={handleAddLink}>Add Link</Button>
 					</Stack>
 				</>
 			)}
