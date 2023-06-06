@@ -18,6 +18,7 @@ import { LocationOn } from "@mui/icons-material";
 import StarIcon from "@mui/icons-material/Star";
 import EmailIcon from "@mui/icons-material/Email";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import { TotalEarnings } from "./totalEarnings";
 
 export const Dashboard = (props) => {
 	const { user } = props;
@@ -35,10 +36,6 @@ export const Dashboard = (props) => {
 	useEffect(() => {
 		setTimeout(() => setAlert(false), 5000);
 	}, [alert]);
-
-	const handleClick = (e) => {
-		setScene(e.target.id);
-	};
 
 	const copyProfileURL = () => {
 		navigator.clipboard.writeText(
@@ -257,9 +254,9 @@ function SubScene(props) {
 			case "songs produced":
 				return <SongsProduced user={user} />;
 			case "total earnings":
-				<div>Implement me</div>;
+				return <TotalEarnings user={user} />;
 			case "reviews":
-				<Reviews user={user} />;
+				return <Reviews user={user} />;
 		}
 	};
 

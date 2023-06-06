@@ -1,0 +1,91 @@
+@import "../../styles/partials/variables";
+
+.container {
+	padding-top: 8px;
+
+	.header {
+		justify-content: space-between;
+		position: relative;
+
+		h3 {
+			@include fontProperties;
+			font-size: 32px;
+			line-height: 40px;
+			color: $white;
+		}
+
+		.filter_container {
+			width: 164px;
+
+			.filter_outer {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 2px;
+				background: $gradient;
+				border-radius: 8px;
+				max-height: 36px;
+				width: 100%;
+	
+				.filter_inner {
+					background: $black;
+					border-radius: 8px;
+					padding: 6px 14px;
+					gap: 12px;
+					width: 100%;
+	
+					span {
+						margin: 0;
+					}
+	
+					.icon {
+						width: 16px;
+						height: 16px;
+					}
+	
+					p {
+						background: $gradient;
+						@include fontProperties;
+						font-size: 16px;
+						line-height: 24px;
+						-webkit-background-clip: text;
+						-webkit-text-fill-color: transparent;
+						background-clip: text;
+						text-fill-color: transparent;
+					}
+				}
+			}
+	
+			.dropdown {
+				background: $white;
+				border-radius: 0 0 8px 8px;
+				overflow: hidden;
+				position: absolute;
+				top: 48px;
+				right: -2px;
+				z-index: 1;
+				width: 164px;
+				overflow-y: scroll;
+	
+				.filter {
+					padding: 8px 16px;
+	
+					option {
+						@include fontProperties;
+						font-size: 16px;
+						color: $black;
+					}
+				}
+	
+				.filter:hover {
+					cursor: pointer;
+					background: $primary;
+				}
+	
+				.filter:active {
+					background: $secondary;
+				}
+			}
+		}
+	}
+}

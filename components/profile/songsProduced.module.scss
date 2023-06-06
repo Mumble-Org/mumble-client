@@ -1,0 +1,84 @@
+@import "../../styles/partials/variables";
+
+.container {
+	.song {
+		padding: 16px 24px;
+		justify-content: space-between;
+
+		.song_left {
+			gap: 16px;
+
+			.song_info {
+				justify-content: space-between;
+
+				.title {
+					@include fontProperties;
+					font-size: 40px;
+					line-height: 48px;
+					color: $white;
+				}
+
+				.producer {
+					@include fontProperties;
+					font-weight: 500;
+					font-size: 20px;
+					line-height: 24px;
+					color: #f2f2f2;
+				}
+			}
+		}
+
+		.link {
+			padding: 8px 16px;
+			background: $gradient;
+			align-self: center;
+			border-radius: 8px;
+
+			@include fontProperties;
+			font-size: 16px;
+			line-height: 24px;
+			color: $black;
+		}
+
+		.link:hover {
+			cursor: pointer;
+		}
+	}
+}
+
+@media screen and (max-width: 1400px) {
+	.container {
+		.song {
+			padding: 8px 16px;
+	
+			.song_left {
+				gap: 12px;
+
+				.image {
+					width: 80px;
+					height: 80px;
+				}
+	
+				.song_info {
+					.title {
+						font-size: 32px;
+						line-height: 40px;
+					}
+	
+					.producer {
+						font-size: 16px;
+						line-height: 20px;
+					}
+				}
+			}
+	
+			.link {
+				padding: 6px 12px;
+				border-radius: 4px;
+
+				font-size: 12px;
+				line-height: 20px;
+			}
+		}
+	}
+}

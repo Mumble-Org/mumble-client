@@ -133,6 +133,8 @@
 
 	.contained_button {
 		background: $gradient;
+		border-radius: 8px;
+		padding: 8px 16px;
 		color: $black;
 		max-height: 40px;
 		font-size: 16px;
