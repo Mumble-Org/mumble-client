@@ -13,7 +13,7 @@ import { useState } from "react";
 // 	XAxis,
 // 	YAxis,
 // } from "recharts";
-import Chart from "chart.js/auto";
+import Chart, { CategoryScale, Legend, ArcElement } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
 const filter = {
@@ -51,7 +51,7 @@ export function TotalEarnings(props) {
 		setFilterValue(e.target.value);
 		setOpen(false);
 	};
-	
+
 	return (
 		<Grid container direction="column" className={styles.container}>
 			{/* Header */}
@@ -130,35 +130,50 @@ export function TotalEarnings(props) {
 	);
 }
 
+Chart.register(CategoryScale);
 
-export const LineChart = () => {
+export function LineChart() {
 	const labels = [
-								'January', 'February', 'March',
-								'April', 'May', "June", 'July',
-								'August', 'September', 'October',
-								'November', 'December'];
-	
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+
 	const data = {
-						labels: labels,
-						datasets: [{
-							label: "Total Earnings",
-							data: [200, 300, 400, 200, 100, 300, 500, 600, 900, 800, 600, 400],
-							fill: false,
-							borderColor: 'fff',
-							tension: 0.1,
-							backgroundColor: 'black'
-						}]
-					}
+		labels: labels,
+		datasets: [
+			{
+				label: "Total Earnings",
+				data: [200, 300, 400, 200, 100, 300, 500, 600, 900, 800, 600, 400],
+				fill: false,
+				borderColor: "fff",
+				tension: 0.1,
+				backgroundColor: "black",
+			},
+		],
+	};
 
 	return (
 		<div>
-      <Line data={data} width={50} height={50} />
-    </div>
+			<Line data={data} width={20} height={20} />
+		</div>
 	);
 }
 
-{/* <Respo;nsiveContainer width={"100%"} height={512}> */}
-					{/* <LineChart data={data}>
+{
+	/* <Respo;nsiveContainer width={"100%"} height={512}> */
+}
+{
+	/* <LineChart data={data}>
 						<CartesianGrid stroke="#b2b2b2" />
 						<YAxis dataKey="sales">
 							<Label
@@ -179,8 +194,8 @@ export const LineChart = () => {
 
 						<Line dataKey="sales" name="Sales" type="natural" />
 						<Tooltip />
-					</LineChart> */}
-				{/* </ResponsiveContainer> */}
-
-
-	
+					</LineChart> */
+}
+{
+	/* </ResponsiveContainer> */
+}
