@@ -3,16 +3,18 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 import Image from "next/image";
 import { useState } from "react";
-import {
-	CartesianGrid,
-	Label,
-	Line,
-	LineChart,
-	ResponsiveContainer,
-	Tooltip,
-	XAxis,
-	YAxis,
-} from "recharts";
+// import {
+// 	CartesianGrid,
+// 	Label,
+// 	Line,
+// 	LineChart,
+// 	ResponsiveContainer,
+// 	Tooltip,
+// 	XAxis,
+// 	YAxis,
+// } from "recharts";
+import Chart from "chart.js/auto";
+import { Line } from "react-chartjs-2";
 
 const filter = {
 	allTimeSales: "All time sales",
@@ -22,20 +24,20 @@ const filter = {
 	pastYear: "Past year",
 };
 
-const data = [
-	{ month: "january", count: 1, sales: 2 },
-	{ month: "february", count: 2, sales: 10 },
-	{ month: "march", count: 3, sales: 4 },
-	{ month: "april", count: 4, sales: 5 },
-	{ month: "may", count: 5, sales: 30 },
-	{ month: "june", count: 6, sales: 1 },
-	{ month: "july", count: 7, sales: 0 },
-	{ month: "august", count: 8, sales: 2 },
-	{ month: "september", count: 9, sales: 20 },
-	{ month: "october", count: 10, sales: 5 },
-	{ month: "november", count: 11, sales: 7 },
-	{ month: "december", count: 12, sales: 2 },
-];
+// const data = [
+// 	{ month: "january", count: 1, sales: 2 },
+// 	{ month: "february", count: 2, sales: 10 },
+// 	{ month: "march", count: 3, sales: 4 },
+// 	{ month: "april", count: 4, sales: 5 },
+// 	{ month: "may", count: 5, sales: 30 },
+// 	{ month: "june", count: 6, sales: 1 },
+// 	{ month: "july", count: 7, sales: 0 },
+// 	{ month: "august", count: 8, sales: 2 },
+// 	{ month: "september", count: 9, sales: 20 },
+// 	{ month: "october", count: 10, sales: 5 },
+// 	{ month: "november", count: 11, sales: 7 },
+// 	{ month: "december", count: 12, sales: 2 },
+// ];
 
 export function TotalEarnings(props) {
 	const [open, setOpen] = useState(false);
@@ -49,7 +51,7 @@ export function TotalEarnings(props) {
 		setFilterValue(e.target.value);
 		setOpen(false);
 	};
-
+	
 	return (
 		<Grid container direction="column" className={styles.container}>
 			{/* Header */}
@@ -122,8 +124,41 @@ export function TotalEarnings(props) {
 			</Stack>
 
 			<Stack>
-				<ResponsiveContainer width={"100%"} height={512}>
-					<LineChart data={data}>
+				<LineChart />
+			</Stack>
+		</Grid>
+	);
+}
+
+
+export const LineChart = () => {
+	const labels = [
+								'January', 'February', 'March',
+								'April', 'May', "June", 'July',
+								'August', 'September', 'October',
+								'November', 'December'];
+	
+	const data = {
+						labels: labels,
+						datasets: [{
+							label: "Total Earnings",
+							data: [200, 300, 400, 200, 100, 300, 500, 600, 900, 800, 600, 400],
+							fill: false,
+							borderColor: 'fff',
+							tension: 0.1,
+							backgroundColor: 'black'
+						}]
+					}
+
+	return (
+		<div>
+      <Line data={data} width={50} height={50} />
+    </div>
+	);
+}
+
+{/* <Respo;nsiveContainer width={"100%"} height={512}> */}
+					{/* <LineChart data={data}>
 						<CartesianGrid stroke="#b2b2b2" />
 						<YAxis dataKey="sales">
 							<Label
@@ -144,9 +179,8 @@ export function TotalEarnings(props) {
 
 						<Line dataKey="sales" name="Sales" type="natural" />
 						<Tooltip />
-					</LineChart>
-				</ResponsiveContainer>
-			</Stack>
-		</Grid>
-	);
-}
+					</LineChart> */}
+				{/* </ResponsiveContainer> */}
+
+
+	
