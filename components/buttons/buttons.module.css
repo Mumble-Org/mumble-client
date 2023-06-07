@@ -1,0 +1,41 @@
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("../../Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf");
+}
+
+.button {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin: 0px;
+  padding: 0px;
+  gap: 12px;
+  font-size: 16px;
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  text-transform: none;
+  -webkit-font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+          font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
+  background: linear-gradient(91.8deg, #febfff 0%, #00ffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.button span {
+  margin: 0px;
+  padding: 0px;
+}
+
+@media screen and (max-width: 1400px) {
+  .button {
+    gap: 8px;
+    font-size: 12px;
+  }
+  .button span img {
+    width: 12px;
+    height: 12px;
+  }
+}
+/*# sourceMappingURL=buttons.module.css.map */

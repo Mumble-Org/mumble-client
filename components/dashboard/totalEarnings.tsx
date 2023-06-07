@@ -3,16 +3,6 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 import Image from "next/image";
 import { useState } from "react";
-// import {
-// 	CartesianGrid,
-// 	Label,
-// 	Line,
-// 	LineChart,
-// 	ResponsiveContainer,
-// 	Tooltip,
-// 	XAxis,
-// 	YAxis,
-// } from "recharts";
 import Chart, { CategoryScale, Legend, ArcElement } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
@@ -23,21 +13,6 @@ const filter = {
 	pastMonth: "Past month",
 	pastYear: "Past year",
 };
-
-// const data = [
-// 	{ month: "january", count: 1, sales: 2 },
-// 	{ month: "february", count: 2, sales: 10 },
-// 	{ month: "march", count: 3, sales: 4 },
-// 	{ month: "april", count: 4, sales: 5 },
-// 	{ month: "may", count: 5, sales: 30 },
-// 	{ month: "june", count: 6, sales: 1 },
-// 	{ month: "july", count: 7, sales: 0 },
-// 	{ month: "august", count: 8, sales: 2 },
-// 	{ month: "september", count: 9, sales: 20 },
-// 	{ month: "october", count: 10, sales: 5 },
-// 	{ month: "november", count: 11, sales: 7 },
-// 	{ month: "december", count: 12, sales: 2 },
-// ];
 
 export function TotalEarnings(props) {
 	const [open, setOpen] = useState(false);
@@ -153,49 +128,18 @@ export function LineChart() {
 		datasets: [
 			{
 				label: "Total Earnings",
-				data: [200, 300, 400, 200, 100, 300, 500, 600, 900, 800, 600, 400],
+				data: [200, 300, 400, 200, 400, 400, 500, 600, 900, 800, 600, 400],
 				fill: false,
-				borderColor: "fff",
-				tension: 0.1,
-				backgroundColor: "black",
+				borderColor: 'rgb(75, 192, 192)',
+				borderWidth: 2,
+				tension: 0.5,
 			},
 		],
 	};
 
 	return (
-		<div>
-			<Line data={data} width={20} height={20} />
+		<div className={styles.earningsChart} style={{maxHeight: '600px', maxWidth: '800px'}}>
+			<Line data={data} width={50} height={30} />
 		</div>
 	);
-}
-
-{
-	/* <Respo;nsiveContainer width={"100%"} height={512}> */
-}
-{
-	/* <LineChart data={data}>
-						<CartesianGrid stroke="#b2b2b2" />
-						<YAxis dataKey="sales">
-							<Label
-								value="Number of sales"
-								position="left"
-								angle={-90}
-								style={{ textAnchor: "middle" }}
-							/>
-						</YAxis>
-
-						<XAxis dataKey="count">
-							<Label
-								value="Month"
-								position="bottom"
-								style={{ textAnchor: "middle" }}
-							/>
-						</XAxis>
-
-						<Line dataKey="sales" name="Sales" type="natural" />
-						<Tooltip />
-					</LineChart> */
-}
-{
-	/* </ResponsiveContainer> */
 }
