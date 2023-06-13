@@ -140,9 +140,9 @@ export function LineChart() {
 	return (
 		<div
 			className={styles.earningsChart}
-			style={{ maxHeight: "600px", maxWidth: "800px" }}
+			style={{ maxHeight: "800px", maxWidth: "1328px" }}
 		>
-			<Line data={data} width={50} height={30} />
+			<Line data={data} width={50} height={20} />
 		</div>
 	);
 }
