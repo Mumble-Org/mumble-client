@@ -142,7 +142,7 @@ export function LineChart() {
 			className={styles.earningsChart}
 			style={{ maxHeight: "800px", maxWidth: "1328px" }}
 		>
-			<Line data={data} width={50} height={20} />
+			<Line data={data} width={100} height={50} />
 		</div>
 	);
 }
