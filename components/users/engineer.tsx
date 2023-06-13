@@ -18,7 +18,7 @@ export function Engineer(props) {
 					width="320"
 					height="320"
 					alt="profile image"
-					src={user.img}
+					src={user.imageUrl}
 					className={styles.profile_img}
 				/>
 			) : (

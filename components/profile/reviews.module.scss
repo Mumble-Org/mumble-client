@@ -1,0 +1,123 @@
+@import "../../styles/partials/variables";
+
+.reviews {
+	display: flex;
+	flex-direction: column;
+	gap: 40;
+
+	.reviewTop {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+
+		.reviewT {
+			font-weight: 700;
+			font-size: 24px;
+		}
+
+		.reviewInput {
+			height: 128px;
+			width: 100%;
+			border-radius: 8px;
+			background-color: #666666;
+			color: #d2caca;
+			text-align: start;
+			padding: 8px 16px;
+		}
+
+		.rates {
+			display: flex;
+			flex-direction: row;
+			gap: 12px;
+			font-size: 20px;
+			@include fontProperties;
+
+			.reviewRating {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				gap: 8px;
+			}
+		}
+
+		.reviewButton {
+			width: 125px;
+			height: 40px;
+			background: #b2b2b2;
+			border: none;
+			border-radius: 8px;
+			align-self: flex-end;
+		}
+	}
+
+	.reviewBottom {
+		.UsersReview {
+			display: flex;
+			flex-direction: column;
+			gap: 80px;
+
+			.mainReview {
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+
+				.review {
+					background: #5b247a;
+					padding: 16px;
+					border-radius: 8px;
+					gap: 20px;
+
+					.reviewItems {
+						display: flex;
+						flex-direction: column;
+						gap: 20px;
+
+						.reviewLeft {
+							display: flex;
+							flex-direction: row;
+							gap: 8px;
+						}
+
+						.reviewerRating {
+							display: flex;
+							flex-direction: row;
+							height: 18px;
+							width: 17px;
+						}
+
+						.reviewText {
+							font-weight: 400;
+							font-size: 16px;
+							color: $white;
+						}
+					}
+				}
+
+				.reply {
+					text-align: right;
+					color: $gradient;
+					@include fontProperties;
+					font-size: 16px;
+					line-height: 24px;
+				}
+			}
+		}
+	}
+}
+
+.rate {
+	.star {
+		height: 40px;
+		width: 27px;
+		font-size: 40px;
+	}
+}
+
+@media screen and (max-width: 1400px) {
+	.rate {
+		img {
+			width: 12px;
+			height: 12px;
+		}
+	}
+}
