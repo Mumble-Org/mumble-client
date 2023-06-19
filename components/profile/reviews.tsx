@@ -34,9 +34,8 @@ export const Reviews = (props) => {
 					{user?.name.charAt(0).toUpperCase() + user.name.slice(1)}
 				</Typography>
 
-				<input
+				<textarea
 					className={styles.reviewInput}
-					type="text"
 					placeholder="Drop a comment about Sam and their work"
 					onChange={handleReview}
 				/>

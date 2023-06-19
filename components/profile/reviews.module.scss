@@ -122,17 +122,54 @@
 
 .rate {
 	.star {
-		height: 40px;
-		width: 27px;
-		font-size: 40px;
+		height: 24px;
+		width: 24px;
 	}
 }
 
 @media screen and (max-width: 1400px) {
+	.reviews {
+		.reviewTop {
+			.reviewsT {
+				font-size: 16px;
+			}
+
+			.rates {
+				gap: 8px;
+				font-size: 12px;
+			}
+		}
+
+		.reviewBottom {
+			.heading {
+				font-size: 24px;
+				line-height: 32px;
+			}
+
+			.UsersReview {
+				gap: 32px;
+
+				.mainReview {
+					.review {
+						gap: 16px;
+
+						.reviewerRating {
+							gap: 8px;
+						}
+
+						.reviewText {
+							font-size: 12px;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	.rate {
-		img {
-			width: 12px;
-			height: 12px;
+		.star {
+			height: 16px;
+			width: 16px;
 		}
 	}
 }
