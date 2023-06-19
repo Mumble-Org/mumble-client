@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
-import styles from "./reviews.module.scss";
+import { Button, Stack, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+
 import Image from "next/image";
+import styles from "./reviews.module.scss";
 
 export const Reviews = (props) => {
 	const { user } = props;
 	const [reviews, setReviews] = useState(["rating", "rating"]);
 	const [userRating, setUserRating] = useState([]);
 	const [reviewRating, setReviewRating] = useState([]);
+	const [review, setReview] = useState("");
 
 	useEffect(() => {
 		const rating = genRating(5);
@@ -15,56 +18,89 @@ export const Reviews = (props) => {
 		setReviewRating(reviewRate);
 	}, []);
 
-	useEffect(() => {
-		async function fetchSongs() {
-			// const response = await backend(`/users/`);
-			// setSongs(response.data);
-		}
-	}, []);
+	/**
+	 * Handle Review State
+	 */
+	const handleReview = (e) => {
+		const input = e.target.value;
+		setReview(input);
+	};
+
 	return (
-		<div className={styles.reviews}>
-			<div className={styles.reviewTop}>
-				<h3 className={styles.reviewsT}>Leave a review for {user?.name}</h3>
+		<Stack className={styles.reviews}>
+			<Stack className={styles.reviewTop}>
+				<Typography variant="h3" className={styles.reviewsT}>
+					Leave a review for{" "}
+					{user?.name.charAt(0).toUpperCase() + user.name.slice(1)}
+				</Typography>
+
 				<input
 					className={styles.reviewInput}
 					type="text"
 					placeholder="Drop a comment about Sam and their work"
+					onChange={handleReview}
 				/>
-				<div className={styles.rates}>
-					<div>Rate {user?.name}:</div>
-					<div className={styles.reviewRating}>{userRating}</div>
-				</div>
-				<button className={styles.reviewButton}>Post review</button>
-			</div>
-			<div className={styles.reviewBottom}>
-				<h2>Other Reviews</h2>
-				<div className={styles.UsersReview}>
+
+				<Stack direction="row" className={styles.rates}>
+					<div>
+						Rate {user?.name.charAt(0).toUpperCase() + user.name.slice(1)}:
+					</div>
+
+					<Stack direction="row" className={styles.reviewRating}>
+						{userRating}
+					</Stack>
+				</Stack>
+
+				<Button
+					disabled={review === "" ? true : false}
+					className={`${styles.reviewButton} ${
+						review !== "" ? styles.reviewButtonActive : ""
+					}`}
+				>
+					Post review
+				</Button>
+			</Stack>
+
+			<Stack className={styles.reviewBottom}>
+				<Typography variant="h2" className={styles.heading}>
+					Other Reviews
+				</Typography>
+
+				<Stack className={styles.UsersReview}>
 					{reviews.map((review) => {
 						return (
-							<div className={styles.mainReview}>
-								<div className={styles.review}>
-									<div className={styles.reviewItems}>
-										<div className={styles.reviewLeft}>
-											<Image
-												src="/reviewpic.svg"
-												alt="cover art"
-												height={40}
-												width={40}
-												className={styles.reviewerImage}
-											/>
-											<div className={styles.songProducer}>Jane Doe</div>
-										</div>
-										<div className={styles.reviewerRating}>{reviewRating}</div>
-										<div className={styles.reviewText}>He's Awesome</div>
-									</div>
-								</div>
-								<div className={styles.reply}>Reply</div>
-							</div>
+							<Stack key={Date.now()} className={styles.mainReview}>
+								<Stack className={styles.review}>
+									<Stack direction="row" className={styles.reviewHeading}>
+										<Image
+											src="/reviewpic.svg"
+											alt="cover art"
+											height={40}
+											width={40}
+											className={styles.reviewerImage}
+										/>
+
+										<Typography variant="h4" className={styles.songProducer}>
+											Jane Doe
+										</Typography>
+									</Stack>
+
+									<Stack direction="row" className={styles.reviewerRating}>
+										{reviewRating}
+									</Stack>
+
+									<Typography className={styles.reviewText}>
+										He's Awesome
+									</Typography>
+								</Stack>
+
+								<Button className={styles.reply}>Reply</Button>
+							</Stack>
 						);
 					})}
-				</div>
-			</div>
-		</div>
+				</Stack>
+			</Stack>
+		</Stack>
 	);
 };
 

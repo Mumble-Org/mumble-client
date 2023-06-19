@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
 import Image from "next/image";
-import styles from "./profile.module.css";
-import UploadedBeats from "./uploadedBeats";
-import { SongsProduced } from "./songsProduced";
 import { Reviews } from "./reviews";
+import { SongsProduced } from "./songsProduced";
+import UploadedBeats from "./uploadedBeats";
+import styles from "./profile.module.css";
 
 export const Profile = (props) => {
 	const { user } = props;
@@ -145,7 +146,7 @@ function SubScene(props) {
 	} else if (scene == "songs_produced") {
 		return <div style={{ margin: "20px" }}><SongsProduced user={user} /></div>;
 	} else {
-		return <div style={{ margin: "20px" }}><Reviews user={user}/></div>;
+		return <div><Reviews user={user}/></div>;
 	}
 }
 

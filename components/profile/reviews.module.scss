@@ -1,64 +1,74 @@
 @import "../../styles/partials/variables";
 
 .reviews {
-	display: flex;
-	flex-direction: column;
 	gap: 40;
 
 	.reviewTop {
-		display: flex;
-		flex-direction: column;
 		gap: 16px;
 
-		.reviewT {
-			font-weight: 700;
+		.reviewsT {
+			@include fontProperties;
 			font-size: 24px;
 		}
 
 		.reviewInput {
 			height: 128px;
-			width: 100%;
 			border-radius: 8px;
 			background-color: #666666;
 			color: #d2caca;
 			text-align: start;
 			padding: 8px 16px;
+
+			@include fontProperties;
+			font-size: 16px;
+
+			outline: none;
 		}
 
 		.rates {
-			display: flex;
-			flex-direction: row;
 			gap: 12px;
-			font-size: 20px;
 			@include fontProperties;
+			font-size: 20px;
+			align-items: center;
 
 			.reviewRating {
-				display: flex;
-				flex-direction: row;
 				justify-content: center;
 				gap: 8px;
 			}
 		}
 
 		.reviewButton {
-			width: 125px;
+			@include fontProperties;
+			font-size: 16px;
+			color: #666666;
+
+			padding: 8px 16px;
 			height: 40px;
-			background: #b2b2b2;
+			background: $gray;
 			border: none;
 			border-radius: 8px;
 			align-self: flex-end;
 		}
+
+		.reviewButtonActive {
+			color: $black;
+			background: $gradient;
+		}
 	}
 
 	.reviewBottom {
+		gap: 24px;
+
+		.heading {
+			@include fontProperties;
+			font-size: 32px;
+			line-height: 40px;
+		}
+
 		.UsersReview {
-			display: flex;
-			flex-direction: column;
-			gap: 80px;
+			gap: 40px;
 
 			.mainReview {
-				display: flex;
-				flex-direction: column;
 				gap: 16px;
 
 				.review {
@@ -67,38 +77,43 @@
 					border-radius: 8px;
 					gap: 20px;
 
-					.reviewItems {
-						display: flex;
-						flex-direction: column;
-						gap: 20px;
+					.reviewHeading {
+						gap: 8px;
+						align-items: center;
 
-						.reviewLeft {
-							display: flex;
-							flex-direction: row;
-							gap: 8px;
+						.songProducer {
+							@include fontProperties;
+							font-size: 20px;
+							line-height: 28px;
 						}
+					}
 
-						.reviewerRating {
-							display: flex;
-							flex-direction: row;
-							height: 18px;
-							width: 17px;
-						}
+					.reviewerRating {
+						gap: 8px;
+					}
 
-						.reviewText {
-							font-weight: 400;
-							font-size: 16px;
-							color: $white;
-						}
+					.reviewText {
+						@include fontProperties;
+						font-weight: 400;
+						font-size: 16px;
+						color: $white;
 					}
 				}
 
 				.reply {
-					text-align: right;
 					color: $gradient;
 					@include fontProperties;
 					font-size: 16px;
 					line-height: 24px;
+
+					/* Gradient */
+					background: $gradient;
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+					background-clip: text;
+					text-fill-color: transparent;
+
+					align-self: flex-end;
 				}
 			}
 		}
