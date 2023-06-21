@@ -86,6 +86,26 @@
 							font-size: 20px;
 							line-height: 28px;
 						}
+
+						.reviewerImage {
+							border-radius: 8px;
+						}
+
+						.reviewerImageText {
+							width: 40px;
+							height: 40px;
+							background: $secondary;
+							
+							display: flex;
+							justify-content: center;
+							align-items: center;
+
+							@include fontProperties;
+							font-size: 20px;
+							color: $black;
+
+							border-radius: 8px;
+						}
 					}
 
 					.reviewerRating {

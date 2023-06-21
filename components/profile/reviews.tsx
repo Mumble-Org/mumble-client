@@ -1,4 +1,4 @@
-import { Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import Image from "next/image";
@@ -6,16 +6,13 @@ import styles from "./reviews.module.scss";
 
 export const Reviews = (props) => {
 	const { user } = props;
-	const [reviews, setReviews] = useState(["rating", "rating"]);
+	const [reviews, setReviews] = useState(user.reviews);
 	const [userRating, setUserRating] = useState([]);
-	const [reviewRating, setReviewRating] = useState([]);
+	const [reviewRating, setReviewRating] = useState(0);
 	const [review, setReview] = useState("");
 
 	useEffect(() => {
 		const rating = genRating(5);
-		const reviewRate = genreviewRating(5);
-		setUserRating(rating);
-		setReviewRating(reviewRate);
 	}, []);
 
 	/**
@@ -24,6 +21,70 @@ export const Reviews = (props) => {
 	const handleReview = (e) => {
 		const input = e.target.value;
 		setReview(input);
+	};
+
+	useEffect(() => {
+		// Set rating when user clicks
+		setUserRating(genReviewRating(reviewRating));
+	}, [reviewRating]);
+
+	const genReviewRating = (rating: number) => {
+		const ratings: Array<any> = [];
+		const setRating = (e) => {
+			setReviewRating(e.currentTarget.value);
+		};
+
+		// fill
+		let i: number = 0;
+		for (i; i < 5; i++) {
+			if (i < rating) {
+				ratings.push([
+					<Button
+						className={styles.rate}
+						key={i}
+						value={i + 1}
+						style={{
+							padding: 0,
+							maxWidth: "16px",
+							minWidth: "16px",
+						}}
+						onClick={setRating}
+					>
+						<Image
+							src="/star.svg"
+							alt="rating"
+							height={48}
+							width={29}
+							className={styles.star}
+						/>
+					</Button>,
+				]);
+			} else {
+				ratings.push([
+					<Button
+						className={styles.rate}
+						key={i}
+						value={i + 1}
+						style={{
+							padding: 0,
+							maxWidth: "16px",
+							minWidth: "16px",
+						}}
+						onClick={setRating}
+					>
+						<Image
+							src="/star-unfilled.svg"
+							alt="rating"
+							height={48}
+							width={29}
+							className={styles.star}
+						/>
+					</Button>,
+				]);
+			}
+		}
+
+		return ratings;
 	};
 
 	return (
@@ -68,32 +129,40 @@ export const Reviews = (props) => {
 				<Stack className={styles.UsersReview}>
 					{reviews.map((review) => {
 						return (
-							<Stack key={Date.now()} className={styles.mainReview}>
+							<Stack key={review._id} className={styles.mainReview}>
 								<Stack className={styles.review}>
 									<Stack direction="row" className={styles.reviewHeading}>
-										<Image
-											src="/reviewpic.svg"
-											alt="cover art"
-											height={40}
-											width={40}
-											className={styles.reviewerImage}
-										/>
+										{review.reviewer.imageUrl &&
+										review.reviewer.imageUrl != "" ? (
+											<Image
+												src={review.reviewer.imageUrl}
+												alt="profile image"
+												height={40}
+												width={40}
+												className={styles.reviewerImage}
+											/>
+										) : (
+											<Box className={styles.reviewerImageText}>
+												{review.reviewer.name.charAt(0).toUpperCase()}
+											</Box>
+										)}
 
 										<Typography variant="h4" className={styles.songProducer}>
-											Jane Doe
+											{review.reviewer.name.charAt(0).toUpperCase() +
+												review.reviewer.name.slice(1)}
 										</Typography>
 									</Stack>
 
 									<Stack direction="row" className={styles.reviewerRating}>
-										{reviewRating}
+										{genRating(review.rating)}
 									</Stack>
 
 									<Typography className={styles.reviewText}>
-										He's Awesome
+										{review.text}
 									</Typography>
 								</Stack>
 
-								<Button className={styles.reply}>Reply</Button>
+								{/* <Button className={styles.reply}>Reply</Button> */}
 							</Stack>
 						);
 					})}
@@ -105,31 +174,35 @@ export const Reviews = (props) => {
 
 const genRating = (rating: number) => {
 	const ratings: Array<any> = [];
-	for (let i: number = 0; i < rating; i++) {
-		ratings.push([
-			<div className={styles.rate} key={i}>
-				<Image
-					src="/star-unfilled.svg"
-					alt="rating"
-					height={48}
-					width={29}
-					className={styles.star}
-				/>
-			</div>,
-		]);
-	}
 
-	return ratings;
-};
-
-const genreviewRating = (rating: number) => {
-	const ratings: Array<any> = [];
-	for (let i: number = 0; i < rating; i++) {
-		ratings.push([
-			<div className={styles.reviewRate} key={i}>
-				<Image src="/star.svg" alt="rating" height="18" width="17" />
-			</div>,
-		]);
+	// fill
+	let i: number = 0;
+	for (i; i < 5; i++) {
+		if (i < rating) {
+			ratings.push([
+				<div className={styles.rate} key={i}>
+					<Image
+						src="/star.svg"
+						alt="rating"
+						height={48}
+						width={29}
+						className={styles.star}
+					/>
+				</div>,
+			]);
+		} else {
+			ratings.push([
+				<div className={styles.rate} key={i}>
+					<Image
+						src="/star-unfilled.svg"
+						alt="rating"
+						height={48}
+						width={29}
+						className={styles.star}
+					/>
+				</div>,
+			]);
+		}
 	}
 
 	return ratings;
