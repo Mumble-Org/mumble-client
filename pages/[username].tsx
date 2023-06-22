@@ -1,19 +1,20 @@
-import { useState, useEffect } from "react";
-import { Profile } from "../components/profile/profile";
+import { useEffect, useState } from "react";
+
+import Head from "next/head";
+import { Loading } from "../components/loading";
 import { NavBar } from "../components/navigation/navbar";
+import { Profile } from "../components/profile/profile";
+import { backend } from "../utils/backend";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
-import { backend } from "../utils/backend";
-import Head from "next/head";
 import { useSelector } from "react-redux";
-import { Loading } from "../components/loading";
 
 export default function ProfilePage() {
 	const [loggedIn, setLoggedIn] = useState(false);
 	const userState = useSelector((state: any) => state.user);
 	const token = userState.token;
 	const [loading, setLoading] = useState(true);
-	const [user, setUser] = useState({});
+	const [user, setUser] = useState<any>({});
 	const router = useRouter();
 	const { username } = router.query;
 
@@ -51,6 +52,12 @@ export default function ProfilePage() {
 				<Loading />
 			) : (
 				<div>
+					<Head>
+						<title>
+							{user.name.charAt(0).toUpperCase() + user.name.slice(1)} | Mumble
+						</title>
+					</Head>
+
 					<NavBar loggedIn={loggedIn} />
 					<Profile user={user} />
 				</div>
