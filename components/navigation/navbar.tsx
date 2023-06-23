@@ -1,11 +1,12 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import styles from "./navbar.module.css";
-import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { set as userSet } from "../../redux/actions/user";
 import { backend } from "../../utils/backend";
+import styles from "./navbar.module.css";
+import { useRouter } from "next/router";
+import { set as userSet } from "../../redux/actions/user";
 
 export function NavBar(props) {
 	const dispatch = useDispatch();
@@ -39,6 +40,20 @@ export function NavBar(props) {
 			</div>
 		);
 	};
+
+	useEffect(() => {
+		if (props.loggedIn) {
+			backend
+				.get("/users/verify", {
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				})
+				.then((response) => {
+					if (response.status !== 200) router.push("/login");
+				});
+		}
+	}, []);
 
 	const handleProfileOpen = () => {
 		const open = profileOpen;
