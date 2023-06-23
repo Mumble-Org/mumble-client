@@ -33,6 +33,7 @@ export default async function handler() {
 					fontFamily: "Helvetica",
 				}}
 			>
+				{/* @ts-ignore */}
 				<img width="50%" height="100%" src={imageData} alt="Mumble" />
 
 				<div
