@@ -20,15 +20,27 @@ export default function MyApp({ Component, pageProps }) {
 
 				<meta property="og:url" content="https://mumble.com.ng" />
 				<meta property="og:type" content="website" />
-				<meta property="og:title" content="Mumble" />
-				<meta property="og:description" content="Marketplace for beats" />
+				<meta
+					property="og:title"
+					content="Mumble | Buy Beats Online | Sell Beats Online"
+				/>
+				<meta
+					property="og:description"
+					content="Mumble is a digital marketplace that connects music producers, beat makers and sound engineers to their desired clients."
+				/>
 				<meta property="og:image" content="https://mumble.com.ng/cover.jpg" />
 
-				<meta name="twitter:card" content="Mumble" />
+				<meta name="twitter:card" content="summary_large_image" />
 				<meta property="twitter:domain" content="mumble.com.ng" />
 				<meta property="twitter:url" content="https://mumble.com.ng" />
-				<meta name="twitter:title" content="Mumble" />
-				<meta name="twitter:description" content="Marketplace for beats" />
+				<meta
+					name="twitter:title"
+					content="Mumble | Buy Beats Online | Sell Beats Online"
+				/>
+				<meta
+					name="twitter:description"
+					content="Mumble is a digital marketplace that connects music producers, beat makers and sound engineers to their desired clients."
+				/>
 				<meta name="twitter:image" content="https://mumble.com.ng/cover.jpg" />
 			</Head>
 
