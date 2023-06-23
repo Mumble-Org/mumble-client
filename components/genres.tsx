@@ -1,8 +1,9 @@
-import styles from "./genres.module.css";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import Image from "next/image";
-import { useDispatch } from "react-redux";
 import { set } from "../redux/actions/signup";
+import styles from "./genres.module.css";
+import { useDispatch } from "react-redux";
 
 let genres_list = [];
 
@@ -134,6 +135,7 @@ export const genres = [
 	"HipHop",
 	"Pop",
 	"RnB",
+	"Drill",
 	"Funk",
 	"Country",
 	"Folk",
