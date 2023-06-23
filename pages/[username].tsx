@@ -23,21 +23,27 @@ export default function ProfilePage() {
 		async function fetchUser() {
 			setLoading(true);
 			try {
-				console.log(`${username.toString().replace("_", " ")}`);
 				const response = await backend.post(`/users/`, {
 					name: `${username.toString().replace("_", " ")}`,
 				});
 				setUser(response.data);
-				console.log("User", response.data);
+
+				return true;
 			} catch (err) {
-				router.push(`/404?username=${username as string}`, username as string);
-				console.log(err);
+				return false;
 			}
-			setLoading(false);
 		}
 
 		if (router.isReady) {
-			fetchUser();
+			fetchUser().then((done) => {
+				if (done) setLoading(false);
+				else {
+					router.push(
+						`/404?username=${username as string}`,
+						username as string
+					);
+				}
+			});
 		} else {
 			setLoading(true);
 		}
@@ -63,7 +69,7 @@ export default function ProfilePage() {
 					</Head>
 
 					<NavBar loggedIn={loggedIn} />
-					{user.length ? <Profile user={user} /> : null}
+					<Profile user={user} />
 				</div>
 			)}
 		</div>
