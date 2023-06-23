@@ -14,7 +14,9 @@ export default function MyApp({ Component, pageProps }) {
 				<title>Mumble</title>
 				<link rel="" href="" />
 				<link rel="icon" type="img/x-icon" href="/Logo.svg" />
-				<meta property="og:image" content="./Logo.svg" />
+				<meta property="og:title" content="Mumble" />
+				<meta property="og:description" content="Marketplace for beats" />
+				<meta property="og:image" content="https://mumble.com.ng/api/og" />
 			</Head>
 
 			<Provider store={store}>
