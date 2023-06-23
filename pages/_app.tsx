@@ -22,14 +22,14 @@ export default function MyApp({ Component, pageProps }) {
 				<meta property="og:type" content="website" />
 				<meta property="og:title" content="Mumble" />
 				<meta property="og:description" content="Marketplace for beats" />
-				<meta property="og:image" content="https://mumble.com.ng/cover.png" />
+				<meta property="og:image" content="https://mumble.com.ng/cover.jpg" />
 
-				<meta name="twitter:card" content="summary_large_image" />
+				<meta name="twitter:card" content="Mumble" />
 				<meta property="twitter:domain" content="mumble.com.ng" />
 				<meta property="twitter:url" content="https://mumble.com.ng" />
 				<meta name="twitter:title" content="Mumble" />
 				<meta name="twitter:description" content="Marketplace for beats" />
-				<meta name="twitter:image" content="https://mumble.com.ng/cover.png" />
+				<meta name="twitter:image" content="https://mumble.com.ng/cover.jpg" />
 			</Head>
 
 			<Provider store={store}>
