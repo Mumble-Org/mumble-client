@@ -1,0 +1,40 @@
+@import "../styles/partials/variables";
+
+.container {
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	width: 100vw;
+	height: 100vh;
+	gap: 32px;
+
+	.text {
+		color: $white;
+
+		@include fontProperties;
+		font-size: 32px;
+		line-height: 40px;
+	}
+
+	.button {
+		height: 40px;
+		padding: 8px 16px;
+		flex-direction: column;
+		border-radius: 8px;
+		background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+
+		@include fontProperties;
+		color: $black;
+		font-size: 16px;
+		line-height: 24px;
+	}
+
+	.button:hover {
+		background: $primary;
+	}
+
+	.button:active {
+		background: $secondary;
+	}
+}

@@ -1,9 +1,28 @@
-import { Grid } from "@mui/material";
-import { useRouter } from "next/router";
+import { Button, Grid, Typography } from "@mui/material";
+
+import Image from "next/image";
+import Link from "next/link";
+import styles from "../styles/404.module.scss";
 
 export default function NotFound() {
-	const router = useRouter();
-	const { username } = router.query;
+	return (
+		<Grid container className={styles.container}>
+			<Image
+				src="/404.svg"
+				width="440"
+				height="320"
+				alt="404: Page not found"
+			/>
 
-	return <Grid>404: {username} not found</Grid>;
+			<Typography variant="h2" className={styles.text}>
+				This page could not be found
+			</Typography>
+
+			<Link href="/">
+				<Button variant="contained" className={styles.button}>
+					Back To Home
+				</Button>
+			</Link>
+		</Grid>
+	);
 }

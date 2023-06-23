@@ -38,10 +38,7 @@ export default function ProfilePage() {
 			fetchUser().then((done) => {
 				if (done) setLoading(false);
 				else {
-					router.push(
-						`/404?username=${username as string}`,
-						username as string
-					);
+					router.push(`/404`, username as string);
 				}
 			});
 		} else {
