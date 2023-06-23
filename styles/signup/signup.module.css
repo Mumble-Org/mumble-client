@@ -264,3 +264,10 @@
 	font-feature-settings: "tnum" on, "lnum" on, "ordn" on;
 	color: #ffd705;
 }
+
+.alert {
+	position: fixed;
+	top: 56px;
+	right: 56px;
+	z-index: 3;
+}
