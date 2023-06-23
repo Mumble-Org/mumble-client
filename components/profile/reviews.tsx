@@ -1,8 +1,9 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Alert, Box, Button, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import Image from "next/image";
 import styles from "./reviews.module.scss";
+import { useSelector } from "react-redux";
 
 export const Reviews = (props) => {
 	const { user } = props;
@@ -10,6 +11,9 @@ export const Reviews = (props) => {
 	const [userRating, setUserRating] = useState([]);
 	const [reviewRating, setReviewRating] = useState(0);
 	const [review, setReview] = useState("");
+	const userState = useSelector((state: any) => state.user);
+	const token = userState.token;
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
 		const rating = genRating(5);
@@ -87,6 +91,10 @@ export const Reviews = (props) => {
 		return ratings;
 	};
 
+	const submitReview = () => {
+		if (!token) setError(true);
+	};
+
 	return (
 		<Stack className={styles.reviews}>
 			<Stack className={styles.reviewTop}>
@@ -128,6 +136,7 @@ export const Reviews = (props) => {
 
 				<Stack className={styles.UsersReview}>
 					{reviews.map((review) => {
+						console.log(review);
 						return (
 							<Stack key={review._id} className={styles.mainReview}>
 								<Stack className={styles.review}>
@@ -168,6 +177,16 @@ export const Reviews = (props) => {
 					})}
 				</Stack>
 			</Stack>
+
+			{error ? (
+				<Alert
+					severity="error"
+					sx={{ position: "fixed", top: "96px", right: "48px" }}
+					onClose={() => setError(false)}
+				>
+					You have to be logged in to review a user!!!
+				</Alert>
+			) : null}
 		</Stack>
 	);
 };

@@ -23,11 +23,14 @@ export default function ProfilePage() {
 		async function fetchUser() {
 			setLoading(true);
 			try {
+				console.log(`${username.toString().replace("_", " ")}`);
 				const response = await backend.post(`/users/`, {
 					name: `${username.toString().replace("_", " ")}`,
 				});
 				setUser(response.data);
+				console.log("User", response.data);
 			} catch (err) {
+				router.push(`/404?username=${username as string}`, username as string);
 				console.log(err);
 			}
 			setLoading(false);
@@ -54,12 +57,13 @@ export default function ProfilePage() {
 				<div>
 					<Head>
 						<title>
-							{user.name.charAt(0).toUpperCase() + user.name.slice(1)} | Mumble
+							{user.name?.charAt(0).toUpperCase() + user.name?.slice(1)} |
+							Mumble
 						</title>
 					</Head>
 
 					<NavBar loggedIn={loggedIn} />
-					<Profile user={user} />
+					{user.length ? <Profile user={user} /> : null}
 				</div>
 			)}
 		</div>

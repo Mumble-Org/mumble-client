@@ -1,10 +1,3 @@
-import React, { useState, useEffect, useMemo } from "react";
-import Image from "next/image";
-import styles from "./dashboard.module.scss";
-import UploadedBeats from "../profile/uploadedBeats";
-import { useRouter } from "next/router";
-import { SongsProduced } from "../profile/songsProduced";
-import { Reviews } from "../profile/reviews";
 import {
 	Alert,
 	Avatar,
@@ -14,11 +7,20 @@ import {
 	Stack,
 	Typography,
 } from "@mui/material";
-import { LocationOn } from "@mui/icons-material";
-import StarIcon from "@mui/icons-material/Star";
+import React, { useEffect, useMemo, useState } from "react";
+
 import EmailIcon from "@mui/icons-material/Email";
+import Image from "next/image";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import { LocationOn } from "@mui/icons-material";
+import { Reviews } from "../profile/reviews";
+import { SongsProduced } from "../profile/songsProduced";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import StarIcon from "@mui/icons-material/Star";
 import { TotalEarnings } from "./totalEarnings";
+import UploadedBeats from "../profile/uploadedBeats";
+import styles from "./dashboard.module.scss";
+import { useRouter } from "next/router";
 
 export const Dashboard = (props) => {
 	const { user } = props;
@@ -28,7 +30,7 @@ export const Dashboard = (props) => {
 	const [alert, setAlert] = useState(false);
 
 	useEffect(() => {
-		const rating = genRating(user.ratings || 5);
+		const rating = genRating(user.rating || 0);
 		setUserRating(rating);
 	}, []);
 
@@ -265,10 +267,15 @@ function SubScene(props) {
 
 const genRating = (rating: number) => {
 	const ratings: Array<any> = [];
-	for (let i: number = 0; i < rating; i++) {
+	let i = 0;
+	for (i; i < rating; i++) {
 		ratings.push([
 			<StarIcon sx={{ color: "#FFD705" }} className={styles.rate} key={i} />,
 		]);
+	}
+
+	for (i; i < 5; i++) {
+		ratings.push([<StarBorderIcon className={styles.rate} key={i} />]);
 	}
 
 	return ratings;
