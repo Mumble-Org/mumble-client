@@ -12,6 +12,7 @@ export default function NotFound() {
 				width="440"
 				height="320"
 				alt="404: Page not found"
+				className={styles.image}
 			/>
 
 			<Typography variant="h2" className={styles.text}>

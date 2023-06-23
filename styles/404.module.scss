@@ -6,8 +6,9 @@
 	flex-direction: column;
 
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
 	gap: 32px;
+	padding: 96px;
 
 	.text {
 		color: $white;
@@ -36,5 +37,30 @@
 
 	.button:active {
 		background: $secondary;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.container {
+		gap: 24px;
+
+		.image {
+			width: 296px;
+			height: 216px;
+		}
+
+		.text {
+			font-size: 24px;
+			line-height: 32px;
+		}
+
+		.button {
+			height: 40px;
+			padding: 8px 16px;
+			border-radius: 8px;
+
+			font-size: 12px;
+			line-height: 20px;
+		}
 	}
 }
