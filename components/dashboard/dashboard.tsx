@@ -252,7 +252,7 @@ function SubScene(props) {
 			case "uploaded beats":
 				return <UploadedBeats id={id} />;
 			case "songs produced":
-				return <SongsProduced user={user} />;
+				return <SongsProduced id={id} />;
 			case "total earnings":
 				return <TotalEarnings user={user} />;
 			case "reviews":
