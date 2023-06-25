@@ -1,11 +1,12 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import styles from "./navbar.module.css";
-import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { set as userSet } from "../../redux/actions/user";
 import { backend } from "../../utils/backend";
+import styles from "./navbar.module.css";
+import { useRouter } from "next/router";
+import { set as userSet } from "../../redux/actions/user";
 
 export function NavBar(props) {
 	const dispatch = useDispatch();
@@ -39,6 +40,20 @@ export function NavBar(props) {
 			</div>
 		);
 	};
+
+	useEffect(() => {
+		if (props.loggedIn) {
+			backend
+				.get("/users/verify", {
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				})
+				.then((response) => {
+					if (response.status !== 200) router.push("/login");
+				});
+		}
+	}, []);
 
 	const handleProfileOpen = () => {
 		const open = profileOpen;
@@ -84,46 +99,61 @@ export function NavBar(props) {
 			</div>
 
 			{props.loggedIn ? (
-				<div className={styles.profile_container}>
-					<ClickOutside>
-						<div className={styles.profile_button} onClick={handleProfileOpen}>
-							<div className={styles.profile_image}>
-								{user.imageUrl && user.imageUrl != "" ? (
-									<Image
-										width="56"
-										height="56"
-										alt="profile picture"
-										src={user.imageUrl}
-									/>
-								) : (
-									<div className={styles.profile_letter_div}>
-										{user.name.charAt(0).toUpperCase()}
-									</div>
-								)}
+				<div className={styles.container_right}>
+					<Link href="/upload" className={styles.upload_beat}>
+						<Image
+							width="20"
+							height="20"
+							alt="upload a beat"
+							src="/upload_black.svg"
+						/>
+						<p>Upload A Beat</p>
+					</Link>
+
+					<div className={styles.profile_container}>
+						<ClickOutside>
+							<div
+								className={styles.profile_button}
+								onClick={handleProfileOpen}
+							>
+								<div className={styles.profile_image}>
+									{user.imageUrl && user.imageUrl != "" ? (
+										<Image
+											width="56"
+											height="56"
+											alt="profile picture"
+											src={user.imageUrl}
+										/>
+									) : (
+										<div className={styles.profile_letter_div}>
+											{user.name.charAt(0).toUpperCase()}
+										</div>
+									)}
+								</div>
+
+								<Image
+									width="11"
+									height="6"
+									alt="profile dropdown"
+									src={
+										profileOpen
+											? "/profile_arrow_up.svg"
+											: "/profile_arrow_down.svg"
+									}
+								/>
 							</div>
 
-							<Image
-								width="11"
-								height="6"
-								alt="profile dropdown"
-								src={
-									profileOpen
-										? "/profile_arrow_up.svg"
-										: "/profile_arrow_down.svg"
-								}
-							/>
-						</div>
-
-						{profileOpen ? (
-							<div className={styles.profile_dropdown}>
-								<p onClick={handleDashboard}>Dashboard</p>
-								<p onClick={handleSettings}>Settings</p>
-								<p onClick={handleSignOut}>Sign Out</p>
-							</div>
-						) : (
-							""
-						)}
-					</ClickOutside>
+							{profileOpen ? (
+								<div className={styles.profile_dropdown}>
+									<p onClick={handleDashboard}>Dashboard</p>
+									<p onClick={handleSettings}>Settings</p>
+									<p onClick={handleSignOut}>Sign Out</p>
+								</div>
+							) : (
+								""
+							)}
+						</ClickOutside>
+					</div>
 				</div>
 			) : (
 				<div className={styles.actions_container}>

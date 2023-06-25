@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
 import Image from "next/image";
-import styles from "./profile.module.css";
-import UploadedBeats from "./uploadedBeats";
-import { SongsProduced } from "./songsProduced";
 import { Reviews } from "./reviews";
+import { SongsProduced } from "./songsProduced";
+import UploadedBeats from "./uploadedBeats";
+import styles from "./profile.module.css";
 
 export const Profile = (props) => {
 	const { user } = props;
 	const [userRating, setUserRating] = useState([]);
 	const [scene, setScene] = useState("uploaded_beats");
+	console.log(user)
 
 	useEffect(() => {
-		const rating = genRating(user.ratings || 5);
+		const rating = genRating(user.rating || 0);
 		setUserRating(rating);
 	}, []);
 
@@ -143,18 +145,35 @@ function SubScene(props) {
 	if (scene == "uploaded_beats") {
 		return <UploadedBeats id={id} />;
 	} else if (scene == "songs_produced") {
-		return <div style={{ margin: "20px" }}><SongsProduced user={user} /></div>;
+		return (
+			<div style={{ margin: "20px" }}>
+				<SongsProduced user={user} />
+			</div>
+		);
 	} else {
-		return <div style={{ margin: "20px" }}><Reviews user={user}/></div>;
+		return (
+			<div>
+				<Reviews user={user} />
+			</div>
+		);
 	}
 }
 
 const genRating = (rating: number) => {
 	const ratings: Array<any> = [];
-	for (let i: number = 0; i < rating; i++) {
+	let i = 0;
+	for (i; i < rating; i++) {
 		ratings.push([
 			<div className={styles.rate} key={i}>
 				<Image src="/star.svg" alt="rating" height="16" width="17" />
+			</div>,
+		]);
+	}
+
+	for (i; i < 5; i++) {
+		ratings.push([
+			<div className={styles.rate} key={i}>
+				<Image src="/star-unfilled.svg" alt="rating" height="16" width="17" />
 			</div>,
 		]);
 	}

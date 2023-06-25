@@ -3,7 +3,7 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 import Image from "next/image";
 import { useState } from "react";
-import Chart, { CategoryScale, Legend, ArcElement } from "chart.js/auto";
+import Chart, { CategoryScale } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
 const filter = {
@@ -130,7 +130,7 @@ export function LineChart() {
 				label: "Total Earnings",
 				data: [200, 300, 400, 200, 400, 400, 500, 600, 900, 800, 600, 400],
 				fill: false,
-				borderColor: 'rgb(75, 192, 192)',
+				borderColor: "rgb(75, 192, 192)",
 				borderWidth: 2,
 				tension: 0.5,
 			},
@@ -138,8 +138,11 @@ export function LineChart() {
 	};
 
 	return (
-		<div className={styles.earningsChart} style={{maxHeight: '600px', maxWidth: '800px'}}>
-			<Line data={data} width={50} height={30} />
+		<div
+			className={styles.earningsChart}
+			style={{ maxHeight: "800px", maxWidth: "1328px" }}
+		>
+			<Line data={data} width={100} height={50} />
 		</div>
 	);
 }

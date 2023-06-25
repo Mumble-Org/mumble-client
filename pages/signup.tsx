@@ -1,12 +1,13 @@
+import { Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
+import { BackToHome } from "../components/buttons/buttons";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "../styles/signup/signup.module.css";
-import { BackToHome } from "../components/buttons/buttons";
-import { useState, useEffect } from "react";
 import { backend } from "../utils/backend";
-
 // redux
 import { set } from "../redux/actions/signup";
+import styles from "../styles/signup/signup.module.css";
 import { useDispatch } from "react-redux";
 
 export default function SignUp(props) {
@@ -15,35 +16,35 @@ export default function SignUp(props) {
 	const [valid, setValid] = useState(false);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
 
 	useEffect(() => {
 		const id = setTimeout(async () => {
-      try {
+			try {
 				const response = await backend.post(
 					"/users/confirmEmail",
-					JSON.stringify({ email: email }),
+					JSON.stringify({ email: email })
 				);
 
-        const exists = response.data.value;
-        if (exists) {
-          setError(true);
-          setValid(false);
-        } else {
-          setError(false);
-          if (isValidPassword(password)) {
-            setValid(true);
-          } else {
-            setValid(false);
-          }
-        }
-      } catch (e) {}
+				const exists = response.data.value;
+				if (exists) {
+					setError(true);
+					setValid(false);
+				} else {
+					setError(false);
+					if (isValidPassword(password)) {
+						setValid(true);
+					} else {
+						setValid(false);
+					}
+				}
+			} catch (e) {}
 		}, 2000);
 
 		return () => {
 			clearTimeout(id);
 		};
-  }, [email, password]);
+	}, [email, password]);
 
 	const isValidEmail = (email: string): boolean => {
 		return /\S+@\S+\.\S+/.test(email);
@@ -163,6 +164,15 @@ export default function SignUp(props) {
 							</div>
 						</div>
 					</Link>
+
+					<Stack direction="row" className={styles.bottom}>
+						<Typography className={styles.bottomText}>
+							Already have an account?
+						</Typography>
+						<Link href="/login" style={{ textDecoration: "none" }}>
+							<Typography className={styles.bottomLink}>Login</Typography>
+						</Link>
+					</Stack>
 				</div>
 			</div>
 		</div>

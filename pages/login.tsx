@@ -1,16 +1,17 @@
+import { Stack, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+
+import { BackToHome } from "../components/buttons/buttons";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "../styles/login.module.css";
-import { BackToHome } from "../components/buttons/buttons";
 import { Loading } from "../components/loading";
-import { useState } from "react";
 import { backend } from "../utils/backend";
-import { useRouter } from "next/router";
-
 // redux
 import { set as loginSet } from "../redux/actions/login";
+import styles from "../styles/login.module.css";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { set as userSet } from "../redux/actions/user";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function Login(props) {
 	const dispatch = useDispatch();
@@ -75,7 +76,7 @@ export default function Login(props) {
 	return (
 		<div className={styles.container}>
 			{loading ? <Loading /> : ""}
-	
+
 			<div className={styles.studio}>
 				<Image src="/Logo.svg" alt="Mumble's logo" width="80" height="80" />
 			</div>
@@ -175,6 +176,15 @@ export default function Login(props) {
 							</div>
 						</div>
 					</Link>
+
+					<Stack direction="row" className={styles.bottom}>
+						<Typography className={styles.bottomText}>
+							Don't have an account?
+						</Typography>
+						<Link href="/signup" style={{ textDecoration: "none" }}>
+							<Typography className={styles.bottomLink}>Sign Up</Typography>
+						</Link>
+					</Stack>
 				</div>
 			</div>
 		</div>

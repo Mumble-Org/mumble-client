@@ -26,23 +26,23 @@
 				border-radius: 8px;
 				max-height: 36px;
 				width: 100%;
-	
+
 				.filter_inner {
 					background: $black;
 					border-radius: 8px;
 					padding: 6px 14px;
 					gap: 12px;
 					width: 100%;
-	
+
 					span {
 						margin: 0;
 					}
-	
+
 					.icon {
 						width: 16px;
 						height: 16px;
 					}
-	
+
 					p {
 						background: $gradient;
 						@include fontProperties;
@@ -55,7 +55,7 @@
 					}
 				}
 			}
-	
+
 			.dropdown {
 				background: $white;
 				border-radius: 0 0 8px 8px;
@@ -66,22 +66,22 @@
 				z-index: 1;
 				width: 164px;
 				overflow-y: scroll;
-	
+
 				.filter {
 					padding: 8px 16px;
-	
+
 					option {
 						@include fontProperties;
 						font-size: 16px;
 						color: $black;
 					}
 				}
-	
+
 				.filter:hover {
 					cursor: pointer;
 					background: $primary;
 				}
-	
+
 				.filter:active {
 					background: $secondary;
 				}
@@ -89,10 +89,25 @@
 		}
 	}
 	.earningsChart {
-		width: '700px';
-		// height: '40vh';
-		max-height: '400px';
-		text-align: center;
+		width: 1328px;
+		max-height: 800px;
+		align-self: center;
 	}
+}
 
+@media screen and (max-width: 1400px) {
+	.container {
+		.header {
+			h3 {
+				font-size: 24px;
+				line-height: 32px;
+			}
+		}
+
+		.earningsChart {
+			width: 1126px;
+			max-height: 800px;
+			align-self: center;
+		}
+	}
 }

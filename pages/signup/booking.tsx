@@ -1,25 +1,25 @@
-import styles from "../../styles/signup/details.module.css";
 import {
 	ActiveCarousel,
 	InactiveCarousel,
 } from "../../components/carousels/carousels";
-import { Back } from "../../components/buttons/back";
 import {
 	ActiveContinue,
 	ActiveFinish,
 } from "../../components/buttons/continue";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { backend } from "../../utils/backend";
-import { Loading } from "../../components/loading";
-
-import { getCitySuggestions } from "../../utils/getCities";
-
-// redux
-import { set } from "../../redux/actions/signup";
-import { set as userSet } from "../../redux/actions/user";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+
+import { Alert } from "@mui/material";
+import { Back } from "../../components/buttons/back";
+import Image from "next/image";
+import { Loading } from "../../components/loading";
+import { backend } from "../../utils/backend";
+import { getCitySuggestions } from "../../utils/getCities";
+// redux
+import { set } from "../../redux/actions/signup";
+import styles from "../../styles/signup/details.module.css";
+import { useRouter } from "next/router";
+import { set as userSet } from "../../redux/actions/user";
 
 export default function Booking() {
 	const type = useSelector((state: any) => state.signup.user.type);
@@ -30,6 +30,7 @@ export default function Booking() {
 	const [locations, setLocations] = useState([]);
 	const [open, setOpen] = useState(true);
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
@@ -197,6 +198,16 @@ export default function Booking() {
 					<ActiveFinish onClick={signup} />
 				)}
 			</div>
+
+			{error && (
+				<Alert
+					severity="error"
+					className={styles.alert}
+					onClose={() => setError(false)}
+				>
+					Error signing up. Please try again
+				</Alert>
+			)}
 		</div>
 	);
 }

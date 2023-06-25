@@ -1,23 +1,22 @@
-import styles from "../../styles/settings.module.scss";
-import { NavBar } from "../../components/navigation/navbar";
-import { BackToHome } from "../../components/buttons/buttons";
-import { backend } from "../../utils/backend";
-
-import Image from "next/image";
-
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import { ThreeDots } from "react-loader-spinner";
-import { useDispatch } from "react-redux";
-import { set as userSet } from "../../redux/actions/user";
-
 // material ui
-import { Grid, Box, Button, Avatar, Typography, Alert } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { Producer } from "../../components/settings/producer";
-import { Engineer } from "../../components/settings/engineer";
+import { Alert, Avatar, Box, Button, Grid, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
 import { Artist } from "../../components/settings/artist";
+import { BackToHome } from "../../components/buttons/buttons";
+import CloseIcon from "@mui/icons-material/Close";
+import { Engineer } from "../../components/settings/engineer";
+import Head from "next/head";
+import Image from "next/image";
+import { NavBar } from "../../components/navigation/navbar";
+import { Producer } from "../../components/settings/producer";
+import { ThreeDots } from "react-loader-spinner";
+import { backend } from "../../utils/backend";
+import styles from "../../styles/settings.module.scss";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { set as userSet } from "../../redux/actions/user";
 
 export default function Settings() {
 	const dispatch = useDispatch();
@@ -144,6 +143,11 @@ export default function Settings() {
 	try {
 		return (
 			<Grid container className={styles.container}>
+				<Head>
+					<title>Mumble | Settings</title>
+					<meta name="robots" content="noindex,nofollow" />
+				</Head>
+
 				{transparent ? <Box className={styles.transparent}></Box> : ""}
 
 				{transparent ? (
@@ -235,7 +239,10 @@ export default function Settings() {
 
 						<Box className={styles.outline_button}>
 							<Box className={styles.inline_button}>
-								<Button variant="outlined" className={`${styles.edit_picture} ${styles.buttons_props}`}>
+								<Button
+									variant="outlined"
+									className={`${styles.edit_picture} ${styles.buttons_props}`}
+								>
 									Edit Profile Photo
 								</Button>
 							</Box>

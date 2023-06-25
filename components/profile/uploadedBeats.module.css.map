@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,UAAU,CAAC;EACV,GAAG,EAAE,IAAI;CACT;;AAED,MAAM,CAAC,MAAM,MAAM,SAAS,EAAE,MAAM;EACnC,AAAA,UAAU,CAAC;IACV,GAAG,EAAE,IAAI;GACT",
-    "sources": [
-        "uploadedBeats.module.scss"
-    ],
-    "names": [],
-    "file": "uploadedBeats.module.css"
-}

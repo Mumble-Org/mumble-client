@@ -1,0 +1,67 @@
+@import "../styles/partials/variables";
+
+.container {
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	width: 100vw;
+	min-height: 100vh;
+	gap: 32px;
+	padding: 96px;
+
+	.text {
+		color: $white;
+
+		@include fontProperties;
+		font-size: 32px;
+		line-height: 40px;
+	}
+
+	.button {
+		height: 40px;
+		padding: 8px 16px;
+		flex-direction: column;
+		border-radius: 8px;
+		background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+
+		@include fontProperties;
+		color: $black;
+		font-size: 16px;
+		line-height: 24px;
+	}
+
+	.button:hover {
+		background: $primary;
+	}
+
+	.button:active {
+		background: $secondary;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.container {
+		gap: 24px;
+		padding: 16px;
+
+		.image {
+			width: 296px;
+			height: 216px;
+		}
+
+		.text {
+			font-size: 24px;
+			line-height: 32px;
+		}
+
+		.button {
+			height: 40px;
+			padding: 8px 16px;
+			border-radius: 8px;
+
+			font-size: 12px;
+			line-height: 20px;
+		}
+	}
+}
