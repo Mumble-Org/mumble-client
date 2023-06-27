@@ -1,12 +1,12 @@
-import styles from "./trendingBeats.module.css";
-import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
-import { backend } from "../../utils/backend";
+import { useEffect, useRef, useState } from "react";
 
-import { genres } from "../genres";
 import { Beat } from "../beat";
-import { ThreeDots } from "react-loader-spinner";
+import Image from "next/image";
 import { Stack } from "@mui/material";
+import { ThreeDots } from "react-loader-spinner";
+import { backend } from "../../utils/backend";
+import { genres } from "../genres";
+import styles from "./trendingBeats.module.css";
 
 export function TrendingBeatsHome(props) {
 	const [priceOpen, setPriceOpen] = useState(false);
@@ -276,6 +276,8 @@ export function TrendingBeats(props) {
 		setGenresFilter(value);
 	};
 
+	const handleSaveBeat = () => {};
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.header}>
@@ -380,7 +382,14 @@ export function TrendingBeats(props) {
 
 			<Stack className={styles.beats_container}>
 				{trendingBeats.map((beat) => {
-					return <Beat beat={beat} key={beat._id} type="trending" />;
+					return (
+						<Beat
+							beat={beat}
+							key={beat._id}
+							type="trending"
+							handleSave={handleSaveBeat}
+						/>
+					);
 				})}
 			</Stack>
 		</div>
