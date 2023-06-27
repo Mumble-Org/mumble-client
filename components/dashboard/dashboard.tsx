@@ -14,6 +14,7 @@ import Image from "next/image";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { LocationOn } from "@mui/icons-material";
 import { Reviews } from "../profile/reviews";
+import SavedBeats from "./savedBeats";
 import { SongsProduced } from "../profile/songsProduced";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
@@ -233,6 +234,21 @@ export const Dashboard = (props) => {
 					</Button>
 					{scene === "reviews" ? <hr className={styles.underline} /> : ""}
 				</Box>
+
+				{/* Saved Beats */}
+				<Box className={styles.scene_container}>
+					<Button
+						className={`${styles.scene} ${
+							scene !== "saved beats" ? styles.scene_inactive : ""
+						}`}
+						onClick={() => {
+							setScene("saved beats");
+						}}
+					>
+						Saved Beats
+					</Button>
+					{scene === "saved beats" ? <hr className={styles.underline} /> : ""}
+				</Box>
 			</Stack>
 
 			<SubScene id={user._id} scene={scene} user={user} />
@@ -259,6 +275,8 @@ function SubScene(props) {
 				return <TotalEarnings user={user} />;
 			case "reviews":
 				return <Reviews user={user} />;
+			case "saved beats":
+				return <SavedBeats user={user} />;
 		}
 	};
 
