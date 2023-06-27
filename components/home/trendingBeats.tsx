@@ -276,8 +276,6 @@ export function TrendingBeats(props) {
 		setGenresFilter(value);
 	};
 
-	const handleSaveBeat = () => {};
-
 	return (
 		<div className={styles.container}>
 			<div className={styles.header}>
@@ -382,14 +380,7 @@ export function TrendingBeats(props) {
 
 			<Stack className={styles.beats_container}>
 				{trendingBeats.map((beat) => {
-					return (
-						<Beat
-							beat={beat}
-							key={beat._id}
-							type="trending"
-							handleSave={handleSaveBeat}
-						/>
-					);
+					return <Beat beat={beat} key={beat._id} type="trending" />;
 				})}
 			</Stack>
 		</div>
