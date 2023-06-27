@@ -14,9 +14,9 @@ import {
 	TrendingBeats,
 	TrendingBeatsHome,
 } from "../components/home/trendingBeats";
-import { getItem, setItem } from "../utils/cache";
 import { useEffect, useState } from "react";
 
+import Cookies from "js-cookie";
 import Head from "next/head";
 import { NavBar } from "../components/navigation/navbar";
 import { SubNav } from "../components/navigation/subnav";
@@ -31,7 +31,7 @@ export default function Home() {
 
 	useEffect(() => {
 		// Set position from cache
-		let pos = getItem("HomePosition");
+		let pos = Cookies.get("HomePosition");
 		if (pos && pos !== undefined) {
 			setPosition(pos);
 		}
@@ -43,7 +43,7 @@ export default function Home() {
 
 	useEffect(() => {
 		// Cache Home page position
-		setItem("HomePosition", position);
+		Cookies.set("HomePosition", position, { expires: 0.0035 });
 	}, [position, setPosition]);
 
 	return (

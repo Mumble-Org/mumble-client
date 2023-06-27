@@ -46,6 +46,9 @@ export function Beat(props) {
 	};
 
 	const handleSaveBeat = async () => {
+		// Clear cache
+		localStorage.removeItem("DashboardSavedBeats");
+
 		const save = !saved;
 
 		if (!token) {
