@@ -1,20 +1,26 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import {
+	PopularBeats,
+	PopularBeatsHome,
+} from "../components/home/popularBeats";
+import {
+	PopularEngineers,
+	PopularEngineersHome,
+} from "../components/home/popularEngineers";
+import {
+	PopularProducers,
+	PopularProducersHome,
+} from "../components/home/popularProducers";
+import {
+	TrendingBeats,
+	TrendingBeatsHome,
+} from "../components/home/trendingBeats";
+import { useEffect, useState } from "react";
 
+import Head from "next/head";
 import { NavBar } from "../components/navigation/navbar";
 import { SubNav } from "../components/navigation/subnav";
-import {
-	TrendingBeatsHome,
-	TrendingBeats,
-} from "../components/home/trendingBeats";
-import {
-	PopularBeatsHome,
-	PopularBeats,
-} from "../components/home/popularBeats";
-import { PopularProducersHome, PopularProducers } from "../components/home/popularProducers";
-import { PopularEngineersHome,PopularEngineers } from "../components/home/popularEngineers";
+import styles from "../styles/Home.module.css";
+import { useSelector } from "react-redux";
 
 export default function Home() {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -38,7 +44,11 @@ export default function Home() {
 
 			<NavBar loggedIn={loggedIn} />
 			{/* <Profile /> */}
-			<SubNav loggedIn={loggedIn} setPosition={setPosition} position={position} />
+			<SubNav
+				loggedIn={loggedIn}
+				setPosition={setPosition}
+				position={position}
+			/>
 
 			{(() => {
 				switch (position) {

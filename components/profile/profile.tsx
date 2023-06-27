@@ -10,7 +10,6 @@ export const Profile = (props) => {
 	const { user } = props;
 	const [userRating, setUserRating] = useState([]);
 	const [scene, setScene] = useState("uploaded_beats");
-	console.log(user)
 
 	useEffect(() => {
 		const rating = genRating(user.rating || 0);

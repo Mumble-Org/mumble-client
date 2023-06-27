@@ -28,7 +28,6 @@ export function Beat(props) {
 	const [severity, setSeverity] = useState<AlertColor>("success");
 	const token = useSelector((state: any) => state.user.token);
 	const router = useRouter();
-	console.log(props.beat);
 
 	/**
 	 * Reset alert
