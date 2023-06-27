@@ -14,6 +14,7 @@ import {
 	TrendingBeats,
 	TrendingBeatsHome,
 } from "../components/home/trendingBeats";
+import { getItem, setItem } from "../utils/cache";
 import { useEffect, useState } from "react";
 
 import Head from "next/head";
@@ -29,10 +30,21 @@ export default function Home() {
 	const [position, setPosition] = useState("home");
 
 	useEffect(() => {
+		// Set position from cache
+		let pos = getItem("HomePosition");
+		if (pos && pos !== undefined) {
+			setPosition(pos);
+		}
+
 		if (token != "" && token != undefined) {
 			setLoggedIn(true);
 		}
 	}, []);
+
+	useEffect(() => {
+		// Cache Home page position
+		setItem("HomePosition", position);
+	}, [position, setPosition]);
 
 	return (
 		<div className={styles.container}>
