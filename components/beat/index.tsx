@@ -14,6 +14,7 @@ import Image from "next/image";
 import KeyIcon from "@mui/icons-material/Key";
 import MusicNoteRoundedIcon from "@mui/icons-material/MusicNoteRounded";
 import { Player } from "../player";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import { backend } from "../../utils/backend";
 import styles from "./beat.module.scss";
@@ -27,6 +28,7 @@ export function Beat(props) {
 	const [severity, setSeverity] = useState<AlertColor>("success");
 	const token = useSelector((state: any) => state.user.token);
 	const router = useRouter();
+	console.log(props.beat);
 
 	/**
 	 * Reset alert
@@ -156,13 +158,7 @@ export function Beat(props) {
 					</Typography>
 
 					<Stack direction="row" className={styles.rating}>
-						{[1, 2, 3, 4, 5].map((star) => (
-							<StarIcon
-								key={star}
-								sx={{ color: "#FFD705" }}
-								className={styles.image}
-							/>
-						))}
+						{genRating(props.beat.producer.rating)}
 					</Stack>
 				</Stack>
 
@@ -235,4 +231,20 @@ export function Beat(props) {
 			) : null}
 		</Grid>
 	);
+}
+
+function genRating(rating: number) {
+	let result = [];
+	let i = 0;
+
+	for (i; i < rating; i++) {
+		result.push(
+			<StarIcon key={i} sx={{ color: "#FFD705" }} className={styles.image} />
+		);
+	}
+
+	for (i; i < 5; i++) {
+		result.push(<StarBorderIcon key={i} className={styles.image} />);
+	}
+	return result;
 }
