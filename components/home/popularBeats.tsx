@@ -1,12 +1,13 @@
-import styles from "./popularBeats.module.css";
-import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
-import { backend } from "../../utils/backend";
+import { getItem, setItem } from "../../utils/cache";
+import { useEffect, useRef, useState } from "react";
 
-import { genres } from "../genres";
 import { Beat } from "../beat";
-import { ThreeDots } from "react-loader-spinner";
+import Image from "next/image";
 import { Stack } from "@mui/material";
+import { ThreeDots } from "react-loader-spinner";
+import { backend } from "../../utils/backend";
+import { genres } from "../genres";
+import styles from "./popularBeats.module.css";
 
 export function PopularBeatsHome(props) {
 	const [priceOpen, setPriceOpen] = useState(false);
@@ -43,20 +44,32 @@ export function PopularBeatsHome(props) {
 
 	useEffect(() => {
 		// Fetch popular beats from backend
+		// Cache beats for 5 minutes
 		async function fetchBeats() {
 			setLoading(true);
-			try {
-				const response = await backend.get(
-					`/beats/trending?page=1&limit=3&genre=${
-						genresFilter === "All genres"
-							? genresFilter
-							: genresFilter.toLowerCase()
-					}&price=${priceFilter}`
-				);
-				setPopularBeats(response.data.beats);
-			} catch (err) {
-				console.log(err);
+			let beats = getItem("PopularBeatsHome");
+
+			if (beats === undefined || !beats) {
+				try {
+					const response = await backend.get(
+						`/beats/trending?page=1&limit=3&genre=${
+							genresFilter === "All genres"
+								? genresFilter
+								: genresFilter.toLowerCase()
+						}&price=${priceFilter}`
+					);
+
+					setPopularBeats(response.data.beats);
+					// Cache for 5 minutes
+					setItem("PopularBeatsHome", response.data.beats);
+				} catch (err) {
+					setPopularBeats([]);
+					console.log(err);
+				}
+			} else {
+				setPopularBeats(beats);
 			}
+
 			setLoading(false);
 		}
 		fetchBeats();
@@ -237,20 +250,34 @@ export function PopularBeats(props) {
 
 	useEffect(() => {
 		// Fetch popular beats from backend
+		// Cache results for 5 minutes
 		async function fetchBeats() {
 			setLoading(true);
-			try {
-				const response = await backend.get(
-					`/beats/popular/?page=1&limit=24&genre=${
-						genresFilter === "All genres"
-							? genresFilter
-							: genresFilter.toLowerCase()
-					}&price=${priceFilter}`
-				);
-				setPopularBeats(response.data.beats);
-			} catch (err) {
-				console.log(err);
+			let beats = getItem("PopularBeats");
+			console.log("Beats ", beats);
+
+			if (beats === undefined || !beats) {
+				try {
+					const response = await backend.get(
+						`/beats/popular/?page=1&limit=24&genre=${
+							genresFilter === "All genres"
+								? genresFilter
+								: genresFilter.toLowerCase()
+						}&price=${priceFilter}`
+					);
+
+					setPopularBeats(response.data.beats);
+					console.log(JSON.stringify(response.data.beats).length);
+					// Cache for 5 minutes
+					setItem("PopularBeats", response.data.beats);
+				} catch (err) {
+					setPopularBeats([]);
+					console.log(err);
+				}
+			} else {
+				setPopularBeats(beats);
 			}
+
 			setLoading(false);
 		}
 		fetchBeats();

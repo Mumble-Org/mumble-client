@@ -1,10 +1,12 @@
-import styles from "./popularProducers.module.css";
+import { getItem, setItem } from "../../utils/cache";
+import { useEffect, useRef, useState } from "react";
+
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
-import { backend } from "../../utils/backend";
-import { getCitySuggestions } from "../../utils/getCities";
 import { Producer } from "../users/producer";
 import { ThreeDots } from "react-loader-spinner";
+import { backend } from "../../utils/backend";
+import { getCitySuggestions } from "../../utils/getCities";
+import styles from "./popularProducers.module.css";
 
 export function PopularProducersHome(props) {
 	const [location, setLocation] = useState("");
@@ -15,16 +17,28 @@ export function PopularProducersHome(props) {
 
 	useEffect(() => {
 		// Fetch popular beats from backend
+		// Cache results for 5 minutes
 		async function fetchProducers() {
 			setLoading(true);
-			try {
-				const response = await backend.get(
-					`/users/trendingProducers/?page=1&limit=8&location=${location}`
-				);
-				setProducers(response.data.producers);
-			} catch (err) {
-				console.log(err);
+			let producers = getItem("PopularProducersHome");
+
+			if (producers === undefined || !producers) {
+				try {
+					const response = await backend.get(
+						`/users/trendingProducers/?page=1&limit=8&location=${location}`
+					);
+
+					setProducers(response.data.producers);
+					// Cache results for 5 minutes
+					setItem("PopularProducersHome", response.data.producers);
+				} catch (err) {
+					setProducers([]);
+					console.log(err);
+				}
+			} else {
+				setProducers(producers);
 			}
+
 			setLoading(false);
 		}
 		fetchProducers();
@@ -119,7 +133,10 @@ export function PopularProducersHome(props) {
 					})}
 			</div>
 
-			<div className={styles.view_more_outer} onClick={() => props.setPosition("producers")}>
+			<div
+				className={styles.view_more_outer}
+				onClick={() => props.setPosition("producers")}
+			>
 				<div className={styles.view_more_inner}>
 					<p>Discover More Producers</p>
 				</div>
@@ -137,16 +154,28 @@ export function PopularProducers(props) {
 
 	useEffect(() => {
 		// Fetch popular beats from backend
+		// Cache results for 5 minutes
 		async function fetchProducers() {
 			setLoading(true);
-			try {
-				const response = await backend.get(
-					`/users/trendingProducers/?page=1&limit=8&location=${location}`
-				);
-				setProducers(response.data.producers);
-			} catch (err) {
-				console.log(err);
+			let producers = getItem("PopularProducers");
+
+			if (producers === undefined || !producers) {
+				try {
+					const response = await backend.get(
+						`/users/trendingProducers/?page=1&limit=8&location=${location}`
+					);
+
+					setProducers(response.data.producers);
+					// Cache for 5 minutes
+					setItem("PopularProducers", response.data.producers);
+				} catch (err) {
+					setProducers([]);
+					console.log(err);
+				}
+			} else {
+				setProducers(producers);
 			}
+
 			setLoading(false);
 		}
 		fetchProducers();
@@ -240,7 +269,6 @@ export function PopularProducers(props) {
 						return <Producer user={producer} key={producer._id} />;
 					})}
 			</div>
-
 		</div>
 	);
 }

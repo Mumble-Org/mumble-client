@@ -1,3 +1,4 @@
+import { getItem, setItem } from "../../utils/cache";
 import { useEffect, useRef, useState } from "react";
 
 import { Beat } from "../beat";
@@ -43,20 +44,32 @@ export function TrendingBeatsHome(props) {
 
 	useEffect(() => {
 		// Fetch trending beats from backend
+		// Cache result as cookies for 5 minutes
 		async function fetchBeats() {
 			setLoading(true);
-			try {
-				const response = await backend.get(
-					`/beats/trending?page=1&limit=3&genre=${
-						genresFilter === "All genres"
-							? genresFilter
-							: genresFilter.toLowerCase()
-					}&price=${priceFilter}`
-				);
-				setTrendingBeats(response.data.beats);
-			} catch (err) {
-				console.log(err);
+			let beats = getItem("TrendingBeatsHome");
+
+			if (beats === undefined || !beats) {
+				try {
+					const response = await backend.get(
+						`/beats/trending?page=1&limit=3&genre=${
+							genresFilter === "All genres"
+								? genresFilter
+								: genresFilter.toLowerCase()
+						}&price=${priceFilter}`
+					);
+
+					setTrendingBeats(response.data.beats);
+					// Set cookies to expire after 5 minutes
+					setItem("TrendingBeatsHome", response.data.beats);
+				} catch (err) {
+					setTrendingBeats([]);
+					console.log(err);
+				}
+			} else {
+				setTrendingBeats(beats);
 			}
+
 			setLoading(false);
 		}
 		fetchBeats();
@@ -237,20 +250,32 @@ export function TrendingBeats(props) {
 
 	useEffect(() => {
 		// Fetch trending beats from backend
+		// Cache results for 5 minutes
 		async function fetchBeats() {
 			setLoading(true);
-			try {
-				const response = await backend.get(
-					`/beats/trending/?page=1&limit=24&genre=${
-						genresFilter === "All genres"
-							? genresFilter
-							: genresFilter.toLowerCase()
-					}&price=${priceFilter}`
-				);
-				setTrendingBeats(response.data.beats);
-			} catch (err) {
-				console.log(err);
+			let beats = getItem("TrendingBeats");
+
+			if (beats === undefined || !beats) {
+				try {
+					const response = await backend.get(
+						`/beats/trending/?page=1&limit=24&genre=${
+							genresFilter === "All genres"
+								? genresFilter
+								: genresFilter.toLowerCase()
+						}&price=${priceFilter}`
+					);
+
+					setTrendingBeats(response.data.beats);
+					// Cache for 5 minutes
+					setItem("TrendingBeats", response.data.beats);
+				} catch (err) {
+					setTrendingBeats([]);
+					console.log(err);
+				}
+			} else {
+				setTrendingBeats(beats);
 			}
+
 			setLoading(false);
 		}
 		fetchBeats();
