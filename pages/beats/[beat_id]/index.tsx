@@ -28,16 +28,18 @@ export default function BeatPage() {
 	useEffect(() => {
 		setLoading(true);
 
-		backend
-			.get(`/beats/${beatId}`)
-			.then((response) => {
-				setBeat(response.data);
-				setLoading(false);
-			})
-			.catch((error) => {
-				router.push("/404", `/beats/${beatId as string}`);
-			});
-	}, []);
+		if (router.isReady) {
+			backend
+				.get(`/beats/${beatId}`)
+				.then((response) => {
+					setBeat(response.data);
+					setLoading(false);
+				})
+				.catch((error) => {
+					router.push("/404", `/beats/${beatId as string}`);
+				});
+		}
+	}, [router.isReady]);
 
 	return (
 		<>
