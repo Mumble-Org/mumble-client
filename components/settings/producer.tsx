@@ -88,20 +88,25 @@ export function Producer(props) {
 
 	const handleChangePortfolio = (e, index) => {
 		// Copy portfolio to new array
-		const {title, link } = e.target;
-		let newPortfolio = [].concat(portfolio);
+		const {name, value } = e.target;
+		let newPortfolio = [...portfolio];
+		
 		// Change the link at it's index to new value
-		newPortfolio[index] = { title, link };
-		// Update portfolio
+		newPortfolio[index] = {
+			...newPortfolio[index],
+			[name]: value
+		};
+
+		// Update the portfolio state
 		setPortfolio(newPortfolio);
 	};
 
 	const handleDeletePortfolio = (index) => {
 		// Copy portfolio to new array except the deleted link
-		let newPortfolio = portfolio.filter(
-			(link) => portfolio.indexOf(link) !== index
-		);
-		// Update portfolio
+		let newPortfolio = [...portfolio];
+  	newPortfolio.splice(index, 1);
+
+		// Update portfolio state
 		setPortfolio(newPortfolio);
 	};
 
