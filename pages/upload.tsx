@@ -1,18 +1,17 @@
-import styles from "../styles/upload.module.css";
-import genreStyles from "../components/signup/details.module.css";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { genres, GenreSingle } from "../components/genres";
-import { backend } from "../utils/backend";
+import { GenreSingle, genres } from "../components/genres";
+import { useEffect, useState } from "react";
 
+import { ActiveFinish } from "../components/buttons/continue";
+import { Back } from "../components/buttons/back";
+import Image from "next/image";
+import { ThreeDots } from "react-loader-spinner";
+import { backend } from "../utils/backend";
+import genreStyles from "../components/signup/details.module.css";
+import styles from "../styles/upload.module.css";
 // redux
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-
-import { Back } from "../components/buttons/back";
-import { ActiveFinish } from "../components/buttons/continue";
-import { ThreeDots } from "react-loader-spinner";
 
 export default function Upload() {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -100,7 +99,7 @@ export default function Upload() {
 	const deleteBeat = () => {
 		setBeat("");
 		setData("");
-		setArt("/logo.svg");
+		setArt("/Logo.svg");
 	};
 
 	const removeBeat = () => {
@@ -212,7 +211,9 @@ export default function Upload() {
 			)}
 
 			{error ? (
-				<div className={styles.error}>Problem uploading beat! Please try again</div>
+				<div className={styles.error}>
+					Problem uploading beat! Please try again
+				</div>
 			) : (
 				""
 			)}

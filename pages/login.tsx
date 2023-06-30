@@ -35,7 +35,6 @@ export default function Login(props) {
 			if (response.status === 200) {
 				dispatch(userSet("user", response.data.user));
 				dispatch(userSet("token", response.data.token));
-				console.log(response.data);
 				router.push("/");
 			}
 		} catch (error) {

@@ -1,14 +1,40 @@
-import styles from "./beat.module.scss";
+import {
+	Alert,
+	AlertColor,
+	Avatar,
+	Box,
+	Button,
+	Grid,
+	Stack,
+	Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
+
 import Image from "next/image";
+import KeyIcon from "@mui/icons-material/Key";
+import MusicNoteRoundedIcon from "@mui/icons-material/MusicNoteRounded";
 import { Player } from "../player";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import StarIcon from "@mui/icons-material/Star";
+import { backend } from "../../utils/backend";
+import styles from "./beat.module.scss";
 import { useRouter } from "next/router";
-import { Avatar, Box, Button, Grid, Stack, Typography } from "@mui/material";
-import StarIcon from '@mui/icons-material/Star';
-import KeyIcon from '@mui/icons-material/Key';
-import MusicNoteRoundedIcon from '@mui/icons-material/MusicNoteRounded';
+import { useSelector } from "react-redux";
 
 export function Beat(props) {
+	const [saved, setSaved] = useState<boolean>(props.saved || false);
+	const [alert, setAlert] = useState(false);
+	const [message, setMessage] = useState("Beat saved successfully!!!");
+	const [severity, setSeverity] = useState<AlertColor>("success");
+	const token = useSelector((state: any) => state.user.token);
 	const router = useRouter();
+
+	/**
+	 * Reset alert
+	 */
+	useEffect(() => {
+		if (alert) setTimeout(() => setAlert(false), 3000);
+	}, [alert, setAlert]);
 
 	const setPrice = (price) => {
 		const formattedInput = Number(price).toLocaleString();
@@ -17,6 +43,49 @@ export function Beat(props) {
 
 	const openProducerProfile = () => {
 		router.push(`/${props.beat.producer.name.replace(" ", "_")}`);
+	};
+
+	const handleSaveBeat = async () => {
+		// Clear cache
+		localStorage.removeItem("DashboardSavedBeats");
+
+		const save = !saved;
+
+		if (!token) {
+			setMessage("Please login or signup to save a beat");
+			setSeverity("error");
+			setAlert(true);
+			router.push("/login");
+		} else {
+			setSaved(save);
+
+			if (save) {
+				setMessage("Beat saved successfully!!!");
+				await backend.put(
+					`/beats/save?beat_id=${props.beat._id}`,
+					{},
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+			} else {
+				setMessage("Beat unsaved successfully!!!");
+				await backend.put(
+					`/beats/unsave?beat_id=${props.beat._id}`,
+					{},
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+			}
+
+			setSeverity("success");
+			setAlert(true);
+		}
 	};
 
 	return (
@@ -91,9 +160,7 @@ export function Beat(props) {
 					</Typography>
 
 					<Stack direction="row" className={styles.rating}>
-						{[1, 2, 3, 4, 5].map((star) => (
-							<StarIcon key={star} sx={{ color: "#FFD705" }} className={styles.image} />
-						))}
+						{genRating(props.beat.producer.rating)}
 					</Stack>
 				</Stack>
 
@@ -104,8 +171,11 @@ export function Beat(props) {
 						<Button className={styles.buy_now}>Buy Now</Button>
 
 						<Box className={styles.save_beat_outer}>
-							<Button className={styles.save_beat_inner}>
-								<Typography>Save Beat</Typography>
+							<Button
+								className={styles.save_beat_inner}
+								onClick={handleSaveBeat}
+							>
+								<Typography>{saved ? "Unsave Beat" : "Save Beat"}</Typography>
 							</Button>
 						</Box>
 
@@ -116,16 +186,21 @@ export function Beat(props) {
 							src="/price_tag.svg"
 						/>
 
-						<Typography className={styles.text}>NGN. {setPrice(props.beat.price)}</Typography>
+						<Typography className={styles.text}>
+							NGN. {setPrice(props.beat.price)}
+						</Typography>
 
-						<KeyIcon className={styles.icon} sx={{color: "#e5e5e5"}} />
+						<KeyIcon className={styles.icon} sx={{ color: "#e5e5e5" }} />
 
 						<Typography className={styles.text}>
 							{props.beat.license.charAt(0).toUpperCase() +
 								props.beat.license.slice(1)}
 						</Typography>
 
-						<MusicNoteRoundedIcon className={styles.icon} sx={{color: "#e5e5e5"}} />
+						<MusicNoteRoundedIcon
+							className={styles.icon}
+							sx={{ color: "#e5e5e5" }}
+						/>
 
 						<Typography className={styles.text}>
 							{props.beat.genre.charAt(0).toUpperCase() +
@@ -145,6 +220,33 @@ export function Beat(props) {
 					</Stack>
 				</Stack>
 			</Stack>
+
+			{/* Success message */}
+			{alert ? (
+				<Alert
+					severity={severity}
+					className={styles.alert}
+					onClose={() => setAlert(false)}
+				>
+					{message}
+				</Alert>
+			) : null}
 		</Grid>
 	);
+}
+
+function genRating(rating: number) {
+	let result = [];
+	let i = 0;
+
+	for (i; i < rating; i++) {
+		result.push(
+			<StarIcon key={i} sx={{ color: "#FFD705" }} className={styles.image} />
+		);
+	}
+
+	for (i; i < 5; i++) {
+		result.push(<StarBorderIcon key={i} className={styles.image} />);
+	}
+	return result;
 }

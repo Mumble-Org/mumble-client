@@ -100,15 +100,17 @@ export function NavBar(props) {
 
 			{props.loggedIn ? (
 				<div className={styles.container_right}>
-					<Link href="/upload" className={styles.upload_beat}>
-						<Image
-							width="20"
-							height="20"
-							alt="upload a beat"
-							src="/upload_black.svg"
-						/>
-						<p>Upload A Beat</p>
-					</Link>
+					{user.type === "producer" ? (
+						<Link href="/upload" className={styles.upload_beat}>
+							<Image
+								width="20"
+								height="20"
+								alt="upload a beat"
+								src="/upload_black.svg"
+							/>
+							<p>Upload A Beat</p>
+						</Link>
+					) : null}
 
 					<div className={styles.profile_container}>
 						<ClickOutside>

@@ -1,20 +1,19 @@
-import styles from "../../styles/signup/details.module.css";
-import genreStyles from "../../components/signup/details.module.css";
 import {
 	ActiveCarousel,
 	InactiveCarousel,
 } from "../../components/carousels/carousels";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { genres, GenreSingle } from "../../components/genres";
-
-// redux
-import { set } from "../../redux/actions/signup";
-import { useDispatch } from "react-redux";
+import { GenreSingle, genres } from "../../components/genres";
 import { useEffect, useState } from "react";
 
-import { Back } from "../../components/buttons/back";
 import { ActiveFinish } from "../../components/buttons/continue";
+import { Back } from "../../components/buttons/back";
+import Image from "next/image";
+import genreStyles from "../../components/signup/details.module.css";
+// redux
+import { set } from "../../redux/actions/signup";
+import styles from "../../styles/signup/details.module.css";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 export default function Upload() {
 	const dispatch = useDispatch();
@@ -69,7 +68,7 @@ export default function Upload() {
 	const deleteBeat = () => {
 		setBeat("");
 		setData("");
-		setArt("/logo.svg");
+		setArt("/Logo.svg");
 	};
 
 	const removeBeat = () => {
@@ -160,7 +159,7 @@ export default function Upload() {
 				<div className={styles.uploaded_beat}>
 					<div className={styles.uploaded_beat_main}>
 						<Image
-							src={typeof art === 'string' ? art : URL.createObjectURL(art)}
+							src={typeof art === "string" ? art : URL.createObjectURL(art)}
 							alt="artwork"
 							width="80"
 							height="80"

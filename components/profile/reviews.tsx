@@ -136,7 +136,6 @@ export const Reviews = (props) => {
 
 				<Stack className={styles.UsersReview}>
 					{reviews.map((review) => {
-						console.log(review);
 						return (
 							<Stack key={review._id} className={styles.mainReview}>
 								<Stack className={styles.review}>

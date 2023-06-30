@@ -1,12 +1,13 @@
-import styles from "./trendingBeats.module.css";
-import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
-import { backend } from "../../utils/backend";
+import { getItem, setItem } from "../../utils/cache";
+import { useEffect, useRef, useState } from "react";
 
-import { genres } from "../genres";
 import { Beat } from "../beat";
-import { ThreeDots } from "react-loader-spinner";
+import Image from "next/image";
 import { Stack } from "@mui/material";
+import { ThreeDots } from "react-loader-spinner";
+import { backend } from "../../utils/backend";
+import { genres } from "../genres";
+import styles from "./trendingBeats.module.css";
 
 export function TrendingBeatsHome(props) {
 	const [priceOpen, setPriceOpen] = useState(false);
@@ -43,20 +44,32 @@ export function TrendingBeatsHome(props) {
 
 	useEffect(() => {
 		// Fetch trending beats from backend
+		// Cache result as cookies for 5 minutes
 		async function fetchBeats() {
 			setLoading(true);
-			try {
-				const response = await backend.get(
-					`/beats/trending?page=1&limit=3&genre=${
-						genresFilter === "All genres"
-							? genresFilter
-							: genresFilter.toLowerCase()
-					}&price=${priceFilter}`
-				);
-				setTrendingBeats(response.data.beats);
-			} catch (err) {
-				console.log(err);
+			let beats = getItem("TrendingBeatsHome");
+
+			if (beats === undefined || !beats) {
+				try {
+					const response = await backend.get(
+						`/beats/trending?page=1&limit=3&genre=${
+							genresFilter === "All genres"
+								? genresFilter
+								: genresFilter.toLowerCase()
+						}&price=${priceFilter}`
+					);
+
+					setTrendingBeats(response.data.beats);
+					// Set cookies to expire after 5 minutes
+					setItem("TrendingBeatsHome", response.data.beats);
+				} catch (err) {
+					setTrendingBeats([]);
+					console.log(err);
+				}
+			} else {
+				setTrendingBeats(beats);
 			}
+
 			setLoading(false);
 		}
 		fetchBeats();
@@ -237,20 +250,32 @@ export function TrendingBeats(props) {
 
 	useEffect(() => {
 		// Fetch trending beats from backend
+		// Cache results for 5 minutes
 		async function fetchBeats() {
 			setLoading(true);
-			try {
-				const response = await backend.get(
-					`/beats/trending/?page=1&limit=24&genre=${
-						genresFilter === "All genres"
-							? genresFilter
-							: genresFilter.toLowerCase()
-					}&price=${priceFilter}`
-				);
-				setTrendingBeats(response.data.beats);
-			} catch (err) {
-				console.log(err);
+			let beats = getItem("TrendingBeats");
+
+			if (beats === undefined || !beats) {
+				try {
+					const response = await backend.get(
+						`/beats/trending/?page=1&limit=24&genre=${
+							genresFilter === "All genres"
+								? genresFilter
+								: genresFilter.toLowerCase()
+						}&price=${priceFilter}`
+					);
+
+					setTrendingBeats(response.data.beats);
+					// Cache for 5 minutes
+					setItem("TrendingBeats", response.data.beats);
+				} catch (err) {
+					setTrendingBeats([]);
+					console.log(err);
+				}
+			} else {
+				setTrendingBeats(beats);
 			}
+
 			setLoading(false);
 		}
 		fetchBeats();

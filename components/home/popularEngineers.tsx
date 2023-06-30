@@ -1,10 +1,12 @@
-import styles from "./popularEngineers.module.css";
+import { getItem, setItem } from "../../utils/cache";
+import { useEffect, useRef, useState } from "react";
+
+import { Engineer } from "../users/engineer";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { ThreeDots } from "react-loader-spinner";
 import { backend } from "../../utils/backend";
 import { getCitySuggestions } from "../../utils/getCities";
-import { Engineer } from "../users/engineer";
-import { ThreeDots } from "react-loader-spinner";
+import styles from "./popularEngineers.module.css";
 
 export function PopularEngineersHome(props) {
 	const [location, setLocation] = useState("");
@@ -15,14 +17,28 @@ export function PopularEngineersHome(props) {
 
 	useEffect(() => {
 		// Fetch popular beats from backend
+		// Cache results for 5 minutes
 		async function fetchEngineers() {
 			setLoading(true);
-			try {
-				const response = await backend.get(`/users/trendingEngineers/?page=1&limit=8&location=${location}`);
-				setEngineers(response.data.engineers);
-			} catch (err) {
-				console.log(err);
+			let engineers = getItem("PopularEngineersHome");
+
+			if (engineers === undefined || !engineers) {
+				try {
+					const response = await backend.get(
+						`/users/trendingEngineers/?page=1&limit=8&location=${location}`
+					);
+
+					setEngineers(response.data.engineers);
+					// Cache for 5 minutes
+					setItem("PopularEngineersHome", response.data.engineers);
+				} catch (err) {
+					setEngineers([]);
+					console.log(err);
+				}
+			} else {
+				setEngineers(engineers);
 			}
+
 			setLoading(false);
 		}
 		fetchEngineers();
@@ -79,9 +95,7 @@ export function PopularEngineersHome(props) {
 				</div>
 
 				{open ? (
-					<ul
-						className={styles.location_select}
-					>
+					<ul className={styles.location_select}>
 						{locations.map((loc) => (
 							<div className={styles.location_option} key={loc}>
 								<Image
@@ -113,12 +127,16 @@ export function PopularEngineersHome(props) {
 			)}
 
 			<div className={styles.producers}>
-				{engineers && engineers.map((engineer) => {
-					return <Engineer user={engineer} key={engineer._id} />
-				})}
+				{engineers &&
+					engineers.map((engineer) => {
+						return <Engineer user={engineer} key={engineer._id} />;
+					})}
 			</div>
 
-			<div className={styles.view_more_outer} onClick={() => props.setPosition("engineers")}>
+			<div
+				className={styles.view_more_outer}
+				onClick={() => props.setPosition("engineers")}
+			>
 				<div className={styles.view_more_inner}>
 					<p>Discover More Sound Engineers</p>
 				</div>
@@ -136,14 +154,28 @@ export function PopularEngineers(props) {
 
 	useEffect(() => {
 		// Fetch popular beats from backend
+		// Cache results for 5 minutes
 		async function fetchEngineers() {
 			setLoading(true);
-			try {
-				const response = await backend.get(`/users/trendingEngineers/?page=1&limit=8&location=${location}`);
-				setEngineers(response.data.engineers);
-			} catch (err) {
-				console.log(err);
+			let engineers = getItem("PopularEngineers");
+
+			if (engineers === undefined || !engineers) {
+				try {
+					const response = await backend.get(
+						`/users/trendingEngineers/?page=1&limit=8&location=${location}`
+					);
+
+					setEngineers(response.data.engineers);
+					// Cache for 5 minutes
+					setItem("PopularEngineers", response.data.engineers);
+				} catch (err) {
+					setEngineers([]);
+					console.log(err);
+				}
+			} else {
+				setEngineers(engineers);
 			}
+
 			setLoading(false);
 		}
 		fetchEngineers();
@@ -200,9 +232,7 @@ export function PopularEngineers(props) {
 				</div>
 
 				{open ? (
-					<ul
-						className={styles.location_select}
-					>
+					<ul className={styles.location_select}>
 						{locations.map((loc) => (
 							<div className={styles.location_option} key={loc}>
 								<Image
@@ -234,11 +264,11 @@ export function PopularEngineers(props) {
 			)}
 
 			<div className={styles.producers}>
-				{engineers && engineers.map((engineer) => {
-					return <Engineer user={engineer} key={engineer._id} />
-				})}
+				{engineers &&
+					engineers.map((engineer) => {
+						return <Engineer user={engineer} key={engineer._id} />;
+					})}
 			</div>
-
 		</div>
 	);
 }
