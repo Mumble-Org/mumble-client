@@ -254,7 +254,6 @@ export function PopularBeats(props) {
 		async function fetchBeats() {
 			setLoading(true);
 			let beats = getItem("PopularBeats");
-			console.log("Beats ", beats);
 
 			if (beats === undefined || !beats) {
 				try {
@@ -267,7 +266,6 @@ export function PopularBeats(props) {
 					);
 
 					setPopularBeats(response.data.beats);
-					console.log(JSON.stringify(response.data.beats).length);
 					// Cache for 5 minutes
 					setItem("PopularBeats", response.data.beats);
 				} catch (err) {
