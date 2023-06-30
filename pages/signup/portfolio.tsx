@@ -16,64 +16,100 @@ import { ActiveContinue } from "../../components/buttons/continue";
 
 function SongLink(props) {
 	const handleChange = (e) => {
-		const link = e.target.value;
-		const temp = { ...props.portfolio };
-		temp[props.id] = link;
-		props.setPortfolio(temp);
+		const name = e.target.name;
+		const value = e.target.value;
+    const temp = { ...props.portfolio };
+    temp[props.id] = { ...temp[props.id], [name]: value };
+    props.setPortfolio(temp);
 	};
 
 	return (
 		<div className={styles.link_container}>
-			<label htmlFor="input" className={styles.link_label}>
-				Song link
-			</label>
-			<div className={styles.link_input_div}>
-				<input
-					onChange={handleChange}
-					className={styles.link_input}
-					name="input"
-					placeholder="Add a link"
-				></input>
+			<div>
+				<label htmlFor="title" className={styles.link_label}>
+					Song Title
+				</label>
+				<div className={styles.link_input_div}>
+					<input
+						onChange={handleChange}
+						className={styles.link_input}
+						name="title"
+						value={props.portfolio[props.id]?.title || ''}
+						placeholder="Add Song title"
+					></input>
+				</div>
+			</div>
+			<div>
+				<label htmlFor="link" className={styles.link_label}>
+					Song link
+				</label>
+				<div className={styles.link_input_div}>
+					<input
+						onChange={handleChange}
+						className={styles.link_input}
+						name="link"
+						placeholder="Add a link"
+					></input>
+				</div>
 			</div>
 		</div>
 	);
-}
+};
 
 function SongLinkDelete(props) {
+
 	const handleChange = (e) => {
-		const link = e.target.value;
-		const temp = { ...props.portfolio };
-		temp[props.id] = link;
-		props.setPortfolio(temp);
+		const name = e.target.name;
+		const value = e.target.value;
+    const temp = { ...props.portfolio };
+    temp[props.id] = { ...temp[props.id], [name]: value };
+    props.setPortfolio(temp);
 	};
 
 	const handleDelete = (e) => {
 		e.preventDefault();
 
-		const temp = props.links;
-		props.setLinks(temp.filter((link) => link !== props.id));
+		const updatedLinks = props.links.filter((link) => link !== props.id);
+		props.setLinks(updatedLinks);
 
-		let portfolio = props.portfolio;
-		delete portfolio[props.id];
-		props.setPortfolio(portfolio);
+		const updatedPortfolio = { ...props.portfolio };
+		delete updatedPortfolio[props.id];
+		props.setPortfolio(updatedPortfolio);
 	};
 
 	return (
 		<div className={styles.link_container} id={props.id}>
-			<label htmlFor="input" className={styles.link_label}>
-				Song link
-			</label>
+			<div>
+				<label htmlFor="title" className={styles.link_label}>
+					Song Title
+				</label>
+				<div className={styles.link_input_div}>
+					<input
+						onChange={handleChange}
+						className={styles.link_input}
+						name="title"
+						value={props.portfolio[props.id]?.title || ''}
+						placeholder="Add Song title"
+					></input>
+				</div>
+			</div>
 
-			<div className={styles.link_input_div}>
-				<input
-					onChange={handleChange}
-					className={styles.link_input}
-					name="input"
-					placeholder="Add a link"
-				></input>
+			<div>
+				<label htmlFor="input" className={styles.link_label}>
+					Song link
+				</label>
 
-				<div className={styles.link_button} onClick={handleDelete}>
-					<Image src="/bin.svg" alt="delete link" width="16" height="18" />
+				<div className={styles.link_input_div}>
+					<input
+						onChange={handleChange}
+						className={styles.link_input}
+						name="input"
+						placeholder="Add a link"
+					></input>
+
+					<div className={styles.link_button} onClick={handleDelete}>
+						<Image src="/bin.svg" alt="delete link" width="16" height="18" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -85,7 +121,7 @@ export default function Portfolio() {
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const [links, setLinks] = useState(["link1", "link2", "link3"]);
-	const [portfolio, setPortfolio] = useState({});
+	const [portfolio, setPortfolio] = useState([]);
 
 	const addLink = () => {
 		const id = Date.now().toString();
