@@ -49,8 +49,9 @@ export function NavBar(props) {
 						Authorization: `Bearer ${token}`,
 					},
 				})
-				.then((response) => {
-					if (response.status !== 200) router.push("/login");
+				.catch((error) => {
+					props.setLoggedIn(false);
+					router.reload();
 				});
 		}
 	}, []);

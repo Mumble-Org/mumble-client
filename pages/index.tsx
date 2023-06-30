@@ -54,7 +54,7 @@ export default function Home() {
 				<link rel="icon" type="img/x-icon" href="/Logo.svg" />
 			</Head>
 
-			<NavBar loggedIn={loggedIn} />
+			<NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 			{/* <Profile /> */}
 			<SubNav
 				loggedIn={loggedIn}
