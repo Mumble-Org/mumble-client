@@ -4,6 +4,7 @@ import {
 	Avatar,
 	Box,
 	Button,
+	ClickAwayListener,
 	Grid,
 	Stack,
 	Typography,
@@ -12,6 +13,7 @@ import { useEffect, useState } from "react";
 
 import Image from "next/image";
 import KeyIcon from "@mui/icons-material/Key";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import MusicNoteRoundedIcon from "@mui/icons-material/MusicNoteRounded";
 import { Player } from "../player";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
@@ -28,6 +30,7 @@ export function Beat(props) {
 	const [severity, setSeverity] = useState<AlertColor>("success");
 	const token = useSelector((state: any) => state.user.token);
 	const router = useRouter();
+	const [moreOpen, setMoreOpen] = useState(false);
 
 	/**
 	 * Reset alert
@@ -88,6 +91,20 @@ export function Beat(props) {
 		}
 	};
 
+	const handleCopyLink = () => {
+		navigator.clipboard.writeText(
+			`https://mumble.com.ng/beats/${props.beat._id}`
+		);
+		setMoreOpen(false);
+		setMessage("Beat Link Copied Successfully");
+		setSeverity("success");
+		setAlert(true);
+	};
+
+	const handleOpenBeat = () => {
+		router.push(`/beats/${props.beat._id}`);
+	};
+
 	return (
 		<Grid container className={styles.container}>
 			<Image
@@ -96,45 +113,70 @@ export function Beat(props) {
 				alt="beat artwork"
 				src={props.beat.imageSignedUrl}
 				className={styles.beat_art}
+				onClick={handleOpenBeat}
 			/>
 
 			<Stack className={styles.sub_container}>
 				<Stack direction="row" className={styles.header}>
 					<Typography variant="h1">{props.beat.name}</Typography>
 
-					<Stack direction="row" className={styles.trending_icon}>
-						{(() => {
-							switch (props.type) {
-								case "trending":
-									return (
-										<Image
-											width="19"
-											height="11"
-											alt="trending icon"
-											src="/trending.svg"
-										/>
-									);
-								case "popular":
-									return (
-										<Image
-											width="13"
-											height="20"
-											alt="popular icon"
-											src="/popular.svg"
-										/>
-									);
-							}
-						})()}
-						<Typography className={styles[props.type]}>
+					<Stack direction="row" className={styles.header_right}>
+						<Stack direction="row" className={styles.trending_icon}>
 							{(() => {
 								switch (props.type) {
 									case "trending":
-										return "Trending";
+										return (
+											<Image
+												width="19"
+												height="11"
+												alt="trending icon"
+												src="/trending.svg"
+											/>
+										);
 									case "popular":
-										return "Popular";
+										return (
+											<Image
+												width="13"
+												height="20"
+												alt="popular icon"
+												src="/popular.svg"
+											/>
+										);
 								}
 							})()}
-						</Typography>
+							<Typography className={styles[props.type]}>
+								{(() => {
+									switch (props.type) {
+										case "trending":
+											return "Trending";
+										case "popular":
+											return "Popular";
+									}
+								})()}
+							</Typography>
+						</Stack>
+
+						<ClickAwayListener onClickAway={() => setMoreOpen(false)}>
+							<Stack className={styles.more}>
+								<Button
+									className={styles.more_button}
+									onClick={() => {
+										const open = moreOpen;
+										setMoreOpen(!open);
+									}}
+								>
+									<MoreHorizIcon />
+								</Button>
+
+								<Stack
+									className={`${styles.more_dropdown} ${
+										moreOpen ? null : styles.more_close
+									}`}
+								>
+									<Button onClick={handleCopyLink}>Copy beat link</Button>
+								</Stack>
+							</Stack>
+						</ClickAwayListener>
 					</Stack>
 				</Stack>
 
