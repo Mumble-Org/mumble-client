@@ -1,3 +1,4 @@
+import { getItem, setItem } from "../../../utils/cache";
 import { useEffect, useState } from "react";
 
 import { BackToHome } from "../../../components/buttons/buttons";
@@ -29,15 +30,25 @@ export default function BeatPage() {
 		setLoading(true);
 
 		if (router.isReady) {
-			backend
-				.get(`/beats/${beatId}`)
-				.then((response) => {
-					setBeat(response.data);
-					setLoading(false);
-				})
-				.catch((error) => {
-					router.push("/404", `/beats/${beatId as string}`);
-				});
+			// Check cache
+			const key = `beat_${beatId}`;
+			const beatCache = getItem(key);
+
+			if (!beatCache) {
+				backend
+					.get(`/beats/${beatId}`)
+					.then((response) => {
+						setBeat(response.data);
+						setItem(key, response.data);
+						setLoading(false);
+					})
+					.catch((error) => {
+						router.push("/404", `/beats/${beatId as string}`);
+					});
+			} else {
+				setBeat(beatCache);
+				setLoading(false);
+			}
 		}
 	}, [router.isReady]);
 
