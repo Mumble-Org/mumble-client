@@ -18,30 +18,6 @@ export function Portfolio(props) {
 				inputProps={{
 					className: styles.input_elem,
 				}}
-				// InputProps={{
-				// 	endAdornment: (
-				// 		<InputAdornment
-				// 			position="end"
-				// 			style={{
-				// 				margin: "0",
-				// 				cursor: "default",
-				// 				background: "#666666",
-				// 			}}
-				// 		>
-				// 			<Button style={{ color: "#666666", padding: 0, minWidth: "0" }}>
-				// 				<DeleteIcon
-				// 					style={{
-				// 						color: "#ffffff",
-				// 						paddingLeft: "12px",
-				// 						minWidth: "0",
-				// 					}}
-				// 					className={styles.icon}
-				// 					onClick={() => props.onDelete(props.index)}
-				// 				/>
-				// 			</Button>
-				// 		</InputAdornment>
-				// 	),
-				// }}
 				value={props.title}
 				onChange={(e) => props.onChange(e, props.index)}
 			></TextField>
