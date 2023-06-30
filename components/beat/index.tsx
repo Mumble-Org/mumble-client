@@ -6,6 +6,7 @@ import {
 	Button,
 	ClickAwayListener,
 	Grid,
+	Link,
 	Stack,
 	Typography,
 } from "@mui/material";
@@ -42,10 +43,6 @@ export function Beat(props) {
 	const setPrice = (price) => {
 		const formattedInput = Number(price).toLocaleString();
 		return formattedInput;
-	};
-
-	const openProducerProfile = () => {
-		router.push(`/${props.beat.producer.name.replace(" ", "_")}`);
 	};
 
 	const handleSaveBeat = async () => {
@@ -101,20 +98,17 @@ export function Beat(props) {
 		setAlert(true);
 	};
 
-	const handleOpenBeat = () => {
-		router.push(`/beats/${props.beat._id}`);
-	};
-
 	return (
 		<Grid container className={styles.container}>
-			<Image
-				width="296"
-				height="296"
-				alt="beat artwork"
-				src={props.beat.imageSignedUrl}
-				className={styles.beat_art}
-				onClick={handleOpenBeat}
-			/>
+			<Link href={`/beats/${props.beat._id}`}>
+				<Image
+					width="296"
+					height="296"
+					alt="beat artwork"
+					src={props.beat.imageSignedUrl}
+					className={styles.beat_art}
+				/>
+			</Link>
 
 			<Stack className={styles.sub_container}>
 				<Stack direction="row" className={styles.header}>
@@ -180,31 +174,32 @@ export function Beat(props) {
 					</Stack>
 				</Stack>
 
-				<Stack
-					direction="row"
-					className={styles.producer}
-					onClick={openProducerProfile}
+				<Link
+					href={`/${props.beat.producer.name.replace(" ", "_")}`}
+					className={styles.producer_container}
 				>
-					{props.beat.producer?.image != undefined ? (
-						""
-					) : (
-						<Avatar
-							src={props.beat.producer.imageUrl}
-							className={styles.producer_icon}
-						>
-							{props.beat.producer.name.charAt(0).toUpperCase()}
-						</Avatar>
-					)}
+					<Stack direction="row" className={styles.producer}>
+						{props.beat.producer?.image != undefined ? (
+							""
+						) : (
+							<Avatar
+								src={props.beat.producer.imageUrl}
+								className={styles.producer_icon}
+							>
+								{props.beat.producer.name.charAt(0).toUpperCase()}
+							</Avatar>
+						)}
 
-					<Typography variant="h2">
-						{props.beat.producer.name.charAt(0).toUpperCase() +
-							props.beat.producer.name.slice(1)}
-					</Typography>
+						<Typography variant="h2">
+							{props.beat.producer.name.charAt(0).toUpperCase() +
+								props.beat.producer.name.slice(1)}
+						</Typography>
 
-					<Stack direction="row" className={styles.rating}>
-						{genRating(props.beat.producer.rating)}
+						<Stack direction="row" className={styles.rating}>
+							{genRating(props.beat.producer.rating)}
+						</Stack>
 					</Stack>
-				</Stack>
+				</Link>
 
 				<Player src={props.beat.audioSignedUrl} beatId={props.beat._id} />
 
@@ -288,7 +283,13 @@ function genRating(rating: number) {
 	}
 
 	for (i; i < 5; i++) {
-		result.push(<StarBorderIcon key={i} className={styles.image} />);
+		result.push(
+			<StarBorderIcon
+				key={i}
+				className={styles.image}
+				sx={{ color: "#ffffff" }}
+			/>
+		);
 	}
 	return result;
 }

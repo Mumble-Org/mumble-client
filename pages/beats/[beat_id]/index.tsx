@@ -35,7 +35,7 @@ export default function BeatPage() {
 				setLoading(false);
 			})
 			.catch((error) => {
-				router.push("/404", `/beats/${beatId}`);
+				router.push("/404", `/beats/${beatId as string}`);
 			});
 	}, []);
 
