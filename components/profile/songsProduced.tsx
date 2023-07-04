@@ -16,11 +16,14 @@ export const SongsProduced = (props) => {
 			{/* Song links */}
 			{songs.map((song) => {
 				return (
-					<div
-						key={song}
-						className={styles.songEmbed}
-						dangerouslySetInnerHTML={{ __html: song }}
-					></div>
+					<div key={song.link} className={styles.song}>
+						<div className={styles.title}>
+							{ song.title }
+						</div>
+						<div className={styles.link}>
+							<a href={ song.link } target="_blank" className={styles.link_text}><div>Listen Now</div></a>
+						</div>
+					</div>
 				);
 			})}
 		</Grid>

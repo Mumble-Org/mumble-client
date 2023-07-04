@@ -59,7 +59,7 @@ export default function Settings() {
 				dispatch(userSet("user", response.data.user));
 			})
 			.catch((e) => {
-				if (e.response.status === 401) router.push("/login");
+				if (e.response?.status === 401) router.push("/login");
 			});
 	}, []);
 

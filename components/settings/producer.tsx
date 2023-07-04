@@ -34,10 +34,12 @@ export function Producer(props) {
 	const [calendar, setCalendar] = useState(props.user.calendar);
 	const [phoneNumber, setPhoneNumber] = useState(props.user.phone_number);
 	const [genresList, setGenres] = useState("");
-	const [portfolio, setPortfolio] = useState([]);
+	const [portfolio, setPortfolio] = useState([...props.user.portfolio]);
 	const [success, setSuccess] = useState(false);
 	const [error, setError] = useState(false);
 	const [loading, setLoading] = useState(false);
+
+	console.log(props.user);
 
 	/**
 	 * Memoized function to get city suggestions
@@ -90,6 +92,7 @@ export function Producer(props) {
 		// Copy portfolio to new array
 		const {name, value } = e.target;
 		let newPortfolio = [...portfolio];
+		console.log(name, value);
 		
 		// Change the link at it's index to new value
 		newPortfolio[index] = {
@@ -141,6 +144,7 @@ export function Producer(props) {
 			.then((response) => {
 				setSuccess(true);
 				props.setUser(response.data);
+				console.log(response.data);
 			})
 			.catch((e) => {
 				setError(true);
@@ -352,12 +356,12 @@ export function Producer(props) {
 							Add New Link
 						</Button>
 
-						{portfolio?.map((link) => {
+						{portfolio?.map((song) => {
 							return (
-								<div key={portfolio.indexOf(link)}>
+								<div key={portfolio.indexOf(song)}>
 									<Portfolio
-										index={portfolio.indexOf(link)}
-										link={link}
+										index={portfolio.indexOf(song)}
+										song={song}
 										onChange={handleChangePortfolio}
 										onDelete={handleDeletePortfolio}
 									/>

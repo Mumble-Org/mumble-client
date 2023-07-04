@@ -49,35 +49,35 @@
 @media screen and (max-width: 1400px) {
 	.container {
 		.song {
-			padding: 8px 16px;
+			padding: 32px 24px;
+			display: flex;
+			flex-direction: row;
+			border: 1px solid white;
+			border-radius: 8px;
+			margin-bottom: 20px;
 	
-			.song_left {
-				gap: 12px;
+			.title {
+				font-size: 32px;
+				font-weight: 700;
+				line-height: 40px;
+			}
 
-				.image {
-					width: 80px;
-					height: 80px;
-				}
-	
-				.song_info {
-					.title {
-						font-size: 32px;
-						line-height: 40px;
-					}
-	
-					.producer {
-						font-size: 16px;
-						line-height: 20px;
-					}
-				}
+			.producer {
+				font-size: 16px;
+				line-height: 20px;
 			}
 	
 			.link {
 				padding: 6px 12px;
-				border-radius: 4px;
-
-				font-size: 12px;
+				border-radius: 8px;
 				line-height: 20px;
+				
+				.link_text {
+					text-decoration: none;
+					color: black;
+					font-size: 16px;
+					font-weight: 700px;
+				}
 			}
 		}
 	}

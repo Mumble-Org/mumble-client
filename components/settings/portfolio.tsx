@@ -18,7 +18,32 @@ export function Portfolio(props) {
 				inputProps={{
 					className: styles.input_elem,
 				}}
-				value={props.title}
+				InputProps={{
+					endAdornment: (
+						<InputAdornment
+							position="end"
+							style={{
+								margin: "0",
+								cursor: "default",
+								background: "#666666",
+							}}
+						>
+							<Button style={{ color: "#666666", padding: 0, minWidth: "0" }}>
+								<DeleteIcon
+									style={{
+										color: "#ffffff",
+										paddingLeft: "12px",
+										minWidth: "0",
+									}}
+									className={styles.icon}
+									onClick={() => props.onDelete(props.index)}
+								/>
+							</Button>
+						</InputAdornment>
+					),
+				}}
+				name="title"
+				value={props.song.title}
 				onChange={(e) => props.onChange(e, props.index)}
 			></TextField>
 			<FormLabel className={styles.label}>Song link</FormLabel>
@@ -52,9 +77,11 @@ export function Portfolio(props) {
 						</InputAdornment>
 					),
 				}}
-				value={props.link}
+				name="link"
+				value={props.song.link}
 				onChange={(e) => props.onChange(e, props.index)}
 			></TextField>
+			<hr className={styles.hr}/>
 		</Stack>
 	);
 }
