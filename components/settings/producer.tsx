@@ -39,8 +39,6 @@ export function Producer(props) {
 	const [error, setError] = useState(false);
 	const [loading, setLoading] = useState(false);
 
-	console.log(props.user);
-
 	/**
 	 * Memoized function to get city suggestions
 	 */
@@ -92,7 +90,6 @@ export function Producer(props) {
 		// Copy portfolio to new array
 		const {name, value } = e.target;
 		let newPortfolio = [...portfolio];
-		console.log(name, value);
 		
 		// Change the link at it's index to new value
 		newPortfolio[index] = {
@@ -144,7 +141,6 @@ export function Producer(props) {
 			.then((response) => {
 				setSuccess(true);
 				props.setUser(response.data);
-				console.log(response.data);
 			})
 			.catch((e) => {
 				setError(true);

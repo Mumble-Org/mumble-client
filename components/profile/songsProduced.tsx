@@ -20,9 +20,11 @@ export const SongsProduced = (props) => {
 						<div className={styles.title}>
 							{ song.title }
 						</div>
-						<div className={styles.link}>
-							<a href={ song.link } target="_blank" className={styles.link_text}><div>Listen Now</div></a>
-						</div>
+						<a href={ song.link } target="_blank" className={styles.link}>
+							<div className={styles.link_text}>
+							Listen Now
+							</div>
+						</a>
 					</div>
 				);
 			})}
