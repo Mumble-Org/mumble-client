@@ -54,7 +54,7 @@ export default function Booking() {
 		setLoading(true);
 		const body = { ...user, rate: Number(user.rate?.replaceAll(",", "")) };
 		body.genres = body.genres?.split(", ");
-		body.portfolio = body.portfolio?.split(", ");
+		body.portfolio = JSON.parse(body.portfolio);
 
 		try {
 			const response = await backend.post("/users/signup", body);

@@ -20,7 +20,7 @@ export function Producer() {
 
 			<div className={styles.continue}>
 				{genresCount ? (
-					<ActiveContinue onClick={() => router.push("/signup/booking")} />
+					<ActiveContinue onClick={() => router.push("/signup/portfolio")} />
 				) : (
 					<InactiveContinue />
 				)}

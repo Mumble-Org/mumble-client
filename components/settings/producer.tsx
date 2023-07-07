@@ -88,7 +88,7 @@ export function Producer(props) {
 
 	const handleChangePortfolio = (e, index) => {
 		// Copy portfolio to new array
-		const {name, value } = e.target;
+		const { name, value } = e.target;
 		let newPortfolio = [...portfolio];
 		
 		// Change the link at it's index to new value
