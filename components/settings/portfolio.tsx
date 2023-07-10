@@ -1,12 +1,13 @@
-import styles from "./details.module.scss";
 import {
-	Stack,
-	InputAdornment,
 	Button,
-	TextField,
 	FormLabel,
+	InputAdornment,
+	Stack,
+	TextField,
 } from "@mui/material";
+
 import DeleteIcon from "@mui/icons-material/Delete";
+import styles from "./details.module.scss";
 
 export function Portfolio(props) {
 	return (
@@ -28,17 +29,9 @@ export function Portfolio(props) {
 								background: "#666666",
 							}}
 						>
-							<Button style={{ color: "#666666", padding: 0, minWidth: "0" }}>
-								<DeleteIcon
-									style={{
-										color: "#ffffff",
-										paddingLeft: "12px",
-										minWidth: "0",
-									}}
-									className={styles.icon}
-									onClick={() => props.onDelete(props.index)}
-								/>
-							</Button>
+							<Button
+								style={{ color: "#666666", padding: 0, minWidth: "0" }}
+							></Button>
 						</InputAdornment>
 					),
 				}}
@@ -46,7 +39,9 @@ export function Portfolio(props) {
 				value={props.song.title}
 				onChange={(e) => props.onChange(e, props.index)}
 			></TextField>
+
 			<FormLabel className={styles.label}>Song link</FormLabel>
+
 			<TextField
 				variant="filled"
 				className={styles.input}
@@ -81,7 +76,7 @@ export function Portfolio(props) {
 				value={props.song.link}
 				onChange={(e) => props.onChange(e, props.index)}
 			></TextField>
-			<hr className={styles.hr}/>
+			<hr className={styles.hr} />
 		</Stack>
 	);
 }

@@ -1,38 +1,36 @@
-import styles from "../../styles/signup/details.module.css";
 import {
 	ActiveCarousel,
 	InactiveCarousel,
 } from "../../components/carousels/carousels";
-
-import Image from "next/image";
-
-// redux
-import { set } from "../../redux/actions/signup";
+import { Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+
+import { ActiveContinue } from "../../components/buttons/continue";
+import { Back } from "../../components/buttons/back";
+import Image from "next/image";
+// redux
+import { set } from "../../redux/actions/signup";
+import styles from "../../styles/signup/details.module.css";
 import { useRouter } from "next/router";
 
-import { Back } from "../../components/buttons/back";
-import { ActiveContinue } from "../../components/buttons/continue";
-
 function SongLinkDelete(props) {
-
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-    let newPortfolio = [...props.portfolio];
-		
+		let newPortfolio = [...props.portfolio];
+
 		// Change the link at it's index to new value
 		newPortfolio[props.id] = {
 			...newPortfolio[props.id],
-			[name]: value
+			[name]: value,
 		};
-    props.setPortfolio(newPortfolio);
+		props.setPortfolio(newPortfolio);
 	};
 
 	const handleDelete = (index) => {
 		// Copy portfolio to new array except the deleted link
 		let newPortfolio = [...props.portfolio];
-  	newPortfolio.splice(index, 1);
+		newPortfolio.splice(index, 1);
 
 		// Update portfolio state
 		props.setPortfolio(newPortfolio);
@@ -69,7 +67,10 @@ function SongLinkDelete(props) {
 						placeholder="Add a link"
 					></input>
 
-					<div className={styles.link_button} onClick={() => handleDelete(props.id)}>
+					<div
+						className={styles.link_button}
+						onClick={() => handleDelete(props.id)}
+					>
 						<Image src="/bin.svg" alt="delete link" width="16" height="18" />
 					</div>
 				</div>
@@ -136,13 +137,22 @@ export default function Portfolio() {
 				})}
 			</div>
 
-			<div className={styles.add_link} onClick={addLink}>
-				<Image src="/add.svg" alt="add link" width="14" height="14" />
-				<p>Add Another Link</p>
+			<div className={styles.add_link}>
+				<Button
+					startIcon={
+						<Image src="/add.svg" alt="add link" width="14" height="14" />
+					}
+					className={styles.add_link_button}
+					onClick={addLink}
+				>
+					<Typography className={styles.add_link_text}>
+						Add Another Link
+					</Typography>
+				</Button>
 			</div>
 
 			<div className={styles.next_page}>
-				<Back href="/signup/song" />
+				<Back href="/signup/type" />
 				<ActiveContinue onClick={() => router.push("/signup/booking")} />
 			</div>
 		</div>
